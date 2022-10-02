@@ -33,22 +33,6 @@ class _HomePageViewState extends State<HomePageView>
   ];
 
   @override
-  void initState() {
-    super.initState();
-    tabController = TabController(length: list.length, vsync: this);
-
-    tabController.addListener(() {
-      if (mounted) {
-        setState(() {
-          currentIndex = tabController.index;
-        });
-      } else {
-        dispose();
-      }
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
     final widthsize = MediaQuery.of(context).size.width;
     return Scaffold(

@@ -7,6 +7,8 @@ const colorblack45 = Colors.black45;
 const colorgrey = Colors.grey;
 const primaryColor = Color(0xff23B574);
 const seconprimaryColor = Color(0xff9FFDD2);
+
+const er = Color(0xff26252d);
 const colorgreenHue = Color.fromARGB(255, 27, 250, 101);
 
 class TextView extends StatelessWidget {
@@ -40,16 +42,20 @@ class TextViewPoppins extends StatelessWidget {
       required this.title,
       required this.fontsize,
       this.fontweight,
-      required this.fontcolor});
+      required this.fontcolor,
+      this.textalign});
   final String title;
   final double fontsize;
   final FontWeight? fontweight;
   final Color fontcolor;
 
+  final TextAlign? textalign;
+
   @override
   Widget build(BuildContext context) {
     return Text(
       title,
+      textAlign: textalign,
       style: GoogleFonts.poppins(
           fontSize: fontsize, fontWeight: fontweight, color: fontcolor),
     );

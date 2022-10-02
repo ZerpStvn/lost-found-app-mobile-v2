@@ -1,4 +1,6 @@
 import 'package:lostfoundapp/mics/packages.dart';
+import 'package:lostfoundapp/submitReport/lostreport.dart';
+import 'package:lostfoundapp/submitReport/lostreport_noImage.dart';
 
 class Cardpost extends StatelessWidget {
   const Cardpost({
@@ -77,6 +79,15 @@ class Cardpost extends StatelessWidget {
   }
 }
 
+Future timerdelay(BuildContext context) async {
+  await Future.delayed(const Duration(milliseconds: 1000));
+}
+
+handlefoundNavigate(BuildContext context) {
+  timerdelay(context);
+  Navigator.of(context).pop(true);
+}
+
 Future shoowDialog(BuildContext context) async {
   await showDialog(
       context: context,
@@ -91,21 +102,83 @@ Future shoowDialog(BuildContext context) async {
                 fontcolor: colorblack),
             children: [
               TextButton(
-                onPressed: () {},
-                child: const TextView(
-                    title: "Report lost item",
-                    fontsize: 13,
-                    fontweight: FontWeight.w500,
-                    fontcolor: colorblack),
-              ),
-              TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context, rootNavigator: true).pop();
+
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const FoundReportPage()));
+                },
                 child: const TextView(
                     title: "Report Found item",
                     fontsize: 13,
                     fontweight: FontWeight.w500,
                     fontcolor: colorblack),
               ),
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context, rootNavigator: true).pop();
+                  handleOption(context);
+                },
+                child: const TextView(
+                    title: "Report lost item",
+                    fontsize: 13,
+                    fontweight: FontWeight.w500,
+                    fontcolor: colorblack),
+              ),
             ],
           ));
+}
+
+Future handleOption(BuildContext context) async {
+  return await showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const TextView(
+            title: "options",
+            fontsize: 18,
+            fontcolor: primaryColor,
+            fontweight: FontWeight.bold,
+          ),
+          content: const TextView(
+            title: "Do you have an image? ",
+            fontsize: 15,
+            fontcolor: primaryColor,
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context, rootNavigator: true).pop();
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const LostReportOption2()));
+              },
+              child: const TextView(
+                title: "No",
+                fontsize: 18,
+                fontcolor: primaryColor,
+                fontweight: FontWeight.w500,
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context, rootNavigator: true).pop();
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const LostReportPage()));
+              },
+              child: const TextView(
+                title: "Yes",
+                fontsize: 18,
+                fontcolor: primaryColor,
+                fontweight: FontWeight.w500,
+              ),
+            ),
+          ],
+        );
+      });
 }
