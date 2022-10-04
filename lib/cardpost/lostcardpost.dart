@@ -1,5 +1,5 @@
-import 'package:flutter/scheduler.dart';
 import 'package:lostfoundapp/mics/packages.dart';
+import 'package:lostfoundapp/submitRequest/lostSendRequest.dart';
 
 class LostCardPost extends StatefulWidget {
   final UserPostModel postModel;
@@ -32,11 +32,19 @@ class _LostCardPostState extends State<LostCardPost> {
                 widget.postModel.phtoURL == "empty"
                     ? Container(
                         color: const Color.fromARGB(141, 66, 73, 69),
-                        child: const Center(
-                          child: TextViewPoppins(
-                              title: "no image",
-                              fontsize: 12,
-                              fontcolor: colorWhite),
+                        child: Container(
+                          decoration: const BoxDecoration(
+                            image: DecorationImage(
+                                image:
+                                    AssetImage('assets/background_green.jpg'),
+                                fit: BoxFit.cover),
+                          ),
+                          child: const Center(
+                            child: TextViewPoppins(
+                                title: "no image",
+                                fontsize: 12,
+                                fontcolor: colorWhite),
+                          ),
                         ),
                       )
                     : Image.network(
@@ -124,7 +132,11 @@ class _LostCardPostState extends State<LostCardPost> {
                     borderRadius: BorderRadius.circular(30),
                     color: Colors.transparent,
                     child: OutlinedButton(
-                        onPressed: () {},
+                        onPressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    LostItemRequestSender(widget.postModel))),
                         style: OutlinedButton.styleFrom(
                             side:
                                 const BorderSide(width: 2, color: Colors.white),

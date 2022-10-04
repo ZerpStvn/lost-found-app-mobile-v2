@@ -43,7 +43,9 @@ class _DrawerPropetyState extends State<DrawerPropety> {
                 fontweight: FontWeight.w700,
                 fontcolor: colorblack),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                handleSignOut(context);
+              },
               child: const TextViewPoppins(
                   title: "Logout",
                   fontsize: 13,
@@ -58,12 +60,14 @@ class _DrawerPropetyState extends State<DrawerPropety> {
         margin: const EdgeInsets.all(0),
         padding: const EdgeInsets.all(0),
         child: UserAccountsDrawerHeader(
-          currentAccountPicture: GestureDetector(
-            onTap: () => Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const ProfilePage())),
-            child: CircleAvatar(
-              backgroundImage: NetworkImage('${userlogin!.profileURL}'),
-            ),
+          decoration: const BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage('assets/background_green.jpg'),
+                  fit: BoxFit.cover)),
+          onDetailsPressed: () => Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const ProfilePage())),
+          currentAccountPicture: CircleAvatar(
+            backgroundImage: NetworkImage('${userlogin!.profileURL}'),
           ),
           margin: const EdgeInsets.all(0),
           accountName: TextViewPoppins(
@@ -155,4 +159,29 @@ class _DrawerPropetyState extends State<DrawerPropety> {
           ],
         ),
       );
+  snacbarmessage(BuildContext context, String title) {
+    final snack = SnackBar(
+      content: TextView(
+        title: title,
+        fontcolor: colorWhite,
+        fontsize: 12,
+        fontweight: FontWeight.normal,
+      ),
+      backgroundColor: colorblack,
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snack);
+  }
+
+  handleSignOut(BuildContext contezt) {
+    snacbarmessage(context, "Signing out please wait");
+    signout();
+  }
+
+  Future signout() async {
+    final navigaotr = Navigator.of(context);
+    await FirebaseAuth.instance.signOut();
+    navigaotr.pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => const LoginPage()),
+        (route) => false);
+  }
 }

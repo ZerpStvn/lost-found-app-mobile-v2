@@ -103,13 +103,6 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   @override
-  void dispose() {
-    userpasscon.dispose();
-    useremailcon.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     const sizeheight = SizedBox(height: 15.0);
     final sizewidth = MediaQuery.of(context).size.width;
@@ -155,6 +148,9 @@ class _LoginPageState extends State<LoginPage> {
                 height: 60,
                 width: 60,
                 decoration: const BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage('assets/lf_launcher.png'),
+                      fit: BoxFit.cover),
                   shape: BoxShape.circle,
                   color: primaryColor,
                 ),
@@ -189,11 +185,7 @@ class _LoginPageState extends State<LoginPage> {
                 padding: const EdgeInsets.only(right: 15.0),
                 alignment: Alignment.centerRight,
                 child: TextButton(
-                    onPressed: () => Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(
-                            builder: (conext) => const SignupPage()),
-                        (route) => false),
+                    onPressed: () {},
                     child: const TextView(
                         title: "Forgot password ?",
                         fontsize: 14,
@@ -222,7 +214,11 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               TextButton(
-                  onPressed: () {},
+                  onPressed: () => Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                          builder: (conext) => const SignupPage()),
+                      (route) => false),
                   child: const Center(
                     child: TextView(
                         title: "Dont have an account? Signup",

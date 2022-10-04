@@ -192,22 +192,4 @@ class _LostReportOption2State extends State<LostReportOption2> {
           );
         }));
   }
-
-  @override
-  void dispose() {
-    datetimeController.dispose();
-    itemtitlecon.dispose();
-    mobilenumbercon.dispose();
-    socialmediacon.dispose();
-    locationcon.dispose();
-    locationDescriptioncon.dispose();
-    itemdescriptioncon.dispose();
-    founddescriptionrcon.dispose();
-    modelcon.dispose();
-    brandcon.dispose();
-    markingscon.dispose();
-    seiralnumcon.dispose();
-    itemcolorcon.dispose();
-    super.dispose();
-  }
 }

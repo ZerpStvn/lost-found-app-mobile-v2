@@ -56,7 +56,7 @@ class _SliverHomePageState extends State<SliverHomePage>
                   Scaffold.of(context).openDrawer();
                 },
                 icon: const Icon(
-                  Icons.clear_all_outlined,
+                  Icons.dehaze_rounded,
                   size: 25,
                   color: colorblack45,
                 )),

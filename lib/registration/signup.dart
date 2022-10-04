@@ -82,7 +82,7 @@ class _SignupPageState extends State<SignupPage> {
       try {
         await userAuth
             .createUserWithEmailAndPassword(email: email, password: password)
-            .then((uid) => {postDetailsToFireStore(), handleNivagate()})
+            .then((uid) => {postDetailsToFireStore()})
             .catchError((e) {
           snacbarmessage(context, e!.message);
         });
@@ -135,22 +135,12 @@ class _SignupPageState extends State<SignupPage> {
         .hasMatch(useremailcon.text)) {
       snacbarmessage(context, "incorrect email address");
     } else {
-      snacbarmessage(context, 'Signing In');
+      snacbarmessage(context, 'Signing up');
       signup(useremailcon.text, userpasscon.text);
     }
     setState(() {
       isloading = false;
     });
-  }
-
-  //userNavigation
-  handleNivagate() {
-    Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const UploadProgilePage(),
-        ),
-        (route) => false);
   }
 
   @override
@@ -259,6 +249,7 @@ class _SignupPageState extends State<SignupPage> {
   }
 
   postDetailsToFireStore() async {
+    final navigator = Navigator.of(context);
     User? user = userAuth.currentUser;
     UserDataModel usersmodel = UserDataModel();
     usersmodel.useruid = user!.uid;
@@ -272,17 +263,10 @@ class _SignupPageState extends State<SignupPage> {
     usersmodel.profileURL = "";
 
     await userDataRef.doc(user.uid).set(usersmodel.tomap());
-    debugPrint("Account created");
-  }
+    navigator.pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => const UploadProgilePage()),
+        (route) => false);
 
-  @override
-  void dispose() {
-    usernamecon.dispose();
-    schoolIDcon.dispose();
-    userAddcon.dispose();
-    useremailcon.dispose();
-    userpasscon.dispose();
-    confirmpasscon.dispose();
-    super.dispose();
+    debugPrint("Account created");
   }
 }

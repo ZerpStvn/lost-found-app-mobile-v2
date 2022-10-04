@@ -94,25 +94,28 @@ class _FoundCardPostState extends State<FoundCardPost> {
                           shape: BoxShape.circle,
                           image: DecorationImage(
                               image: NetworkImage(
-                                  "${widget.postModel.userposterPhourl}"))),
+                                  "${widget.postModel.userposterPhourl}"),
+                              fit: BoxFit.cover)),
                     )),
                 Positioned(
                     top: 13,
                     left: 65,
-                    child: Container(
-                      alignment: Alignment.centerLeft,
-                      child: Column(
-                        children: [
-                          TextViewPoppins(
-                              title: "${widget.postModel.userpostername}",
-                              fontsize: 12,
-                              fontcolor: colorWhite),
-                          TextViewPoppins(
-                              title: "${widget.postModel.dateposted!.toDate()}",
-                              fontsize: 10,
-                              fontcolor: colorWhite),
-                        ],
-                      ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                            width: 130,
+                            child: AutoSizeText(
+                              "${widget.postModel.userpostername}",
+                              maxLines: 1,
+                              style: GoogleFonts.poppins(
+                                  fontSize: 14, color: colorWhite),
+                            )),
+                        TextViewPoppins(
+                            title: "${widget.postModel.dateposted!.toDate()}",
+                            fontsize: 10,
+                            fontcolor: colorWhite),
+                      ],
                     )),
                 Positioned(
                     top: 8,

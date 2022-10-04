@@ -3,15 +3,15 @@
 import 'package:lostfoundapp/mics/packages.dart';
 import 'package:readmore/readmore.dart';
 
-class FountItemRequestSender extends StatefulWidget {
+class LostItemRequestSender extends StatefulWidget {
   final UserPostModel userPostModel;
-  const FountItemRequestSender(this.userPostModel, {super.key});
+  const LostItemRequestSender(this.userPostModel, {super.key});
 
   @override
-  State<FountItemRequestSender> createState() => _FountItemRequestSenderState();
+  State<LostItemRequestSender> createState() => _LostItemRequestSenderState();
 }
 
-class _FountItemRequestSenderState extends State<FountItemRequestSender> {
+class _LostItemRequestSenderState extends State<LostItemRequestSender> {
   final user = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
@@ -26,15 +26,31 @@ class _FountItemRequestSenderState extends State<FountItemRequestSender> {
               child: Stack(
                 children: [
                   Container(
+                    height: 280,
                     width: sizewidth,
                     decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image:
-                                NetworkImage('${widget.userPostModel.phtoURL}'),
-                            fit: BoxFit.cover),
+                        image: widget.userPostModel.phtoURL == "empty"
+                            ? const DecorationImage(
+                                image:
+                                    AssetImage('assets/background_green.jpg'),
+                                fit: BoxFit.cover)
+                            : DecorationImage(
+                                image: NetworkImage(
+                                    '${widget.userPostModel.phtoURL}'),
+                                fit: BoxFit.cover),
                         color: colorblack,
                         borderRadius: const BorderRadius.only(
                             bottomRight: Radius.circular(30))),
+                    child: widget.userPostModel.phtoURL == "empty"
+                        ? const Center(
+                            child: TextView(
+                              title: "No image",
+                              fontsize: 14,
+                              fontcolor: colorWhite,
+                              fontweight: FontWeight.bold,
+                            ),
+                          )
+                        : Container(),
                   ),
                 ],
               ),
@@ -145,7 +161,7 @@ class _FountItemRequestSenderState extends State<FountItemRequestSender> {
               ),
             ),
             const SizedBox(
-              height: 50,
+              height: 55,
             ),
             buildButton(context, sizewidth)
           ],
