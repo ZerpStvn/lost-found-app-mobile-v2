@@ -28,27 +28,19 @@ class _LoginPageState extends State<LoginPage> {
     ScaffoldMessenger.of(context).showSnackBar(snack);
   }
 
-  //handle navigate
-  handlenavigate() {
-    Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const HomePageView(),
-        ),
-        (route) => false);
-  }
-
   //handleuserdata
   Future handleuserdate() async {
+    final navigate = Navigator.of(context);
     User? users = userAuth.currentUser;
     DocumentSnapshot docs = await userDataRef.doc(users!.uid).get();
     if (docs.exists) {
       userlogin = UserDataModel.fromDocuments(docs);
     }
     userlogin = UserDataModel.fromDocuments(docs);
-    if (mounted) {
-      handlenavigate();
-    }
+
+    navigate.pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => const SliverHomePage()),
+        (route) => false);
   }
 
   //signingup
@@ -102,12 +94,19 @@ class _LoginPageState extends State<LoginPage> {
     } else if (userpasscon.text.length < 6) {
       snacbarmessage(context, 'password to short');
     } else {
-      snacbarmessage(context, "Logging in");
+      snacbarmessage(context, "Signing in");
       login(useremailcon.text, userpasscon.text);
     }
     setState(() {
       isloading = false;
     });
+  }
+
+  @override
+  void dispose() {
+    userpasscon.dispose();
+    useremailcon.dispose();
+    super.dispose();
   }
 
   @override
@@ -133,7 +132,7 @@ class _LoginPageState extends State<LoginPage> {
                     color: colorgrey,
                   )
                 : const Icon(
-                    Icons.visibility_off,
+                    Icons.visibility_outlined,
                     color: colorgrey,
                   )),
         prefixIcon: const Icon(Icons.key),

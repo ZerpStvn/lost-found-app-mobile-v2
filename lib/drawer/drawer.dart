@@ -1,6 +1,6 @@
 import 'package:lostfoundapp/mics/packages.dart';
 
-class DrawerPropety extends StatelessWidget {
+class DrawerPropety extends StatefulWidget {
   const DrawerPropety({
     Key? key,
     required this.widthsize,
@@ -9,10 +9,15 @@ class DrawerPropety extends StatelessWidget {
   final double widthsize;
 
   @override
+  State<DrawerPropety> createState() => _DrawerPropetyState();
+}
+
+class _DrawerPropetyState extends State<DrawerPropety> {
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Drawer(
-        width: widthsize * 0.60,
+        width: widget.widthsize * 0.60,
         backgroundColor: colorWhite,
         child: Column(
           children: [
@@ -48,6 +53,7 @@ class DrawerPropety extends StatelessWidget {
           ],
         ),
       );
+
   Widget drawerheaderproperty(BuildContext context) => DrawerHeader(
         margin: const EdgeInsets.all(0),
         padding: const EdgeInsets.all(0),
@@ -71,35 +77,31 @@ class DrawerPropety extends StatelessWidget {
               fontcolor: colorWhite),
         ),
       );
+
   Widget buildmenuitem(BuildContext context) => Container(
         padding: const EdgeInsets.all(10),
         child: Column(
           children: [
             ListTile(
-              horizontalTitleGap: 3,
-              minLeadingWidth: 2,
-              onTap: () {},
-              leading: const Icon(
-                Icons.home_outlined,
-                size: 25,
-                color: colorblack45,
-              ),
-              title: const TextView(
-                  title: 'Home',
-                  fontsize: 14,
-                  fontweight: FontWeight.w300,
-                  fontcolor: colorblack),
-            ),
-            const Divider(
-              color: colorgrey,
-            ),
+                hoverColor: seconprimaryColor,
+                minLeadingWidth: 5,
+                onTap: () {},
+                leading: const Icon(
+                  Icons.home_outlined,
+                  size: 25,
+                  color: colorblack45,
+                ),
+                title: const TextView(
+                    title: 'Home',
+                    fontsize: 14,
+                    fontweight: FontWeight.w300,
+                    fontcolor: colorblack)),
             ListTile(
-              horizontalTitleGap: 3,
-              minLeadingWidth: 2,
+              minLeadingWidth: 5,
               onTap: () {},
               leading: const Icon(
                 Icons.chat_bubble_outline,
-                size: 25,
+                size: 22,
                 color: colorblack45,
               ),
               title: const TextView(
@@ -108,12 +110,8 @@ class DrawerPropety extends StatelessWidget {
                   fontweight: FontWeight.w300,
                   fontcolor: colorblack),
             ),
-            const Divider(
-              color: colorgrey,
-            ),
             ListTile(
-              horizontalTitleGap: 3,
-              minLeadingWidth: 2,
+              minLeadingWidth: 5,
               onTap: () {},
               leading: const Icon(
                 Icons.notifications_outlined,
@@ -126,13 +124,8 @@ class DrawerPropety extends StatelessWidget {
                   fontweight: FontWeight.w300,
                   fontcolor: colorblack),
             ),
-            const Divider(
-              color: colorgrey,
-            ),
             ListTile(
-              horizontalTitleGap: 3,
-              minVerticalPadding: 4,
-              minLeadingWidth: 2,
+              minLeadingWidth: 5,
               onTap: () {},
               leading: const Icon(
                 Icons.archive_outlined,
@@ -145,12 +138,8 @@ class DrawerPropety extends StatelessWidget {
                   fontweight: FontWeight.w300,
                   fontcolor: colorblack),
             ),
-            const Divider(
-              color: colorgrey,
-            ),
             ListTile(
-              horizontalTitleGap: 3,
-              minLeadingWidth: 2,
+              minLeadingWidth: 5,
               onTap: () {},
               leading: const Icon(
                 Icons.settings_outlined,
@@ -162,9 +151,6 @@ class DrawerPropety extends StatelessWidget {
                   fontsize: 14,
                   fontweight: FontWeight.w300,
                   fontcolor: colorblack),
-            ),
-            const Divider(
-              color: colorgrey,
             ),
           ],
         ),

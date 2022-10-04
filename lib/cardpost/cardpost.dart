@@ -1,6 +1,5 @@
+import 'package:flutter/scheduler.dart';
 import 'package:lostfoundapp/mics/packages.dart';
-import 'package:lostfoundapp/submitReport/lostreport.dart';
-import 'package:lostfoundapp/submitReport/lostreport_noImage.dart';
 
 class Cardpost extends StatelessWidget {
   const Cardpost({
@@ -104,11 +103,12 @@ Future shoowDialog(BuildContext context) async {
               TextButton(
                 onPressed: () {
                   Navigator.of(context, rootNavigator: true).pop();
-
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const FoundReportPage()));
+                  SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const FoundReportPage()));
+                  });
                 },
                 child: const TextView(
                     title: "Report Found item",
@@ -151,10 +151,12 @@ Future handleOption(BuildContext context) async {
             TextButton(
               onPressed: () {
                 Navigator.of(context, rootNavigator: true).pop();
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const LostReportOption2()));
+                SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const LostReportOption2()));
+                });
               },
               child: const TextView(
                 title: "No",
@@ -166,10 +168,12 @@ Future handleOption(BuildContext context) async {
             TextButton(
               onPressed: () {
                 Navigator.of(context, rootNavigator: true).pop();
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const LostReportPage()));
+                SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const LostReportPage()));
+                });
               },
               child: const TextView(
                 title: "Yes",

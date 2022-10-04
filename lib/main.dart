@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
+        splashColor: Colors.transparent,
         primarySwatch: Colors.blue,
       ),
       home: const LoginPage(),

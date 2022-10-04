@@ -1,4 +1,3 @@
-import 'package:lostfoundapp/mics/modal/help_modal.dart';
 import 'package:lostfoundapp/mics/packages.dart';
 
 class SubmitReportForm extends StatefulWidget {
@@ -19,26 +18,25 @@ class _SubmitReportFormState extends State<SubmitReportForm> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            children: [
-              const TextViewInter(
+            children: const [
+              TextViewInter(
                 title: "ITEM DETIALS",
                 fontcolor: primaryColor,
                 fontsize: 15,
                 fontweight: FontWeight.bold,
               ),
               Padding(
-                padding: const EdgeInsets.only(right: 15.0),
-                child: IconButton(
-                    onPressed: () {
-                      handleModal(context, content1);
-                    },
-                    icon: const Icon(
-                      Icons.help_outline,
-                      color: primaryColor,
-                      size: 18,
-                    )),
+                padding: EdgeInsets.only(left: 5.0),
+                child: Icon(
+                  Icons.help_outline,
+                  color: primaryColor,
+                  size: 18,
+                ),
               )
             ],
+          ),
+          const SizedBox(
+            height: 15.0,
           ),
           SizedBox(
             width: widthsize * 0.89,
@@ -55,25 +53,27 @@ class _SubmitReportFormState extends State<SubmitReportForm> {
             height: 5 * 25.0,
             child: itemdescription,
           ),
+          sizeheight,
           Row(
-            children: [
-              const TextViewInter(
+            children: const [
+              TextViewInter(
                 title: "LOCATIONS",
                 fontcolor: primaryColor,
                 fontsize: 15,
                 fontweight: FontWeight.bold,
               ),
               Padding(
-                padding: const EdgeInsets.only(right: 15.0),
-                child: IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.help_outline,
-                      color: primaryColor,
-                      size: 18,
-                    )),
+                padding: EdgeInsets.only(left: 5.0),
+                child: Icon(
+                  Icons.help_outline,
+                  color: primaryColor,
+                  size: 18,
+                ),
               ),
             ],
+          ),
+          const SizedBox(
+            height: 15.0,
           ),
           SizedBox(
             width: widthsize * 0.89,
@@ -85,50 +85,54 @@ class _SubmitReportFormState extends State<SubmitReportForm> {
             height: 5 * 25.0,
             child: itemlocationDescription,
           ),
+          sizeheight,
           Row(
-            children: [
-              const TextViewInter(
+            children: const [
+              TextViewInter(
                 title: "DESCRIPTIONS",
                 fontcolor: primaryColor,
                 fontsize: 15,
                 fontweight: FontWeight.bold,
               ),
               Padding(
-                padding: const EdgeInsets.only(right: 15.0),
-                child: IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.help_outline,
-                      color: primaryColor,
-                      size: 18,
-                    )),
+                padding: EdgeInsets.only(left: 5.0),
+                child: Icon(
+                  Icons.help_outline,
+                  color: primaryColor,
+                  size: 18,
+                ),
               ),
             ],
+          ),
+          const SizedBox(
+            height: 15.0,
           ),
           SizedBox(
             width: widthsize * 0.89,
             height: 5 * 25.0,
             child: founlossdDescription,
           ),
+          sizeheight,
           Row(
-            children: [
-              const TextViewInter(
+            children: const [
+              TextViewInter(
                 title: "CONTACTS",
                 fontcolor: primaryColor,
                 fontsize: 15,
                 fontweight: FontWeight.bold,
               ),
               Padding(
-                padding: const EdgeInsets.only(right: 15.0),
-                child: IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.help_outline,
-                      color: primaryColor,
-                      size: 18,
-                    )),
+                padding: EdgeInsets.only(left: 5.0),
+                child: Icon(
+                  Icons.help_outline,
+                  color: primaryColor,
+                  size: 18,
+                ),
               ),
             ],
+          ),
+          const SizedBox(
+            height: 15.0,
           ),
           SizedBox(
             width: widthsize * 0.89,
@@ -141,24 +145,25 @@ class _SubmitReportFormState extends State<SubmitReportForm> {
           ),
           const SizedBox(height: 29),
           Row(
-            children: [
-              const TextViewInter(
+            children: const [
+              TextViewInter(
                 title: "ITEMS",
                 fontcolor: primaryColor,
                 fontsize: 15,
                 fontweight: FontWeight.bold,
               ),
               Padding(
-                padding: const EdgeInsets.only(right: 15.0),
-                child: IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.help_outline,
-                      color: primaryColor,
-                      size: 18,
-                    )),
+                padding: EdgeInsets.only(left: 5.0),
+                child: Icon(
+                  Icons.help_outline,
+                  color: primaryColor,
+                  size: 18,
+                ),
               ),
             ],
+          ),
+          const SizedBox(
+            height: 15.0,
           ),
           SizedBox(
             width: widthsize * 0.89,
@@ -171,24 +176,25 @@ class _SubmitReportFormState extends State<SubmitReportForm> {
           ),
           const SizedBox(height: 29),
           Row(
-            children: [
-              const TextViewInter(
+            children: const [
+              TextViewInter(
                 title: "OTHERS",
                 fontcolor: primaryColor,
                 fontsize: 15,
                 fontweight: FontWeight.bold,
               ),
               Padding(
-                padding: const EdgeInsets.only(right: 15.0),
-                child: IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.help_outline,
-                      color: primaryColor,
-                      size: 18,
-                    )),
+                padding: EdgeInsets.only(left: 5.0),
+                child: Icon(
+                  Icons.help_outline,
+                  color: primaryColor,
+                  size: 18,
+                ),
               ),
             ],
+          ),
+          const SizedBox(
+            height: 15.0,
           ),
           SizedBox(
             width: widthsize * 0.89,

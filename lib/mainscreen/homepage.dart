@@ -1,7 +1,4 @@
 import 'package:lostfoundapp/mics/packages.dart';
-import 'package:lostfoundapp/posttabs/founditems.dart';
-import 'package:lostfoundapp/posttabs/lostitems.dart';
-import 'package:lostfoundapp/posttabs/suggestion.dart';
 
 class HomePageView extends StatefulWidget {
   const HomePageView({super.key});
@@ -60,6 +57,7 @@ class _HomePageViewState extends State<HomePageView>
             child: Row(
               children: [
                 IconButton(
+                    splashRadius: 1,
                     onPressed: () {},
                     icon: const Icon(
                       Icons.search_outlined,
@@ -67,6 +65,7 @@ class _HomePageViewState extends State<HomePageView>
                       size: 25,
                     )),
                 IconButton(
+                    splashRadius: 1.9,
                     onPressed: () {},
                     icon: const Icon(
                       Icons.notifications_outlined,
@@ -74,6 +73,7 @@ class _HomePageViewState extends State<HomePageView>
                       size: 25,
                     )),
                 IconButton(
+                    splashRadius: 1.9,
                     onPressed: () {},
                     icon: const Icon(
                       Icons.more_vert,

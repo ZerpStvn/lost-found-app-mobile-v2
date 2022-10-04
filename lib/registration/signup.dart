@@ -274,4 +274,15 @@ class _SignupPageState extends State<SignupPage> {
     await userDataRef.doc(user.uid).set(usersmodel.tomap());
     debugPrint("Account created");
   }
+
+  @override
+  void dispose() {
+    usernamecon.dispose();
+    schoolIDcon.dispose();
+    userAddcon.dispose();
+    useremailcon.dispose();
+    userpasscon.dispose();
+    confirmpasscon.dispose();
+    super.dispose();
+  }
 }

@@ -84,7 +84,7 @@ final itemlocationDescription = TextFormField(
   maxLengthEnforcement: MaxLengthEnforcement.enforced,
   decoration: InputDecoration(
     hintText: 'Provide details about the location you found/loss the item ',
-    labelStyle: GoogleFonts.inter(fontSize: 11, color: colorgrey),
+    hintStyle: GoogleFonts.inter(fontSize: 11, color: colorgrey),
     border: OutlineInputBorder(borderRadius: BorderRadius.circular(0)),
   ),
 );
@@ -99,7 +99,7 @@ final itemdescription = TextFormField(
   maxLengthEnforcement: MaxLengthEnforcement.enforced,
   decoration: InputDecoration(
     hintText: 'Describe the item you found/loss ',
-    labelStyle: GoogleFonts.inter(fontSize: 11, color: colorgrey),
+    hintStyle: GoogleFonts.inter(fontSize: 11, color: colorgrey),
     border: OutlineInputBorder(borderRadius: BorderRadius.circular(0)),
   ),
 );
