@@ -1,19 +1,47 @@
-// ignore_for_file: file_names
+// ignore_for_file: no_logic_in_create_state
 
 import 'package:flutter/scheduler.dart';
 import 'package:lostfoundapp/mics/packages.dart';
 
-class LostReportOption2 extends StatefulWidget {
-  const LostReportOption2({super.key});
+class EditTextPost extends StatefulWidget {
+  final UserPostModel usermodel;
+  const EditTextPost(this.usermodel, {super.key});
 
   @override
-  State<LostReportOption2> createState() => _LostReportOption2State();
+  State<EditTextPost> createState() => _EditTextPostState(usermodel);
 }
 
-class _LostReportOption2State extends State<LostReportOption2> {
-  String postID = const Uuid().v4();
-  UserPostModel userPostModel = UserPostModel();
+class _EditTextPostState extends State<EditTextPost> {
+  final UserPostModel usermodel;
+
+  _EditTextPostState(this.usermodel);
   final user = FirebaseAuth.instance.currentUser;
+
+  handleuserdatevalue() async {
+    SchedulerBinding.instance.addPostFrameCallback((timestamp) {
+      itemtitlecon.text = "${usermodel.itemname}";
+      founddescriptionrcon.text = "${usermodel.foundlossDes}";
+      //itemcolorcon.text = "${usermodel.itemcolor}";
+      locationcon.text = "${usermodel.location}";
+      locationDescriptioncon.text = "${usermodel.locationDes}";
+      itemdescriptioncon.text = "${usermodel.itemDes}";
+      mobilenumbercon.text = "${usermodel.usermobileNum}";
+      socialmediacon.text = "${usermodel.userSocialMedia}";
+      modelcon.text = "${usermodel.itemmodel}";
+      datetimeController.text = "${usermodel.datelossfound}";
+      brandcon.text = "${usermodel.itembrand}";
+      markingscon.text = "${usermodel.itemMarks}";
+      seiralnumcon.text = "${usermodel.itemserailNum}";
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    SchedulerBinding.instance.addPostFrameCallback((timestamp) {
+      handleuserdatevalue();
+    });
+  }
 
   snackBarScreen(BuildContext context, String title) {
     final snack = SnackBar(
@@ -26,46 +54,42 @@ class _LostReportOption2State extends State<LostReportOption2> {
     ScaffoldMessenger.of(context).showSnackBar(snack);
   }
 
-  createposttoFirebase() async {
+  Future handlepostEdit() async {
     final navigator = Navigator.of(context);
     final snack = snackBarScreen(context, "Done");
-    userPostModel.postID = postID.toString();
-    userPostModel.userID = user!.uid;
-    userPostModel.itemname = itemtitlecon.text;
-    userPostModel.itemcolor = "";
-    userPostModel.usermobileNum = mobilenumbercon.text;
-    userPostModel.userSocialMedia = socialmediacon.text;
-    userPostModel.location = locationcon.text;
-    userPostModel.locationDes = locationDescriptioncon.text;
-    userPostModel.itemDes = itemdescriptioncon.text;
-    userPostModel.foundlossDes = founddescriptionrcon.text;
-    userPostModel.itemmodel = modelcon.text;
-    userPostModel.itembrand = brandcon.text;
-    userPostModel.itemMarks = markingscon.text;
-    userPostModel.itemserailNum = seiralnumcon.text;
-    userPostModel.datelossfound = datetimepicked;
-    userPostModel.phtoURL = "empty";
-    userPostModel.itemstatus = "Lost";
-    userPostModel.itemtype = "";
-    userPostModel.itemsubtype = "";
-    userPostModel.userposterPhourl = userlogin!.profileURL;
-    userPostModel.userpostername = userlogin!.username;
+    usermodel.itemname = itemtitlecon.text;
+    usermodel.itemcolor = "";
+    usermodel.usermobileNum = mobilenumbercon.text;
+    usermodel.userSocialMedia = socialmediacon.text;
+    usermodel.location = locationcon.text;
+    usermodel.locationDes = locationDescriptioncon.text;
+    usermodel.itemDes = itemdescriptioncon.text;
+    usermodel.foundlossDes = founddescriptionrcon.text;
+    usermodel.itemmodel = modelcon.text;
+    usermodel.datelossfound = datetimepicked;
+    usermodel.itembrand = brandcon.text;
+    usermodel.itemMarks = markingscon.text;
+    usermodel.itemserailNum = seiralnumcon.text;
+    usermodel.itemstatus = "Unclaimed";
+    usermodel.itemtype = "";
+    usermodel.itemsubtype = "";
 
     await FirebaseFirestore.instance
-        .collection('lost_items')
+        .collection("found_items")
         .doc(user!.uid)
-        .collection('litems')
-        .doc(postID)
-        .set(userPostModel.tomap());
+        .collection('fitems')
+        .doc(usermodel.postID)
+        .update(usermodel.tomap());
+
     snack;
-    navigator.pop();
+    navigator.pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => const SliverHomePage()),
+        (route) => false);
     handleformclear();
-    setState(() {
-      postID;
-    });
   }
 
-  handlesubmit(BuildContext context) {
+  handlesumbit() {
+    final snack1 = snackBarScreen(context, "Updating please wait");
     if (itemtitlecon.text.isEmpty ||
         founddescriptionrcon.text.isEmpty ||
         locationcon.text.isEmpty ||
@@ -74,8 +98,82 @@ class _LostReportOption2State extends State<LostReportOption2> {
         markingscon.text.isEmpty) {
       snackBarScreen(context, "Please fill out all the important form");
     } else {
-      snackBarScreen(context, "Submitting please wait");
-      createposttoFirebase();
+      snack1;
+      handlepostEdit();
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final widthsize = MediaQuery.of(context).size.width;
+    return WillPopScope(
+      onWillPop: onwillPop,
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Stack(
+                children: [
+                  Container(
+                    width: widthsize,
+                    height: 230.0,
+                    color: seconprimaryColor,
+                    child: widget.usermodel.phtoURL == "empty"
+                        ? const Center(
+                            child: Text("no image selected"),
+                          )
+                        : Image.network(
+                            '${widget.usermodel.phtoURL}',
+                            fit: BoxFit.cover,
+                          ),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 15.0,
+              ),
+              formpage(context),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 13.0),
+                child: Center(
+                  child: SizedBox(
+                    width: widthsize * 0.89,
+                    height: 50,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: primaryColor,
+                          ),
+                          onPressed: () {
+                            handlesumbit();
+                          },
+                          child: const Center(
+                            child: TextViewInter(
+                              title: "EDIT",
+                              fontsize: 14,
+                              fontcolor: colorWhite,
+                              fontweight: FontWeight.bold,
+                            ),
+                          )),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget formpage(BuildContext context) {
+    if (mounted) {
+      return const SubmitReportForm();
+    } else {
+      dispose();
+      return Container();
     }
   }
 
@@ -92,63 +190,6 @@ class _LostReportOption2State extends State<LostReportOption2> {
     markingscon.clear();
     seiralnumcon.clear();
     itemcolorcon.clear();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final widthsize = MediaQuery.of(context).size.width;
-    return WillPopScope(
-      onWillPop: onwillPop,
-      child: Scaffold(
-        body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(
-                height: 30,
-              ),
-              formpage(context),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 18.0),
-                child: Center(
-                  child: SizedBox(
-                    width: widthsize * 0.89,
-                    height: 50,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: primaryColor,
-                          ),
-                          onPressed: () {
-                            handlesubmit(context);
-                          },
-                          child: const Center(
-                            child: TextViewInter(
-                              title: "SUBMIT",
-                              fontsize: 14,
-                              fontcolor: colorWhite,
-                              fontweight: FontWeight.bold,
-                            ),
-                          )),
-                    ),
-                  ),
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget formpage(BuildContext context) {
-    if (mounted) {
-      return const SubmitReportForm();
-    } else {
-      dispose();
-      return Container();
-    }
   }
 
   Future<bool> onwillPop() async {

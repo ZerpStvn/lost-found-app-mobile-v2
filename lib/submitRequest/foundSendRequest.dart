@@ -1,7 +1,7 @@
 // ignore_for_file: file_names
 
+import 'package:flutter/scheduler.dart';
 import 'package:lostfoundapp/mics/packages.dart';
-import 'package:readmore/readmore.dart';
 
 class FountItemRequestSender extends StatefulWidget {
   final UserPostModel userPostModel;
@@ -102,9 +102,6 @@ class _FountItemRequestSenderState extends State<FountItemRequestSender> {
                         Icons.location_on,
                         color: primaryColor,
                       ),
-                      const SizedBox(
-                        width: 5,
-                      ),
                       TextView(
                         title: "${widget.userPostModel.location} ",
                         fontcolor: colorblack,
@@ -170,7 +167,15 @@ class _FountItemRequestSenderState extends State<FountItemRequestSender> {
                     style: ElevatedButton.styleFrom(
                         backgroundColor:
                             const Color.fromARGB(255, 28, 218, 44)),
-                    onPressed: () {},
+                    onPressed: () {
+                      SchedulerBinding.instance.addPostFrameCallback((_) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    EditTextPost(widget.userPostModel)));
+                      });
+                    },
                     child: const TextView(
                         title: "EDIT",
                         fontsize: 14,
@@ -189,7 +194,9 @@ class _FountItemRequestSenderState extends State<FountItemRequestSender> {
                 child: ElevatedButton(
                     style:
                         ElevatedButton.styleFrom(backgroundColor: primaryColor),
-                    onPressed: () {},
+                    onPressed: () {
+                      deletedata();
+                    },
                     child: const TextView(
                         title: "DELETE",
                         fontsize: 14,
@@ -217,5 +224,37 @@ class _FountItemRequestSenderState extends State<FountItemRequestSender> {
         ),
       );
     }
+  }
+
+  //using snackbar show the data message==//
+  snackBarScreen(BuildContext context, String title) {
+    final snack = SnackBar(
+      content: Text(
+        title,
+        style: GoogleFonts.inter(fontSize: 14, color: colorWhite),
+      ),
+      backgroundColor: colorblack,
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snack);
+  }
+
+  //==========deleting a userpost()=========//
+  Future deletedata() async {
+    final snack = snackBarScreen(context, "Deleting");
+    final snackdone = snackBarScreen(context, "Post deleted");
+    final navigator = Navigator.of(context);
+    await FirebaseFirestore.instance
+        .collection("found_items")
+        .doc(user!.uid)
+        .collection('fitems')
+        .doc(widget.userPostModel.postID)
+        .delete()
+        .then((value) => debugPrint("data deleted"))
+        .catchError((err) => debugPrint("Field to delete data"));
+    snack;
+    navigator.pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => const SliverHomePage()),
+        (route) => false);
+    snackdone;
   }
 }

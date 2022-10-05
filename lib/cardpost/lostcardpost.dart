@@ -1,3 +1,4 @@
+import 'package:intl/intl.dart';
 import 'package:lostfoundapp/mics/packages.dart';
 import 'package:lostfoundapp/submitRequest/lostSendRequest.dart';
 
@@ -14,6 +15,9 @@ class _LostCardPostState extends State<LostCardPost> {
 
   @override
   Widget build(BuildContext context) {
+    Timestamp timestamp = widget.postModel.dateposted as Timestamp;
+    final DateTime timeDate = timestamp.toDate();
+    final tiemformat = DateFormat('M/d/y KK:mm').format(timeDate);
     return Padding(
       padding: const EdgeInsets.only(top: 8.0),
       child: SizedBox(
@@ -23,7 +27,7 @@ class _LostCardPostState extends State<LostCardPost> {
               context,
               MaterialPageRoute(
                   builder: (context) =>
-                      FountItemRequestSender(widget.postModel))),
+                      LostItemRequestSender(widget.postModel))),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(20),
             child: Card(
@@ -63,25 +67,28 @@ class _LostCardPostState extends State<LostCardPost> {
                           shape: BoxShape.circle,
                           image: DecorationImage(
                               image: NetworkImage(
-                                  "${widget.postModel.userposterPhourl}"))),
+                                  "${widget.postModel.userposterPhourl}"),
+                              fit: BoxFit.cover)),
                     )),
                 Positioned(
                     top: 13,
                     left: 65,
-                    child: Container(
-                      alignment: Alignment.centerLeft,
-                      child: Column(
-                        children: [
-                          TextViewPoppins(
-                              title: "${widget.postModel.userpostername}",
-                              fontsize: 12,
-                              fontcolor: colorWhite),
-                          TextViewPoppins(
-                              title: "${widget.postModel.dateposted!.toDate()}",
-                              fontsize: 10,
-                              fontcolor: colorWhite),
-                        ],
-                      ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                            width: 130,
+                            child: AutoSizeText(
+                              "${widget.postModel.userpostername}",
+                              maxLines: 1,
+                              style: GoogleFonts.poppins(
+                                  fontSize: 14, color: colorWhite),
+                            )),
+                        TextViewPoppins(
+                            title: tiemformat,
+                            fontsize: 10,
+                            fontcolor: colorWhite),
+                      ],
                     )),
                 Positioned(
                     top: 8,

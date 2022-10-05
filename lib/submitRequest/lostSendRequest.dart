@@ -1,7 +1,7 @@
 // ignore_for_file: file_names
 
+import 'package:flutter/scheduler.dart';
 import 'package:lostfoundapp/mics/packages.dart';
-import 'package:readmore/readmore.dart';
 
 class LostItemRequestSender extends StatefulWidget {
   final UserPostModel userPostModel;
@@ -28,19 +28,23 @@ class _LostItemRequestSenderState extends State<LostItemRequestSender> {
                   Container(
                     height: 280,
                     width: sizewidth,
-                    decoration: BoxDecoration(
-                        image: widget.userPostModel.phtoURL == "empty"
-                            ? const DecorationImage(
+                    decoration: widget.userPostModel.phtoURL == "empty"
+                        ? const BoxDecoration(
+                            image: DecorationImage(
                                 image:
                                     AssetImage('assets/background_green.jpg'),
-                                fit: BoxFit.cover)
-                            : DecorationImage(
+                                fit: BoxFit.cover),
+                            color: colorblack,
+                            borderRadius: BorderRadius.only(
+                                bottomRight: Radius.circular(30)))
+                        : BoxDecoration(
+                            image: DecorationImage(
                                 image: NetworkImage(
                                     '${widget.userPostModel.phtoURL}'),
                                 fit: BoxFit.cover),
-                        color: colorblack,
-                        borderRadius: const BorderRadius.only(
-                            bottomRight: Radius.circular(30))),
+                            color: colorblack,
+                            borderRadius: const BorderRadius.only(
+                                bottomRight: Radius.circular(30))),
                     child: widget.userPostModel.phtoURL == "empty"
                         ? const Center(
                             child: TextView(
@@ -148,7 +152,7 @@ class _LostItemRequestSenderState extends State<LostItemRequestSender> {
                     height: 10,
                   ),
                   SizedBox(
-                    width: sizewidth * 0.89,
+                    width: sizewidth * 0.86,
                     child: ReadMoreText(
                       "${widget.userPostModel.foundlossDes} ",
                       colorClickableText: primaryColor,
@@ -186,7 +190,16 @@ class _LostItemRequestSenderState extends State<LostItemRequestSender> {
                     style: ElevatedButton.styleFrom(
                         backgroundColor:
                             const Color.fromARGB(255, 28, 218, 44)),
-                    onPressed: () {},
+                    onPressed: () {
+                      SchedulerBinding.instance
+                          .addPostFrameCallback((timeStamp) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    EditTextPostLost(widget.userPostModel)));
+                      });
+                    },
                     child: const TextView(
                         title: "EDIT",
                         fontsize: 14,
@@ -205,7 +218,9 @@ class _LostItemRequestSenderState extends State<LostItemRequestSender> {
                 child: ElevatedButton(
                     style:
                         ElevatedButton.styleFrom(backgroundColor: primaryColor),
-                    onPressed: () {},
+                    onPressed: () {
+                      deletedata();
+                    },
                     child: const TextView(
                         title: "DELETE",
                         fontsize: 14,
@@ -233,5 +248,40 @@ class _LostItemRequestSenderState extends State<LostItemRequestSender> {
         ),
       );
     }
+  }
+
+  //using snackbar show the data message==//
+  //using snackbar also to show on message update
+  snackBarScreen(BuildContext context, String title) {
+    final snack = SnackBar(
+      content: Text(
+        title,
+        style: GoogleFonts.inter(fontSize: 14, color: colorWhite),
+      ),
+      backgroundColor: colorblack,
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snack);
+  }
+  //====================================//
+
+  //
+  //==========deleting a userpost()=========//
+  Future deletedata() async {
+    final snack = snackBarScreen(context, "Deleting");
+    final snackdone = snackBarScreen(context, "Post deleted");
+    final navigator = Navigator.of(context);
+    await FirebaseFirestore.instance
+        .collection('lost_items')
+        .doc(user!.uid)
+        .collection('litems')
+        .doc(widget.userPostModel.postID)
+        .delete()
+        .then((value) => debugPrint("data deleted"))
+        .catchError((err) => debugPrint("Field to delete data"));
+    snack;
+    navigator.pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => const SliverHomePage()),
+        (route) => false);
+    snackdone;
   }
 }

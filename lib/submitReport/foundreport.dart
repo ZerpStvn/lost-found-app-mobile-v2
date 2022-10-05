@@ -195,7 +195,7 @@ class _FoundReportPageState extends State<FoundReportPage> {
               const SizedBox(
                 height: 30,
               ),
-              const SubmitReportForm(),
+              formpage(context),
               Padding(
                 padding: const EdgeInsets.only(bottom: 18.0),
                 child: Center(
@@ -228,6 +228,16 @@ class _FoundReportPageState extends State<FoundReportPage> {
         ),
       ),
     );
+  }
+
+  //chekc if the formpage is still building in other wigets//
+  Widget formpage(BuildContext context) {
+    if (mounted) {
+      return const SubmitReportForm();
+    } else {
+      dispose();
+      return Container();
+    }
   }
 
   snackBarScreen(BuildContext context, String title) {

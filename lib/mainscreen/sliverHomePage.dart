@@ -137,6 +137,7 @@ class _SliverHomePageState extends State<SliverHomePage>
                 child: Cardpost(widthsize: size),
               ),
               SliverAppBar(
+                automaticallyImplyLeading: false,
                 backgroundColor: colorWhite,
                 elevation: 0,
                 toolbarHeight: 45.0,
@@ -144,22 +145,25 @@ class _SliverHomePageState extends State<SliverHomePage>
                 floating: false,
                 bottom: PreferredSize(
                   preferredSize: const Size.fromHeight(20.0),
-                  child: SizedBox(
-                    width: size * 0.89,
-                    child: TabBar(
-                      controller: tabController,
-                      unselectedLabelColor: colorblack,
-                      tabs: list,
-                      labelStyle: GoogleFonts.inter(
-                          fontSize: 12, fontWeight: FontWeight.w600),
-                      labelColor: colorWhite,
-                      indicator: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          color: colorgreenHue),
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 8.0),
+                    child: SizedBox(
+                      width: size * 0.89,
+                      child: TabBar(
+                        controller: tabController,
+                        unselectedLabelColor: colorblack,
+                        tabs: list,
+                        labelStyle: GoogleFonts.inter(
+                            fontSize: 12, fontWeight: FontWeight.w600),
+                        labelColor: colorWhite,
+                        indicator: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+                            color: colorgreenHue),
+                      ),
                     ),
                   ),
                 ),
-              )
+              ),
             ];
           }),
           body: TabBarView(controller: tabController, children: const [

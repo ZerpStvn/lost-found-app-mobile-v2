@@ -1,4 +1,5 @@
 import 'package:flutter/scheduler.dart';
+import 'package:intl/intl.dart';
 import 'package:lostfoundapp/mics/packages.dart';
 
 class FoundCardPost extends StatefulWidget {
@@ -63,6 +64,9 @@ class _FoundCardPostState extends State<FoundCardPost> {
 
   @override
   Widget build(BuildContext context) {
+    Timestamp timestamp = widget.postModel.dateposted as Timestamp;
+    final DateTime timeDate = timestamp.toDate();
+    final tiemformat = DateFormat('M/d/y KK:mm').format(timeDate);
     return Padding(
       padding: const EdgeInsets.only(top: 8.0),
       child: SizedBox(
@@ -112,7 +116,7 @@ class _FoundCardPostState extends State<FoundCardPost> {
                                   fontSize: 14, color: colorWhite),
                             )),
                         TextViewPoppins(
-                            title: "${widget.postModel.dateposted!.toDate()}",
+                            title: tiemformat,
                             fontsize: 10,
                             fontcolor: colorWhite),
                       ],

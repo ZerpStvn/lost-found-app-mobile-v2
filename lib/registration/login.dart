@@ -14,6 +14,9 @@ class _LoginPageState extends State<LoginPage> {
   bool psschar = true;
   bool isloading = false;
   String? errorMessage;
+  TextEditingController userpassconnew = TextEditingController();
+  TextEditingController emailconnew = TextEditingController();
+
   //snakbarmessage
   snacbarmessage(BuildContext context, String title) {
     final snack = SnackBar(
@@ -86,16 +89,16 @@ class _LoginPageState extends State<LoginPage> {
     setState(() {
       isloading = true;
     });
-    if (userpasscon.text.isEmpty || useremailcon.text.isEmpty) {
+    if (userpassconnew.text.isEmpty || emailconnew.text.isEmpty) {
       snacbarmessage(context, 'fill out all the form');
     } else if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
-        .hasMatch(useremailcon.text)) {
+        .hasMatch(emailconnew.text)) {
       snacbarmessage(context, 'You entered invalid email');
-    } else if (userpasscon.text.length < 6) {
+    } else if (userpassconnew.text.length < 6) {
       snacbarmessage(context, 'password to short');
     } else {
       snacbarmessage(context, "Signing in");
-      login(useremailcon.text, userpasscon.text);
+      login(emailconnew.text, userpassconnew.text);
     }
     setState(() {
       isloading = false;
@@ -103,12 +106,31 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   @override
+  void dispose() {
+    userpassconnew.dispose();
+    emailconnew.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     const sizeheight = SizedBox(height: 15.0);
     final sizewidth = MediaQuery.of(context).size.width;
 
+    final usremailfied = TextFormField(
+      controller: emailconnew,
+      keyboardType: TextInputType.emailAddress,
+      textInputAction: TextInputAction.next,
+      decoration: InputDecoration(
+        prefixIcon: const Icon(Icons.email),
+        labelText: 'Email',
+        labelStyle: GoogleFonts.montserrat(fontSize: 14, color: colorgrey),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
+      ),
+    );
+    //passwordlogin
     final lgsswrd = TextFormField(
-      controller: userpasscon,
+      controller: userpassconnew,
       keyboardType: TextInputType.name,
       textInputAction: TextInputAction.done,
       obscureText: psschar,
@@ -149,7 +171,7 @@ class _LoginPageState extends State<LoginPage> {
                 width: 60,
                 decoration: const BoxDecoration(
                   image: DecorationImage(
-                      image: AssetImage('assets/lf_launcher.png'),
+                      image: AssetImage('assets/banner.png'),
                       fit: BoxFit.cover),
                   shape: BoxShape.circle,
                   color: primaryColor,
@@ -174,7 +196,7 @@ class _LoginPageState extends State<LoginPage> {
                   key: _formkey,
                   child: Column(
                     children: [
-                      usremail,
+                      usremailfied,
                       sizeheight,
                       lgsswrd,
                     ],

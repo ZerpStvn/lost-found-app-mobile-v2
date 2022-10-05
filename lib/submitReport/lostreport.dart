@@ -14,11 +14,12 @@ class _LostReportPageState extends State<LostReportPage> {
   bool isloading = false;
   XFile? imagepathfile;
   final ImagePicker _picker = ImagePicker();
-
   final user = FirebaseAuth.instance.currentUser;
   String postID = const Uuid().v4();
   UserPostModel userPostModel = UserPostModel();
 
+  //
+  //this area will handle the user image privider
   //hanlde pick imagefrom gallery
   handlepickphotoGallery() async {
     XFile? imagepath = await _picker.pickImage(
@@ -28,6 +29,8 @@ class _LostReportPageState extends State<LostReportPage> {
       imagepathfile = imagepath;
     });
   }
+  //===========================================
+  //===========================================
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +78,7 @@ class _LostReportPageState extends State<LostReportPage> {
               const SizedBox(
                 height: 30,
               ),
-              const SubmitReportForm(),
+              formpage(context),
               Padding(
                 padding: const EdgeInsets.only(bottom: 18.0),
                 child: Center(
@@ -110,6 +113,16 @@ class _LostReportPageState extends State<LostReportPage> {
     );
   }
 
+  Widget formpage(BuildContext context) {
+    if (mounted) {
+      return const SubmitReportForm();
+    } else {
+      dispose();
+      return Container();
+    }
+  }
+
+  //handle the message useing snackbar
   snackBarScreen(BuildContext context, String title) {
     final snack = SnackBar(
       content: Text(
@@ -120,7 +133,10 @@ class _LostReportPageState extends State<LostReportPage> {
     );
     ScaffoldMessenger.of(context).showSnackBar(snack);
   }
+  //===========================================
+  //===========================================
 
+  //get the PhotoUrl from uploaded phto
   Future<String> uploadImage(imagepathfile) async {
     final metadata = SettableMetadata(
       contentType: 'image/jpeg',
@@ -133,7 +149,12 @@ class _LostReportPageState extends State<LostReportPage> {
     String mediaURL = await taskSnapshot.ref.getDownloadURL();
     return mediaURL;
   }
+  //===========================================
+  //===========================================
 
+  //after getting the photo url
+  //create a post the will upload the user data to
+  //firebase
   createposttoFirebase() async {
     final navigator = Navigator.of(context);
     final snack = snackBarScreen(context, "Done");
@@ -161,7 +182,7 @@ class _LostReportPageState extends State<LostReportPage> {
     userPostModel.userpostername = userlogin!.username;
 
     await FirebaseFirestore.instance
-        .collection("lost_items")
+        .collection('lost_items')
         .doc(user!.uid)
         .collection('litems')
         .doc(postID)
@@ -173,7 +194,11 @@ class _LostReportPageState extends State<LostReportPage> {
       postID;
     });
   }
+  //===========================================
+  //===========================================
 
+  //create function for handling the user data
+  //===========================================
   handlesubmit(BuildContext context) {
     if (itemtitlecon.text.isEmpty ||
         founddescriptionrcon.text.isEmpty ||
@@ -189,7 +214,11 @@ class _LostReportPageState extends State<LostReportPage> {
       createposttoFirebase();
     }
   }
+  //===========================================
+  //===========================================
 
+  //after the data is upoaded clear all the form
+  //===========================================
   handleformclear() {
     itemtitlecon.clear();
     mobilenumbercon.clear();
@@ -206,6 +235,7 @@ class _LostReportPageState extends State<LostReportPage> {
     itemcolorcon.clear();
   }
 
+  //show option dialod after triggering the callback event
   Future<bool> onwillPop() async {
     return (await showDialog(
         context: context,
