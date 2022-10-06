@@ -33,7 +33,8 @@ export 'package:lostfoundapp/posttabs/suggestion.dart';
 export 'package:lostfoundapp/mainscreen/sliverHomePage.dart';
 export 'package:lostfoundapp/claimeditem/claimeitem.dart';
 export 'package:lostfoundapp/submitRequest/foundSendRequest.dart';
-
+export 'package:lostfoundapp/submitRequest/requestField.dart';
 export 'package:lostfoundapp/edit/losteditpost.dart';
 export 'package:lostfoundapp/edit/editfoundpost.dart';
 export 'package:readmore/readmore.dart';
+export 'package:lostfoundapp/submitRequest/send_request.dart';

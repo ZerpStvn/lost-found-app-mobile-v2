@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:io' as io;
 
 import 'package:flutter/scheduler.dart';
+import 'package:lostfoundapp/edit/textform.dart';
 import 'package:lostfoundapp/mics/packages.dart';
 
 class FoundReportPage extends StatefulWidget {
@@ -19,6 +20,28 @@ class _FoundReportPageState extends State<FoundReportPage> {
   String postID = const Uuid().v4();
   UserPostModel userPostModel = UserPostModel();
   final user = FirebaseAuth.instance.currentUser;
+  final TextEditingController founditemtitlecon = TextEditingController();
+  final TextEditingController foundfounddescriptionrcon =
+      TextEditingController();
+  final TextEditingController founditemcolorcon = TextEditingController();
+  final TextEditingController foundlocationcon = TextEditingController();
+  final TextEditingController foundlocationDescriptioncon =
+      TextEditingController();
+  final TextEditingController founditemdescriptioncon = TextEditingController();
+  final TextEditingController foundmobilenumbercon = TextEditingController();
+  final TextEditingController foundsocialmediacon = TextEditingController();
+  final TextEditingController foundmodelcon = TextEditingController();
+  final TextEditingController foundbrandcon = TextEditingController();
+  final TextEditingController foundmarkingscon = TextEditingController();
+  final TextEditingController foundseiralnumcon = TextEditingController();
+
+  final TextEditingController founddatetimeController = TextEditingController();
+
+//
+
+//
+
+//
 
   //hanlde pick imagefrom gallery
   handlepickphotoGallery() async {
@@ -195,7 +218,23 @@ class _FoundReportPageState extends State<FoundReportPage> {
               const SizedBox(
                 height: 30,
               ),
-              formpage(context),
+              EditTextFormField(
+                  cont1: founditemtitlecon,
+                  cont2: foundfounddescriptionrcon,
+                  cont3: foundlocationcon,
+                  cont4: foundlocationDescriptioncon,
+                  cont5: founditemdescriptioncon,
+                  cont6: foundmobilenumbercon,
+                  cont7: foundsocialmediacon,
+                  cont8: foundmodelcon,
+                  cont9: foundbrandcon,
+                  cont10: foundmarkingscon,
+                  cont11: foundseiralnumcon,
+                  cont12: founddatetimeController,
+                  date: "Date of the Item found"),
+              const SizedBox(
+                height: 18,
+              ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 18.0),
                 child: Center(
@@ -231,14 +270,6 @@ class _FoundReportPageState extends State<FoundReportPage> {
   }
 
   //chekc if the formpage is still building in other wigets//
-  Widget formpage(BuildContext context) {
-    if (mounted) {
-      return const SubmitReportForm();
-    } else {
-      dispose();
-      return Container();
-    }
-  }
 
   snackBarScreen(BuildContext context, String title) {
     final snack = SnackBar(
@@ -270,19 +301,19 @@ class _FoundReportPageState extends State<FoundReportPage> {
     String photoURL = await uploadImage(imagepathfile);
     userPostModel.postID = postID.toString();
     userPostModel.userID = user!.uid;
-    userPostModel.itemname = itemtitlecon.text;
+    userPostModel.itemname = founditemtitlecon.text;
     userPostModel.itemcolor = "";
-    userPostModel.usermobileNum = mobilenumbercon.text;
-    userPostModel.userSocialMedia = socialmediacon.text;
-    userPostModel.location = locationcon.text;
-    userPostModel.locationDes = locationDescriptioncon.text;
-    userPostModel.itemDes = itemdescriptioncon.text;
-    userPostModel.foundlossDes = founddescriptionrcon.text;
-    userPostModel.itemmodel = modelcon.text;
-    userPostModel.datelossfound = datetimepicked;
-    userPostModel.itembrand = brandcon.text;
-    userPostModel.itemMarks = markingscon.text;
-    userPostModel.itemserailNum = seiralnumcon.text;
+    userPostModel.usermobileNum = foundmobilenumbercon.text;
+    userPostModel.userSocialMedia = foundsocialmediacon.text;
+    userPostModel.location = foundlocationcon.text;
+    userPostModel.locationDes = foundlocationDescriptioncon.text;
+    userPostModel.itemDes = founditemdescriptioncon.text;
+    userPostModel.foundlossDes = foundfounddescriptionrcon.text;
+    userPostModel.itemmodel = foundmodelcon.text;
+    userPostModel.datelossfound = founddatetimeController.text;
+    userPostModel.itembrand = foundbrandcon.text;
+    userPostModel.itemMarks = foundmarkingscon.text;
+    userPostModel.itemserailNum = foundseiralnumcon.text;
     userPostModel.phtoURL = photoURL;
     userPostModel.itemstatus = "Unclaimed";
     userPostModel.itemtype = "";
@@ -306,12 +337,13 @@ class _FoundReportPageState extends State<FoundReportPage> {
   }
 
   handlesubmit(BuildContext context) {
-    if (itemtitlecon.text.isEmpty ||
-        founddescriptionrcon.text.isEmpty ||
-        locationcon.text.isEmpty ||
-        locationDescriptioncon.text.isEmpty ||
-        itemdescriptioncon.text.isEmpty ||
-        markingscon.text.isEmpty) {
+    if (founditemtitlecon.text.isEmpty ||
+        founddatetimeController.text.isEmpty ||
+        foundfounddescriptionrcon.text.isEmpty ||
+        foundlocationcon.text.isEmpty ||
+        foundlocationDescriptioncon.text.isEmpty ||
+        founditemdescriptioncon.text.isEmpty ||
+        foundmarkingscon.text.isEmpty) {
       snackBarScreen(context, "Please fill out all the important form");
     } else if (imagepathfile == null) {
       snackBarScreen(context, "Please select an image");
@@ -322,19 +354,19 @@ class _FoundReportPageState extends State<FoundReportPage> {
   }
 
   handleformclear() {
-    itemtitlecon.clear();
-    mobilenumbercon.clear();
-    socialmediacon.clear();
-    locationcon.clear();
-    locationDescriptioncon.clear();
-    itemdescriptioncon.clear();
-    founddescriptionrcon.clear();
-    modelcon.clear();
-    brandcon.clear();
-    markingscon.clear();
-    seiralnumcon.clear();
+    founditemtitlecon.clear();
+    foundmobilenumbercon.clear();
+    foundsocialmediacon.clear();
+    foundlocationcon.clear();
+    foundlocationDescriptioncon.clear();
+    founditemdescriptioncon.clear();
+    foundfounddescriptionrcon.clear();
+    foundmodelcon.clear();
+    foundbrandcon.clear();
+    foundmarkingscon.clear();
+    foundseiralnumcon.clear();
     imagepathfile = null;
-    itemcolorcon.clear();
+    founditemcolorcon.clear();
   }
 
   Future<bool> onwillPop() async {
@@ -386,5 +418,23 @@ class _FoundReportPageState extends State<FoundReportPage> {
             ],
           );
         }));
+  }
+
+  @override
+  void dispose() {
+    founditemtitlecon.dispose();
+    foundmobilenumbercon.dispose();
+    foundsocialmediacon.dispose();
+    foundlocationcon.dispose();
+    foundlocationDescriptioncon.dispose();
+    founditemdescriptioncon.dispose();
+    foundfounddescriptionrcon.dispose();
+    foundmodelcon.dispose();
+    foundbrandcon.dispose();
+    foundmarkingscon.dispose();
+    foundseiralnumcon.dispose();
+    founditemcolorcon.dispose();
+    founddatetimeController.dispose();
+    super.dispose();
   }
 }

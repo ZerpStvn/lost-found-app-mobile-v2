@@ -1,29 +1,7 @@
 import 'package:lostfoundapp/mics/packages.dart';
 
-class SubmitReportForm extends StatefulWidget {
-  const SubmitReportForm({super.key});
-
-  @override
-  State<SubmitReportForm> createState() => _SubmitReportFormState();
-}
-
-class _SubmitReportFormState extends State<SubmitReportForm> {
-  // @override
-  // void dispose() {
-  //   itemtitlecon.dispose();
-  //   founddescriptionrcon.dispose();
-  //   itemcolorcon.dispose();
-  //   locationcon.dispose();
-  //   locationDescriptioncon.dispose();
-  //   itemdescriptioncon.dispose();
-  //   mobilenumbercon.dispose();
-  //   socialmediacon.dispose();
-  //   modelcon.dispose();
-  //   brandcon.dispose();
-  //   markingscon.dispose();
-  //   seiralnumcon.dispose();
-  //   super.dispose();
-  // }
+class RequestForm extends StatelessWidget {
+  const RequestForm({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +12,42 @@ class _SubmitReportFormState extends State<SubmitReportForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Row(
+            children: const [
+              TextViewInter(
+                title: "PESONAL INFO",
+                fontcolor: primaryColor,
+                fontsize: 15,
+                fontweight: FontWeight.bold,
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 5.0),
+                child: Icon(
+                  Icons.help_outline,
+                  color: primaryColor,
+                  size: 18,
+                ),
+              )
+            ],
+          ),
+          sizeheight,
+          SizedBox(
+            width: widthsize * 0.89,
+            child: requsername,
+          ),
+          sizeheight,
+          SizedBox(
+            width: widthsize * 0.89,
+            child: requserID,
+          ),
+          sizeheight,
+          SizedBox(
+            width: widthsize * 0.89,
+            child: reqDept,
+          ),
+          const SizedBox(
+            height: 28.0,
+          ),
           Row(
             children: const [
               TextViewInter(
@@ -57,18 +71,18 @@ class _SubmitReportFormState extends State<SubmitReportForm> {
           ),
           SizedBox(
             width: widthsize * 0.89,
-            child: itemtitle,
+            child: reqitemtitle,
           ),
           sizeheight,
           SizedBox(
             width: widthsize * 0.89,
-            child: const DateTimepicker('Date of loss'),
+            child: const DateTimepicker('Date found'),
           ),
           sizeheight,
           SizedBox(
             width: widthsize * 0.89,
             height: 5 * 25.0,
-            child: itemdescription,
+            child: reqitemdescription,
           ),
           sizeheight,
           Row(
@@ -94,13 +108,13 @@ class _SubmitReportFormState extends State<SubmitReportForm> {
           ),
           SizedBox(
             width: widthsize * 0.89,
-            child: itemlocation,
+            child: reqitemlocation,
           ),
           sizeheight,
           SizedBox(
             width: widthsize * 0.89,
             height: 5 * 25.0,
-            child: itemlocationDescription,
+            child: reqitemlocationDescription,
           ),
           sizeheight,
           Row(
@@ -127,7 +141,7 @@ class _SubmitReportFormState extends State<SubmitReportForm> {
           SizedBox(
             width: widthsize * 0.89,
             height: 5 * 25.0,
-            child: founlossdDescription,
+            child: reqfounlossdDescription,
           ),
           sizeheight,
           Row(
@@ -153,12 +167,7 @@ class _SubmitReportFormState extends State<SubmitReportForm> {
           ),
           SizedBox(
             width: widthsize * 0.89,
-            child: mobilenumber,
-          ),
-          sizeheight,
-          SizedBox(
-            width: widthsize * 0.89,
-            child: socialmedia,
+            child: reqmobilenumber,
           ),
           const SizedBox(height: 29),
           Row(
@@ -184,12 +193,12 @@ class _SubmitReportFormState extends State<SubmitReportForm> {
           ),
           SizedBox(
             width: widthsize * 0.89,
-            child: itemmodel,
+            child: reqitemmodel,
           ),
           sizeheight,
           SizedBox(
             width: widthsize * 0.89,
-            child: itembrand,
+            child: reqitembrand,
           ),
           const SizedBox(height: 29),
           Row(
@@ -215,12 +224,13 @@ class _SubmitReportFormState extends State<SubmitReportForm> {
           ),
           SizedBox(
             width: widthsize * 0.89,
-            child: markings,
+            child: reqmarkings,
           ),
           sizeheight,
           SizedBox(
             width: widthsize * 0.89,
-            child: serial,
+            height: 5 * 25.0,
+            child: messagefield,
           ),
         ],
       ),

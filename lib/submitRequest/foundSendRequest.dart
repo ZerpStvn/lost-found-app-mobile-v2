@@ -168,7 +168,8 @@ class _FountItemRequestSenderState extends State<FountItemRequestSender> {
                         backgroundColor:
                             const Color.fromARGB(255, 28, 218, 44)),
                     onPressed: () {
-                      SchedulerBinding.instance.addPostFrameCallback((_) {
+                      SchedulerBinding.instance
+                          .addPostFrameCallback((timestamp) {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -215,7 +216,15 @@ class _FountItemRequestSenderState extends State<FountItemRequestSender> {
           child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                   backgroundColor: const Color.fromARGB(255, 28, 218, 44)),
-              onPressed: () {},
+              onPressed: () {
+                SchedulerBinding.instance.scheduleFrameCallback((timeStamp) {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              SendRequest(widget.userPostModel)));
+                });
+              },
               child: const TextView(
                   title: "SEND REQUEST",
                   fontsize: 14,

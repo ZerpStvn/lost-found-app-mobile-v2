@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:io' as io;
 import 'package:flutter/scheduler.dart';
+import 'package:lostfoundapp/edit/textform.dart';
 import 'package:lostfoundapp/mics/packages.dart';
 
 class LostReportPage extends StatefulWidget {
@@ -17,6 +18,28 @@ class _LostReportPageState extends State<LostReportPage> {
   final user = FirebaseAuth.instance.currentUser;
   String postID = const Uuid().v4();
   UserPostModel userPostModel = UserPostModel();
+
+  final TextEditingController lostitemtitlecon = TextEditingController();
+  final TextEditingController lostfounddescriptionrcon =
+      TextEditingController();
+  final TextEditingController lostitemcolorcon = TextEditingController();
+  final TextEditingController lostlocationcon = TextEditingController();
+  final TextEditingController lostlocationDescriptioncon =
+      TextEditingController();
+  final TextEditingController lostitemdescriptioncon = TextEditingController();
+  final TextEditingController lostmobilenumbercon = TextEditingController();
+  final TextEditingController lostsocialmediacon = TextEditingController();
+  final TextEditingController lostmodelcon = TextEditingController();
+  final TextEditingController lostbrandcon = TextEditingController();
+  final TextEditingController lostmarkingscon = TextEditingController();
+  final TextEditingController lostseirlostalnumcon = TextEditingController();
+  final TextEditingController lostdatetimeController = TextEditingController();
+
+  //
+  //
+  //
+  //
+  //
 
   //
   //this area will handle the user image privider
@@ -78,7 +101,23 @@ class _LostReportPageState extends State<LostReportPage> {
               const SizedBox(
                 height: 30,
               ),
-              formpage(context),
+              EditTextFormField(
+                  cont1: lostitemtitlecon,
+                  cont2: lostfounddescriptionrcon,
+                  cont3: lostlocationcon,
+                  cont4: lostlocationDescriptioncon,
+                  cont5: lostitemdescriptioncon,
+                  cont6: lostmobilenumbercon,
+                  cont7: lostsocialmediacon,
+                  cont8: lostmodelcon,
+                  cont9: lostbrandcon,
+                  cont10: lostmarkingscon,
+                  cont11: lostseirlostalnumcon,
+                  cont12: lostdatetimeController,
+                  date: "Date of loss"),
+              const SizedBox(
+                height: 18,
+              ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 18.0),
                 child: Center(
@@ -161,20 +200,20 @@ class _LostReportPageState extends State<LostReportPage> {
     String photoURL = await uploadImage(imagepathfile);
     userPostModel.postID = postID.toString();
     userPostModel.userID = user!.uid;
-    userPostModel.itemname = itemtitlecon.text;
+    userPostModel.itemname = lostitemtitlecon.text;
     userPostModel.itemcolor = "";
-    userPostModel.usermobileNum = mobilenumbercon.text;
-    userPostModel.userSocialMedia = socialmediacon.text;
-    userPostModel.location = locationcon.text;
-    userPostModel.locationDes = locationDescriptioncon.text;
-    userPostModel.itemDes = itemdescriptioncon.text;
-    userPostModel.foundlossDes = founddescriptionrcon.text;
-    userPostModel.itemmodel = modelcon.text;
-    userPostModel.itembrand = brandcon.text;
-    userPostModel.itemMarks = markingscon.text;
-    userPostModel.itemserailNum = seiralnumcon.text;
+    userPostModel.usermobileNum = lostmobilenumbercon.text;
+    userPostModel.userSocialMedia = lostsocialmediacon.text;
+    userPostModel.location = lostlocationcon.text;
+    userPostModel.locationDes = lostlocationDescriptioncon.text;
+    userPostModel.itemDes = lostitemdescriptioncon.text;
+    userPostModel.foundlossDes = lostfounddescriptionrcon.text;
+    userPostModel.itemmodel = lostmodelcon.text;
+    userPostModel.itembrand = lostbrandcon.text;
+    userPostModel.itemMarks = lostmarkingscon.text;
+    userPostModel.itemserailNum = lostseirlostalnumcon.text;
     userPostModel.phtoURL = photoURL;
-    userPostModel.datelossfound = datetimepicked;
+    userPostModel.datelossfound = lostdatetimeController.text;
     userPostModel.itemstatus = "Lost";
     userPostModel.itemtype = "";
     userPostModel.itemsubtype = "";
@@ -200,12 +239,13 @@ class _LostReportPageState extends State<LostReportPage> {
   //create function for handling the user data
   //===========================================
   handlesubmit(BuildContext context) {
-    if (itemtitlecon.text.isEmpty ||
-        founddescriptionrcon.text.isEmpty ||
-        locationcon.text.isEmpty ||
-        locationDescriptioncon.text.isEmpty ||
-        itemdescriptioncon.text.isEmpty ||
-        markingscon.text.isEmpty) {
+    if (lostitemtitlecon.text.isEmpty ||
+        lostdatetimeController.text.isEmpty ||
+        lostfounddescriptionrcon.text.isEmpty ||
+        lostlocationcon.text.isEmpty ||
+        lostlocationDescriptioncon.text.isEmpty ||
+        lostitemdescriptioncon.text.isEmpty ||
+        lostmarkingscon.text.isEmpty) {
       snackBarScreen(context, "Please fill out all the important form");
     } else if (imagepathfile == null) {
       snackBarScreen(context, "Please select an image");
@@ -220,19 +260,20 @@ class _LostReportPageState extends State<LostReportPage> {
   //after the data is upoaded clear all the form
   //===========================================
   handleformclear() {
-    itemtitlecon.clear();
-    mobilenumbercon.clear();
-    socialmediacon.clear();
-    locationcon.clear();
-    locationDescriptioncon.clear();
-    itemdescriptioncon.clear();
-    founddescriptionrcon.clear();
-    modelcon.clear();
-    brandcon.clear();
-    markingscon.clear();
-    seiralnumcon.clear();
+    lostitemtitlecon.clear();
+    lostmobilenumbercon.clear();
+    lostsocialmediacon.clear();
+    lostlocationcon.clear();
+    lostlocationDescriptioncon.clear();
+    lostitemdescriptioncon.clear();
+    lostfounddescriptionrcon.clear();
+    lostmodelcon.clear();
+    lostbrandcon.clear();
+    lostmarkingscon.clear();
+    lostseirlostalnumcon.clear();
+    lostdatetimeController.clear();
     imagepathfile = null;
-    itemcolorcon.clear();
+    lostitemcolorcon.clear();
   }
 
   //show option dialod after triggering the callback event
@@ -285,5 +326,23 @@ class _LostReportPageState extends State<LostReportPage> {
             ],
           );
         }));
+  }
+
+  @override
+  void dispose() {
+    lostitemtitlecon.dispose();
+    lostmobilenumbercon.dispose();
+    lostsocialmediacon.dispose();
+    lostlocationcon.dispose();
+    lostlocationDescriptioncon.dispose();
+    lostitemdescriptioncon.dispose();
+    lostfounddescriptionrcon.dispose();
+    lostmodelcon.dispose();
+    lostbrandcon.dispose();
+    lostmarkingscon.dispose();
+    lostseirlostalnumcon.dispose();
+    lostdatetimeController.dispose();
+    lostitemcolorcon.dispose();
+    super.dispose();
   }
 }
