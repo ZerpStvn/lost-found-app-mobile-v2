@@ -79,7 +79,10 @@ class _SliverHomePageState extends State<SliverHomePage>
                     )),
                 IconButton(
                     splashRadius: 1.9,
-                    onPressed: () {},
+                    onPressed: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const NotificationFeed())),
                     icon: const Icon(
                       Icons.notifications_outlined,
                       color: colorblack45,

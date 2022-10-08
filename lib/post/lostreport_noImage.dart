@@ -3,8 +3,6 @@
 import 'package:flutter/scheduler.dart';
 import 'package:lostfoundapp/mics/packages.dart';
 
-import '../edit/textform.dart';
-
 class LostReportOption2 extends StatefulWidget {
   const LostReportOption2({super.key});
 
@@ -180,15 +178,6 @@ class _LostReportOption2State extends State<LostReportOption2> {
         ),
       ),
     );
-  }
-
-  Widget formpage(BuildContext context) {
-    if (mounted) {
-      return const SubmitReportForm();
-    } else {
-      dispose();
-      return Container();
-    }
   }
 
   Future<bool> onwillPop() async {

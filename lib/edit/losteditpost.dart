@@ -1,7 +1,6 @@
 // ignore_for_file: no_logic_in_create_state
 
 import 'package:flutter/scheduler.dart';
-import 'package:lostfoundapp/edit/textform.dart';
 import 'package:lostfoundapp/mics/packages.dart';
 
 class EditTextPostLost extends StatefulWidget {
@@ -199,17 +198,34 @@ class _EditTextPostLostState extends State<EditTextPostLost> {
   }
 
   handleformclear() {
-    itemtitlecon.clear();
-    mobilenumbercon.clear();
-    socialmediacon.clear();
-    locationcon.clear();
-    locationDescriptioncon.clear();
-    itemdescriptioncon.clear();
-    founddescriptionrcon.clear();
-    modelcon.clear();
-    brandcon.clear();
-    markingscon.clear();
-    seiralnumcon.clear();
-    itemcolorcon.clear();
+    edititemtitlecon.clear();
+    editmobilenumbercon.clear();
+    editsocialmediacon.clear();
+    editlocationcon.clear();
+    editlocationDescriptioncon.clear();
+    edititemdescriptioncon.clear();
+    editfounddescriptionrcon.clear();
+    editmodelcon.clear();
+    editbrandcon.clear();
+    editmarkingscon.clear();
+    editseiralnumcon.clear();
+    edititemcolorcon.clear();
+  }
+
+  @override
+  void dispose() {
+    edititemtitlecon.dispose();
+    editmobilenumbercon.dispose();
+    editsocialmediacon.dispose();
+    editlocationcon.dispose();
+    editlocationDescriptioncon.dispose();
+    edititemdescriptioncon.dispose();
+    editfounddescriptionrcon.dispose();
+    editmodelcon.dispose();
+    editbrandcon.dispose();
+    editmarkingscon.dispose();
+    editseiralnumcon.dispose();
+    edititemcolorcon.dispose();
+    super.dispose();
   }
 }

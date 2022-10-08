@@ -1,7 +1,6 @@
 // ignore_for_file: no_logic_in_create_state
 
 import 'package:flutter/scheduler.dart';
-import 'package:lostfoundapp/edit/textform.dart';
 import 'package:lostfoundapp/mics/packages.dart';
 
 class EditTextPost extends StatefulWidget {
@@ -71,6 +70,7 @@ class _EditTextPostState extends State<EditTextPost> {
   }
 
   Future handlepostEdit() async {
+    final navigator = Navigator.of(context);
     final snack = snackBarScreen(context, "Done");
     usermodel.itemname = edititemtitlecon.text;
     usermodel.itemcolor = "";
@@ -97,6 +97,9 @@ class _EditTextPostState extends State<EditTextPost> {
         .update(usermodel.tomap());
 
     snack;
+    navigator.pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => const SliverHomePage()),
+        (route) => false);
     handleformclear();
   }
 
@@ -118,7 +121,7 @@ class _EditTextPostState extends State<EditTextPost> {
 
   @override
   Widget build(BuildContext context) {
-    const sizeheight = SizedBox(height: 10);
+    //const sizeheight = SizedBox(height: 10);
     final widthsize = MediaQuery.of(context).size.width;
     return Scaffold(
       body: SingleChildScrollView(
@@ -195,18 +198,18 @@ class _EditTextPostState extends State<EditTextPost> {
   }
 
   handleformclear() {
-    itemtitlecon.clear();
-    mobilenumbercon.clear();
-    socialmediacon.clear();
-    locationcon.clear();
-    locationDescriptioncon.clear();
-    itemdescriptioncon.clear();
-    founddescriptionrcon.clear();
-    modelcon.clear();
-    brandcon.clear();
-    markingscon.clear();
-    seiralnumcon.clear();
-    itemcolorcon.clear();
+    edititemtitlecon.clear();
+    editmobilenumbercon.clear();
+    editsocialmediacon.clear();
+    editlocationcon.clear();
+    editlocationDescriptioncon.clear();
+    edititemdescriptioncon.clear();
+    editfounddescriptionrcon.clear();
+    editmodelcon.clear();
+    editbrandcon.clear();
+    editmarkingscon.clear();
+    editseiralnumcon.clear();
+    edititemcolorcon.clear();
   }
 
   @override

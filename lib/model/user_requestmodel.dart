@@ -22,18 +22,21 @@ class Requesmodel {
   Timestamp? reqdateposted;
   String? requserpostername;
   String? requserPhotourl;
-  String? userreqID;
+  String? posteruserID;
   String? nmame;
   String? scholid;
   String? ndept;
   String? reqType;
+  String? useronwerphotopostUrl;
+  String? feed;
 
   Requesmodel({
+    this.feed,
     this.reqType,
     this.nmame,
     this.scholid,
     this.ndept,
-    this.userreqID,
+    this.posteruserID,
     this.reqpostID,
     this.requserID,
     this.reqitemname,
@@ -55,15 +58,18 @@ class Requesmodel {
     this.reqdateposted,
     this.requserPhotourl,
     this.requserpostername,
+    this.useronwerphotopostUrl,
   });
 
   factory Requesmodel.fromDocuments(map) {
     return Requesmodel(
+      feed: map['feeds'],
       nmame: map['nmame'],
-      reqType:map['reqType'],
+      useronwerphotopostUrl: map['useronwerphotopostUrl'],
+      reqType: map['reqType'],
       scholid: map['scholid'],
       ndept: map['ndept'],
-      userreqID: map['userreqID'],
+      posteruserID: map['posteruserID'],
       reqpostID: map['reqpostID'],
       requserID: map['requserID'],
       reqitemname: map['reqitemname'],
@@ -90,12 +96,14 @@ class Requesmodel {
 
   Map<String, dynamic> tomap() {
     return {
+      'feeds': "Notif",
       'nmame': nmame,
+      'useronwerphotopostUrl': useronwerphotopostUrl,
       'scholid': scholid,
       'ndept': ndept,
-      'userreqID': userreqID,
+      'posteruserID': posteruserID,
       'reqpostID': reqpostID,
-      'reqType':reqType,
+      'reqType': reqType,
       'requserID': requserID,
       'reqitemname': reqitemname,
       'requserpostername': requserpostername,

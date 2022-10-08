@@ -1,6 +1,6 @@
 import 'package:intl/intl.dart';
 import 'package:lostfoundapp/mics/packages.dart';
-import 'package:lostfoundapp/submitRequest/lostSendRequest.dart';
+import 'package:lostfoundapp/sendRequest/lostSendRequest.dart';
 
 class LostCardPost extends StatefulWidget {
   final UserPostModel postModel;

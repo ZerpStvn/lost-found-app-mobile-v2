@@ -9,6 +9,12 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
+  final TextEditingController usernamecon = TextEditingController();
+  final TextEditingController schoolIDcon = TextEditingController();
+  final TextEditingController userAddcon = TextEditingController();
+  final TextEditingController useremailcon = TextEditingController();
+  final TextEditingController userpasscon = TextEditingController();
+  final TextEditingController confirmpasscon = TextEditingController();
   final _formkey = GlobalKey<FormState>();
   final userAuth = FirebaseAuth.instance;
   String? errormessage;
@@ -160,9 +166,10 @@ class _SignupPageState extends State<SignupPage> {
                 height: 60,
                 width: 60,
                 decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: primaryColor,
-                ),
+                    shape: BoxShape.circle,
+                    color: primaryColor,
+                    image: DecorationImage(
+                        image: AssetImage("assets/banner.png"))),
               ),
               const TextViewPoppins(
                   title: "Get on Board!",
@@ -181,11 +188,39 @@ class _SignupPageState extends State<SignupPage> {
                   key: _formkey,
                   child: Column(
                     children: [
-                      fname,
+                      TextFormField(
+                        controller: usernamecon,
+                        textCapitalization: TextCapitalization.values.first,
+                        keyboardType: TextInputType.name,
+                        textInputAction: TextInputAction.next,
+                        decoration: InputDecoration(
+                          prefixIcon: const Icon(Icons.person),
+                          labelText: 'Full name',
+                          labelStyle: GoogleFonts.montserrat(
+                              fontSize: 14, color: colorgrey),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0)),
+                        ),
+                      ),
                       sizeheight,
                       Row(
                         children: [
-                          Expanded(flex: 1, child: schlID),
+                          Expanded(
+                              flex: 1,
+                              child: TextFormField(
+                                controller: schoolIDcon,
+                                keyboardType: TextInputType.name,
+                                textInputAction: TextInputAction.next,
+                                decoration: InputDecoration(
+                                  prefixIcon: const Icon(Icons.description),
+                                  labelText: 'School ID',
+                                  labelStyle: GoogleFonts.montserrat(
+                                      fontSize: 14, color: colorgrey),
+                                  border: OutlineInputBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(10.0)),
+                                ),
+                              )),
                           const SizedBox(
                             width: 10.0,
                           ),
@@ -196,13 +231,63 @@ class _SignupPageState extends State<SignupPage> {
                         ],
                       ),
                       sizeheight,
-                      usradd,
+                      TextFormField(
+                          controller: userAddcon,
+                          textCapitalization: TextCapitalization.values.first,
+                          keyboardType: TextInputType.name,
+                          textInputAction: TextInputAction.next,
+                          decoration: InputDecoration(
+                            prefixIcon: const Icon(Icons.location_on),
+                            labelText: 'Complete address',
+                            labelStyle: GoogleFonts.montserrat(
+                                fontSize: 14, color: colorgrey),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.0)),
+                          )),
                       sizeheight,
-                      usremail,
+                      TextFormField(
+                        controller: useremailcon,
+                        keyboardType: TextInputType.emailAddress,
+                        textInputAction: TextInputAction.next,
+                        decoration: InputDecoration(
+                          prefixIcon: const Icon(Icons.email),
+                          labelText: 'Email',
+                          labelStyle: GoogleFonts.montserrat(
+                              fontSize: 14, color: colorgrey),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0)),
+                        ),
+                      ),
                       sizeheight,
-                      usrpsswrd,
+                      TextFormField(
+                        controller: userpasscon,
+                        keyboardType: TextInputType.name,
+                        textInputAction: TextInputAction.next,
+                        obscureText: true,
+                        decoration: InputDecoration(
+                          prefixIcon: const Icon(Icons.key),
+                          labelText: 'password',
+                          labelStyle: GoogleFonts.montserrat(
+                              fontSize: 14, color: colorgrey),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0)),
+                        ),
+                      ),
                       sizeheight,
-                      cnfpsswrd,
+                      TextFormField(
+                        controller: confirmpasscon,
+                        keyboardType: TextInputType.name,
+                        textInputAction: TextInputAction.next,
+                        obscureText: true,
+                        decoration: InputDecoration(
+                          prefixIcon: const Icon(Icons.key),
+                          labelText: 'confirm',
+                          labelStyle: GoogleFonts.montserrat(
+                              fontSize: 14, color: colorgrey),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0)),
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -268,5 +353,16 @@ class _SignupPageState extends State<SignupPage> {
         (route) => false);
 
     debugPrint("Account created");
+  }
+
+  @override
+  void dispose() {
+    usernamecon.dispose();
+    schoolIDcon.dispose();
+    userAddcon.dispose();
+    useremailcon.dispose();
+    userpasscon.dispose();
+    confirmpasscon.dispose();
+    super.dispose();
   }
 }

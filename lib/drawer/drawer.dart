@@ -1,3 +1,4 @@
+import 'package:lostfoundapp/chatRoom/ChatRoom.dart';
 import 'package:lostfoundapp/mics/packages.dart';
 
 class DrawerPropety extends StatefulWidget {
@@ -13,6 +14,7 @@ class DrawerPropety extends StatefulWidget {
 }
 
 class _DrawerPropetyState extends State<DrawerPropety> {
+  bool isloading = false;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -44,14 +46,14 @@ class _DrawerPropetyState extends State<DrawerPropety> {
                 fontcolor: colorblack),
             TextButton(
               onPressed: () {
-                handleSignOut(context);
+                signout();
               },
               child: const TextViewPoppins(
                   title: "Logout",
                   fontsize: 13,
                   fontweight: FontWeight.w200,
                   fontcolor: colorblack),
-            )
+            ),
           ],
         ),
       );
@@ -102,7 +104,10 @@ class _DrawerPropetyState extends State<DrawerPropety> {
                     fontcolor: colorblack)),
             ListTile(
               minLeadingWidth: 5,
-              onTap: () {},
+              onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const ChatRoomPage())),
               leading: const Icon(
                 Icons.chat_bubble_outline,
                 size: 22,
@@ -172,16 +177,17 @@ class _DrawerPropetyState extends State<DrawerPropety> {
     ScaffoldMessenger.of(context).showSnackBar(snack);
   }
 
-  handleSignOut(BuildContext contezt) {
-    snacbarmessage(context, "Signing out please wait");
-    signout();
-  }
-
   Future signout() async {
+    final snack = snacbarmessage(context, "Signed out");
     final navigaotr = Navigator.of(context);
     await FirebaseAuth.instance.signOut();
+    await Future.delayed(const Duration(seconds: 2));
+    setState(() {
+      isloading = !isloading;
+    });
     navigaotr.pushAndRemoveUntil(
         MaterialPageRoute(builder: (context) => const LoginPage()),
         (route) => false);
+    snack;
   }
 }

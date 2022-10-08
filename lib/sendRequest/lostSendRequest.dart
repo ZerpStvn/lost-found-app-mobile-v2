@@ -3,15 +3,15 @@
 import 'package:flutter/scheduler.dart';
 import 'package:lostfoundapp/mics/packages.dart';
 
-class FountItemRequestSender extends StatefulWidget {
+class LostItemRequestSender extends StatefulWidget {
   final UserPostModel userPostModel;
-  const FountItemRequestSender(this.userPostModel, {super.key});
+  const LostItemRequestSender(this.userPostModel, {super.key});
 
   @override
-  State<FountItemRequestSender> createState() => _FountItemRequestSenderState();
+  State<LostItemRequestSender> createState() => _LostItemRequestSenderState();
 }
 
-class _FountItemRequestSenderState extends State<FountItemRequestSender> {
+class _LostItemRequestSenderState extends State<LostItemRequestSender> {
   final user = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
@@ -26,15 +26,35 @@ class _FountItemRequestSenderState extends State<FountItemRequestSender> {
               child: Stack(
                 children: [
                   Container(
+                    height: 280,
                     width: sizewidth,
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image:
-                                NetworkImage('${widget.userPostModel.phtoURL}'),
-                            fit: BoxFit.cover),
-                        color: colorblack,
-                        borderRadius: const BorderRadius.only(
-                            bottomRight: Radius.circular(30))),
+                    decoration: widget.userPostModel.phtoURL == "empty"
+                        ? const BoxDecoration(
+                            image: DecorationImage(
+                                image:
+                                    AssetImage('assets/background_green.jpg'),
+                                fit: BoxFit.cover),
+                            color: colorblack,
+                            borderRadius: BorderRadius.only(
+                                bottomRight: Radius.circular(30)))
+                        : BoxDecoration(
+                            image: DecorationImage(
+                                image: NetworkImage(
+                                    '${widget.userPostModel.phtoURL}'),
+                                fit: BoxFit.cover),
+                            color: colorblack,
+                            borderRadius: const BorderRadius.only(
+                                bottomRight: Radius.circular(30))),
+                    child: widget.userPostModel.phtoURL == "empty"
+                        ? const Center(
+                            child: TextView(
+                              title: "No image",
+                              fontsize: 14,
+                              fontcolor: colorWhite,
+                              fontweight: FontWeight.bold,
+                            ),
+                          )
+                        : Container(),
                   ),
                 ],
               ),
@@ -102,6 +122,9 @@ class _FountItemRequestSenderState extends State<FountItemRequestSender> {
                         Icons.location_on,
                         color: primaryColor,
                       ),
+                      const SizedBox(
+                        width: 5,
+                      ),
                       TextView(
                         title: "${widget.userPostModel.location} ",
                         fontcolor: colorblack,
@@ -129,20 +152,19 @@ class _FountItemRequestSenderState extends State<FountItemRequestSender> {
                     height: 10,
                   ),
                   SizedBox(
-                    width: sizewidth * 0.89,
+                    width: sizewidth * 0.86,
                     child: ReadMoreText(
                       "${widget.userPostModel.foundlossDes} ",
                       colorClickableText: primaryColor,
                       textAlign: TextAlign.justify,
-                      style: GoogleFonts.montserrat(
-                          fontSize: 15, color: colorblack),
+                      style: GoogleFonts.inter(fontSize: 15, color: colorblack),
                     ),
                   )
                 ],
               ),
             ),
             const SizedBox(
-              height: 50,
+              height: 55,
             ),
             buildButton(context, sizewidth)
           ],
@@ -169,15 +191,15 @@ class _FountItemRequestSenderState extends State<FountItemRequestSender> {
                             const Color.fromARGB(255, 28, 218, 44)),
                     onPressed: () {
                       SchedulerBinding.instance
-                          .addPostFrameCallback((timestamp) {
+                          .addPostFrameCallback((timeStamp) {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                    EditTextPost(widget.userPostModel)));
+                                    EditTextPostLost(widget.userPostModel)));
                       });
                     },
-                    child: const TextView(
+                    child: const TextViewInter(
                         title: "EDIT",
                         fontsize: 14,
                         fontweight: FontWeight.bold,
@@ -198,7 +220,7 @@ class _FountItemRequestSenderState extends State<FountItemRequestSender> {
                     onPressed: () {
                       deletedata();
                     },
-                    child: const TextView(
+                    child: const TextViewInter(
                         title: "DELETE",
                         fontsize: 14,
                         fontweight: FontWeight.bold,
@@ -225,7 +247,7 @@ class _FountItemRequestSenderState extends State<FountItemRequestSender> {
                               SendRequest(widget.userPostModel)));
                 });
               },
-              child: const TextView(
+              child: const TextViewInter(
                   title: "SEND REQUEST",
                   fontsize: 14,
                   fontweight: FontWeight.bold,
@@ -236,6 +258,7 @@ class _FountItemRequestSenderState extends State<FountItemRequestSender> {
   }
 
   //using snackbar show the data message==//
+  //using snackbar also to show on message update
   snackBarScreen(BuildContext context, String title) {
     final snack = SnackBar(
       content: Text(
@@ -246,16 +269,18 @@ class _FountItemRequestSenderState extends State<FountItemRequestSender> {
     );
     ScaffoldMessenger.of(context).showSnackBar(snack);
   }
+  //====================================//
 
+  //
   //==========deleting a userpost()=========//
   Future deletedata() async {
     final snack = snackBarScreen(context, "Deleting");
     final snackdone = snackBarScreen(context, "Post deleted");
     final navigator = Navigator.of(context);
     await FirebaseFirestore.instance
-        .collection("found_items")
+        .collection('lost_items')
         .doc(user!.uid)
-        .collection('fitems')
+        .collection('litems')
         .doc(widget.userPostModel.postID)
         .delete()
         .then((value) => debugPrint("data deleted"))

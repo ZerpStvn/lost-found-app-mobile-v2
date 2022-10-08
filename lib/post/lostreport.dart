@@ -1,8 +1,7 @@
 import 'dart:io';
 import 'dart:io' as io;
-import 'package:flutter/scheduler.dart';
-import 'package:lostfoundapp/edit/textform.dart';
 import 'package:lostfoundapp/mics/packages.dart';
+import 'package:flutter/scheduler.dart';
 
 class LostReportPage extends StatefulWidget {
   const LostReportPage({super.key});
@@ -150,15 +149,6 @@ class _LostReportPageState extends State<LostReportPage> {
         ),
       ),
     );
-  }
-
-  Widget formpage(BuildContext context) {
-    if (mounted) {
-      return const SubmitReportForm();
-    } else {
-      dispose();
-      return Container();
-    }
   }
 
   //handle the message useing snackbar
