@@ -78,8 +78,9 @@ class _LostReportOption2State extends State<LostReportOption2> {
         .collection('litems')
         .doc(postID)
         .set(userPostModel.tomap());
-    snack;
+
     navigator.pop();
+    snack;
     handleformclear();
     setState(() {
       postID;

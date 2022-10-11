@@ -47,7 +47,8 @@ class _FoundCardPostState extends State<FoundCardPost> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const ClaimedPage()));
+                            builder: (context) =>
+                                ClaimedPage(widget.postModel)));
                   });
                 },
                 child: const TextView(

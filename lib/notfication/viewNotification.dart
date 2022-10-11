@@ -1,6 +1,4 @@
 // ignore_for_file: file_names
-
-import 'package:lostfoundapp/chatRoom/ChatRoom.dart';
 import 'package:lostfoundapp/mics/packages.dart';
 import 'package:lostfoundapp/model/chatroommodel.dart';
 
@@ -124,7 +122,7 @@ class _ViewNotificationState extends State<ViewNotification> {
                           ),
                           TextView(
                             title: widget.requesmodel.reqitemstatus == "Accept"
-                                ? "Request Accepted"
+                                ? "Request accepted"
                                 : widget.requesmodel.reqitemstatus == "Canceled"
                                     ? "Request Rejected"
                                     : "Sent you a Request ",
@@ -430,7 +428,7 @@ class _ViewNotificationState extends State<ViewNotification> {
   handleAcceptRequest() async {
     reqmodel.reqpostID = widget.requesmodel.reqpostID;
     reqmodel.requserID = widget.requesmodel.requserID;
-    reqmodel.reqitemname = widget.requesmodel.reqitemname;
+    reqmodel.reqitemname = widget.requesmodel.itemname;
     reqmodel.reqitemcolor = "";
     reqmodel.requsermobileNum = widget.requesmodel.requsermobileNum;
     reqmodel.reqlocation = widget.requesmodel.reqlocation;
@@ -486,7 +484,7 @@ class _ViewNotificationState extends State<ViewNotification> {
     chat.sentToprofileURL = widget.requesmodel.requserPhotourl;
     chat.sentbyprofileURL = widget.requesmodel.useronwerphotopostUrl;
     chat.itemID = widget.requesmodel.reqpostID;
-    chat.itemname = widget.requesmodel.reqitemname;
+    chat.itemname = widget.requesmodel.itemname;
     chat.itemphotoURL = widget.requesmodel.reqphtoURL;
     chat.status = "Unclaimed";
 

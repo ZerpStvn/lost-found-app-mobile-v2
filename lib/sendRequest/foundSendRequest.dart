@@ -163,25 +163,28 @@ class _FountItemRequestSenderState extends State<FountItemRequestSender> {
               child: SizedBox(
                 width: sizewidth,
                 height: 50,
-                child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            const Color.fromARGB(255, 28, 218, 44)),
-                    onPressed: () {
-                      SchedulerBinding.instance
-                          .addPostFrameCallback((timestamp) {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    EditTextPost(widget.userPostModel)));
-                      });
-                    },
-                    child: const TextViewInter(
-                        title: "EDIT",
-                        fontsize: 14,
-                        fontweight: FontWeight.bold,
-                        fontcolor: colorWhite)),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                              const Color.fromARGB(255, 28, 218, 44)),
+                      onPressed: () {
+                        SchedulerBinding.instance
+                            .addPostFrameCallback((timestamp) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      EditTextPost(widget.userPostModel)));
+                        });
+                      },
+                      child: const TextViewInter(
+                          title: "EDIT",
+                          fontsize: 14,
+                          fontweight: FontWeight.bold,
+                          fontcolor: colorWhite)),
+                ),
               ),
             ),
             const SizedBox(
@@ -192,17 +195,20 @@ class _FountItemRequestSenderState extends State<FountItemRequestSender> {
               child: SizedBox(
                 width: sizewidth,
                 height: 50,
-                child: ElevatedButton(
-                    style:
-                        ElevatedButton.styleFrom(backgroundColor: primaryColor),
-                    onPressed: () {
-                      deletedata();
-                    },
-                    child: const TextViewInter(
-                        title: "DELETE",
-                        fontsize: 14,
-                        fontweight: FontWeight.bold,
-                        fontcolor: colorWhite)),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: primaryColor),
+                      onPressed: () {
+                        deletedata();
+                      },
+                      child: const TextViewInter(
+                          title: "DELETE",
+                          fontsize: 14,
+                          fontweight: FontWeight.bold,
+                          fontcolor: colorWhite)),
+                ),
               ),
             ),
           ],
@@ -213,23 +219,26 @@ class _FountItemRequestSenderState extends State<FountItemRequestSender> {
         child: SizedBox(
           width: sizewidth * 0.88,
           height: 50,
-          child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromARGB(255, 28, 218, 44)),
-              onPressed: () {
-                SchedulerBinding.instance.scheduleFrameCallback((timeStamp) {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              SendRequest(widget.userPostModel)));
-                });
-              },
-              child: const TextViewInter(
-                  title: "SEND REQUEST",
-                  fontsize: 14,
-                  fontweight: FontWeight.bold,
-                  fontcolor: colorWhite)),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromARGB(255, 28, 218, 44)),
+                onPressed: () {
+                  SchedulerBinding.instance.scheduleFrameCallback((timeStamp) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                SendRequest(widget.userPostModel)));
+                  });
+                },
+                child: const TextViewInter(
+                    title: "SEND REQUEST",
+                    fontsize: 14,
+                    fontweight: FontWeight.bold,
+                    fontcolor: colorWhite)),
+          ),
         ),
       );
     }

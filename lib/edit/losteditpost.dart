@@ -52,12 +52,6 @@ class _EditTextPostLostState extends State<EditTextPostLost> {
     });
   }
 
-  @override
-  void initState() {
-    super.initState();
-    handleuserdatevalue();
-  }
-
   snackBarScreen(BuildContext context, String title) {
     final snack = SnackBar(
       content: Text(
@@ -118,6 +112,7 @@ class _EditTextPostLostState extends State<EditTextPostLost> {
 
   @override
   Widget build(BuildContext context) {
+    handleuserdatevalue();
     final widthsize = MediaQuery.of(context).size.width;
     return Scaffold(
       body: SingleChildScrollView(

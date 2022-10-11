@@ -326,8 +326,9 @@ class _FoundReportPageState extends State<FoundReportPage> {
         .collection('fitems')
         .doc(postID)
         .set(userPostModel.tomap());
-    snack;
+
     navigator.pop();
+    snack;
     handleformclear();
 
     setState(() {

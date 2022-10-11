@@ -23,15 +23,19 @@ class _ChatConvopageState extends State<ChatConvopage> {
   }
 
   handleconvosent() async {
-    chatConvo.userID = user!.uid;
-    chatConvo.message = chat.text;
-    await FirebaseFirestore.instance
-        .collection("ChatRooms")
-        .doc(widget.chatroom.chatRoomID)
-        .collection('conversation')
-        .add(chatConvo.tomap())
-        .then((value) => debugPrint("message sent"));
-    chat.clear();
+    if (chat.text.isEmpty) {
+      return null;
+    } else {
+      chatConvo.userID = user!.uid;
+      chatConvo.message = chat.text;
+      await FirebaseFirestore.instance
+          .collection("ChatRooms")
+          .doc(widget.chatroom.chatRoomID)
+          .collection('conversation')
+          .add(chatConvo.tomap())
+          .then((value) => debugPrint("message sent"));
+      chat.clear();
+    }
   }
 
   Widget getuserchat() {
@@ -128,7 +132,6 @@ class _ChatConvopageState extends State<ChatConvopage> {
         body: SizedBox(
           child: Stack(
             children: [
-              userPost(),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.75,
                 child: SingleChildScrollView(
@@ -142,6 +145,7 @@ class _ChatConvopageState extends State<ChatConvopage> {
                   ),
                 ),
               ),
+              userPost(),
               Container(
                   alignment: Alignment.bottomCenter,
                   child: Container(

@@ -40,12 +40,6 @@ class _EditTextFormFieldState extends State<EditTextFormField> {
   String? datetimepicked;
 
   @override
-  void initState() {
-    datetimeController.text = "";
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     const sizeheight = SizedBox(height: 10);
     final widthsize = MediaQuery.of(context).size.width;

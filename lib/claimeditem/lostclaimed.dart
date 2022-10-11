@@ -5,15 +5,15 @@ import 'package:lostfoundapp/model/claimeditemmodel.dart';
 import 'dart:io';
 import 'dart:io' as io;
 
-class ClaimedPage extends StatefulWidget {
+class LostClaimedPage extends StatefulWidget {
   final UserPostModel userpost;
-  const ClaimedPage(this.userpost, {super.key});
+  const LostClaimedPage(this.userpost, {super.key});
 
   @override
-  State<ClaimedPage> createState() => _ClaimedPageState();
+  State<LostClaimedPage> createState() => _LostClaimedPageState();
 }
 
-class _ClaimedPageState extends State<ClaimedPage> {
+class _LostClaimedPageState extends State<LostClaimedPage> {
   XFile? imagepathfile;
   final ImagePicker _picker = ImagePicker();
   String postID = const Uuid().v4();
@@ -275,9 +275,9 @@ class _ClaimedPageState extends State<ClaimedPage> {
   ClaimedItemModel clm = ClaimedItemModel();
   Future deletedata() async {
     await FirebaseFirestore.instance
-        .collection("found_items")
+        .collection('lost_items')
         .doc(userlogin!.useruid)
-        .collection('fitems')
+        .collection('litems')
         .doc(widget.userpost.postID)
         .delete()
         .then((value) => debugPrint("data deleted"))

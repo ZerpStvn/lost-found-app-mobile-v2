@@ -1,6 +1,4 @@
-import 'package:lostfoundapp/chatRoom/ChatRoom.dart';
 import 'package:lostfoundapp/mics/packages.dart';
-import 'package:lostfoundapp/model/chatroommodel.dart';
 
 class NotificationFeed extends StatefulWidget {
   const NotificationFeed({super.key});
@@ -104,7 +102,7 @@ class _NotificationFeedState extends State<NotificationFeed> {
                                     child: ListTile(
                                       shape: RoundedRectangleBorder(
                                           side: const BorderSide(
-                                              color: colorblack, width: 1),
+                                              color: colorblack, width: 0.6),
                                           borderRadius:
                                               BorderRadius.circular(12)),
                                       leading: Container(
@@ -131,7 +129,7 @@ class _NotificationFeedState extends State<NotificationFeed> {
                                                         "Canceled"
                                                     ? "Request Rejected"
                                                     : "sent you a request",
-                                        fontsize: 13,
+                                        fontsize: 10,
                                         fontcolor: colorgrey,
                                         fontweight: FontWeight.normal,
                                       ),
@@ -154,7 +152,7 @@ class _NotificationFeedState extends State<NotificationFeed> {
                                     child: ListTile(
                                       shape: RoundedRectangleBorder(
                                           side: const BorderSide(
-                                              color: colorblack, width: 1),
+                                              color: colorblack, width: 0.6),
                                           borderRadius:
                                               BorderRadius.circular(12)),
                                       leading: Container(

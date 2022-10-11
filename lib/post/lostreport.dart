@@ -216,8 +216,9 @@ class _LostReportPageState extends State<LostReportPage> {
         .collection('litems')
         .doc(postID)
         .set(userPostModel.tomap());
-    snack;
+
     navigator.pop();
+    snack;
     handleformclear();
     setState(() {
       postID;

@@ -1,4 +1,3 @@
-import 'package:lostfoundapp/chatRoom/ChatRoom.dart';
 import 'package:lostfoundapp/mics/packages.dart';
 
 class DrawerPropety extends StatefulWidget {
@@ -89,19 +88,24 @@ class _DrawerPropetyState extends State<DrawerPropety> {
         child: Column(
           children: [
             ListTile(
-                hoverColor: seconprimaryColor,
-                minLeadingWidth: 5,
-                onTap: () {},
-                leading: const Icon(
-                  Icons.home_outlined,
-                  size: 25,
-                  color: colorblack45,
-                ),
-                title: const TextView(
-                    title: 'Home',
-                    fontsize: 14,
-                    fontweight: FontWeight.w300,
-                    fontcolor: colorblack)),
+              hoverColor: seconprimaryColor,
+              minLeadingWidth: 5,
+              onTap: () => Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const SliverHomePage()),
+                  (route) => false),
+              leading: const Icon(
+                Icons.home_outlined,
+                size: 25,
+                color: colorblack45,
+              ),
+              title: const TextView(
+                  title: 'Home',
+                  fontsize: 14,
+                  fontweight: FontWeight.w300,
+                  fontcolor: colorblack),
+            ),
             ListTile(
               minLeadingWidth: 5,
               onTap: () => Navigator.push(
@@ -121,7 +125,10 @@ class _DrawerPropetyState extends State<DrawerPropety> {
             ),
             ListTile(
               minLeadingWidth: 5,
-              onTap: () {},
+              onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const NotificationFeed())),
               leading: const Icon(
                 Icons.notifications_outlined,
                 size: 25,
@@ -157,6 +164,20 @@ class _DrawerPropetyState extends State<DrawerPropety> {
               ),
               title: const TextView(
                   title: 'Settings',
+                  fontsize: 14,
+                  fontweight: FontWeight.w300,
+                  fontcolor: colorblack),
+            ),
+            ListTile(
+              minLeadingWidth: 5,
+              onTap: () {},
+              leading: const Icon(
+                Icons.handshake_outlined,
+                size: 25,
+                color: colorblack45,
+              ),
+              title: const TextView(
+                  title: 'Claimed items',
                   fontsize: 14,
                   fontweight: FontWeight.w300,
                   fontcolor: colorblack),

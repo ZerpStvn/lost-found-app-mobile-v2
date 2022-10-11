@@ -43,12 +43,6 @@ class RequestForm extends StatefulWidget {
 
 class _RequestFormState extends State<RequestForm> {
   @override
-  void initState() {
-    datetimeController.text = "";
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final widthsize = MediaQuery.of(context).size.width;
 

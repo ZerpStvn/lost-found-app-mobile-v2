@@ -1,4 +1,5 @@
 import 'package:intl/intl.dart';
+import 'package:lostfoundapp/claimeditem/lostclaimed.dart';
 import 'package:lostfoundapp/mics/packages.dart';
 import 'package:lostfoundapp/sendRequest/lostSendRequest.dart';
 
@@ -139,17 +140,23 @@ class _LostCardPostState extends State<LostCardPost> {
                     borderRadius: BorderRadius.circular(30),
                     color: Colors.transparent,
                     child: OutlinedButton(
-                        onPressed: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    LostItemRequestSender(widget.postModel))),
+                        onPressed: () {
+                          if (widget.postModel.userID == userlogin!.useruid) {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        LostClaimedPage(widget.postModel)));
+                          }
+                        },
                         style: OutlinedButton.styleFrom(
                             side:
                                 const BorderSide(width: 2, color: Colors.white),
                             shape: const StadiumBorder()),
-                        child: const TextViewPoppins(
-                            title: "View",
+                        child: TextViewPoppins(
+                            title: widget.postModel.userID == userlogin!.useruid
+                                ? "Mark Claimed"
+                                : "View",
                             fontsize: 12,
                             fontcolor: colorWhite)),
                   ),

@@ -1,6 +1,7 @@
 import 'package:lostfoundapp/mics/packages.dart';
 
 class Requesmodel {
+  String? itemname;
   String? reqpostID;
   String? requserID;
   String? reqitemname;
@@ -41,6 +42,7 @@ class Requesmodel {
     this.requserID,
     this.reqitemname,
     this.reqitemcolor,
+    this.itemname,
     this.reqdatelossfound,
     this.requsermobileNum,
     this.reqlocation,
@@ -63,6 +65,7 @@ class Requesmodel {
 
   factory Requesmodel.fromDocuments(map) {
     return Requesmodel(
+      itemname: map['itemname'],
       feed: map['feeds'],
       nmame: map['nmame'],
       useronwerphotopostUrl: map['useronwerphotopostUrl'],
@@ -96,6 +99,7 @@ class Requesmodel {
 
   Map<String, dynamic> tomap() {
     return {
+      'itemname': itemname,
       'feeds': "Notif",
       'nmame': nmame,
       'useronwerphotopostUrl': useronwerphotopostUrl,

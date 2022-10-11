@@ -32,7 +32,7 @@ class _EditTextPostState extends State<EditTextPost> {
 
   final TextEditingController editdatetimeController = TextEditingController();
 
-  handleuserdatevalue() async {
+  handleuserdatevalue() {
     SchedulerBinding.instance.addPostFrameCallback((timestamp) {
       edititemtitlecon.text = "${usermodel.itemname}";
       editfounddescriptionrcon.text = "${usermodel.foundlossDes}";
@@ -47,14 +47,6 @@ class _EditTextPostState extends State<EditTextPost> {
       editbrandcon.text = "${usermodel.itembrand}";
       editmarkingscon.text = "${usermodel.itemMarks}";
       editseiralnumcon.text = "${usermodel.itemserailNum}";
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    SchedulerBinding.instance.addPostFrameCallback((timestamp) {
-      handleuserdatevalue();
     });
   }
 
@@ -121,6 +113,7 @@ class _EditTextPostState extends State<EditTextPost> {
 
   @override
   Widget build(BuildContext context) {
+    handleuserdatevalue();
     //const sizeheight = SizedBox(height: 10);
     final widthsize = MediaQuery.of(context).size.width;
     return Scaffold(

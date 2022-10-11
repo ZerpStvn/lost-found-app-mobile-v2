@@ -36,12 +36,6 @@ class _SendRequestState extends State<SendRequest> {
   }
 
   @override
-  void initState() {
-    getuser();
-    super.initState();
-  }
-
-  @override
   void dispose() {
     requsermamecon.dispose();
     requserIDcon.dispose();
@@ -62,6 +56,7 @@ class _SendRequestState extends State<SendRequest> {
 
   @override
   Widget build(BuildContext context) {
+    getuser();
     final widthsize = MediaQuery.of(context).size.width;
     return Scaffold(
       body: SafeArea(
@@ -254,7 +249,7 @@ class _SendRequestState extends State<SendRequest> {
     //final navigator = Navigator.of(context);
     final user = FirebaseAuth.instance.currentUser;
     Requesmodel reqmodel = Requesmodel();
-
+    reqmodel.itemname = widget.postmodel.itemname;
     reqmodel.reqpostID = widget.postmodel.postID;
     reqmodel.requserID = user!.uid;
     reqmodel.reqitemname = reqitemtitlecon.text;
@@ -297,7 +292,6 @@ class _SendRequestState extends State<SendRequest> {
   }
 
   handlecleartext() {
-    datetimepicked = null;
     reqitemtitlecon.clear();
     reqfounddescriptionrcon.clear();
     reqlocationcon.clear();
