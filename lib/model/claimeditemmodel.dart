@@ -26,8 +26,10 @@ class ClaimedItemModel {
   String? itemstatus;
   String? itemtype;
   String? itemsubtype;
+  String? ownersname;
 
   ClaimedItemModel({
+    this.ownersname,
     this.userID,
     this.itemname,
     this.itemcolor,
@@ -57,6 +59,7 @@ class ClaimedItemModel {
 
   factory ClaimedItemModel.fromDocument(map) {
     return ClaimedItemModel(
+      ownersname: map['ownersname'],
       userID: map['userID'],
       itemname: map['itemname'],
       itemcolor: map['itemcolor'],
@@ -87,6 +90,7 @@ class ClaimedItemModel {
 
   Map<String, dynamic> tomap() {
     return {
+      'ownersname': ownersname,
       'userID': userID,
       'itemname': itemname,
       'itemcolor': itemcolor,

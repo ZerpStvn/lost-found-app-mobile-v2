@@ -1,7 +1,5 @@
 import 'package:intl/intl.dart';
-import 'package:lostfoundapp/achive/archive.dart';
 import 'package:lostfoundapp/mics/packages.dart';
-import 'package:lostfoundapp/model/claimeditemmodel.dart';
 import 'dart:io';
 import 'dart:io' as io;
 
@@ -62,10 +60,15 @@ class _LostClaimedPageState extends State<LostClaimedPage> {
               child: Stack(
                 fit: StackFit.expand,
                 children: [
-                  Image.network(
-                    "${widget.userpost.phtoURL}",
-                    fit: BoxFit.cover,
-                  )
+                  widget.userpost.phtoURL == "empty"
+                      ? Image.asset(
+                          "assets/background_green.jpg",
+                          fit: BoxFit.cover,
+                        )
+                      : Image.network(
+                          "${widget.userpost.phtoURL}",
+                          fit: BoxFit.cover,
+                        )
                 ],
               ),
             ),
@@ -308,6 +311,8 @@ class _LostClaimedPageState extends State<LostClaimedPage> {
     clm.itemMarks = widget.userpost.itemMarks;
     clm.itemserailNum = widget.userpost.itemserailNum;
     clm.phtoURL = widget.userpost.phtoURL;
+    clm.onwerprofileURl = userlogin!.profileURL;
+    clm.ownersname = userlogin!.username;
     clm.itemstatus = "Claimed";
     clm.itemtype = widget.userpost.itemtype;
     clm.itemsubtype = widget.userpost.itemsubtype;

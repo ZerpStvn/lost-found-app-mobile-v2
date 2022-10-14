@@ -1,14 +1,14 @@
 import 'package:intl/intl.dart';
 import 'package:lostfoundapp/mics/packages.dart';
 
-class ArchivePage extends StatefulWidget {
-  const ArchivePage({super.key});
+class ClaimedItemPostPage extends StatefulWidget {
+  const ClaimedItemPostPage({super.key});
 
   @override
-  State<ArchivePage> createState() => _ArchivePageState();
+  State<ClaimedItemPostPage> createState() => _ClaimedItemPostPageState();
 }
 
-class _ArchivePageState extends State<ArchivePage> {
+class _ClaimedItemPostPageState extends State<ClaimedItemPostPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,12 +20,15 @@ class _ArchivePageState extends State<ArchivePage> {
         leading: IconButton(
           onPressed: () => Navigator.push(context,
               MaterialPageRoute(builder: (context) => const SliverHomePage())),
-          icon: const Icon(Icons.arrow_back, color: colorblack),
+          icon: const Icon(
+            Icons.arrow_back,
+            color: colorblack,
+          ),
         ),
         title: Row(
           children: const [
             TextView(
-              title: "Archive",
+              title: "Claimed Items",
               fontsize: 18,
               fontcolor: primaryColor,
               fontweight: FontWeight.bold,
@@ -34,7 +37,7 @@ class _ArchivePageState extends State<ArchivePage> {
               width: 5,
             ),
             Icon(
-              Icons.archive_outlined,
+              Icons.handshake_outlined,
               color: primaryColor,
             )
           ],
@@ -47,11 +50,28 @@ class _ArchivePageState extends State<ArchivePage> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
+              Center(
+                child: SizedBox(
+                  height: 50,
+                  width: MediaQuery.of(context).size.width * 0.89,
+                  child: TextFormField(
+                    textInputAction: TextInputAction.search,
+                    keyboardType: TextInputType.name,
+                    decoration: InputDecoration(
+                        hintText: "Search",
+                        hintStyle: GoogleFonts.montserrat(color: colorblack),
+                        suffixIcon: const Icon(Icons.search_outlined),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(30))),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 13,
+              ),
               FutureBuilder<QuerySnapshot>(
                   future: FirebaseFirestore.instance
-                      .collection('Claimed_items')
-                      .doc(userlogin!.useruid)
-                      .collection('claimeditems')
+                      .collectionGroup('claimeditems')
                       .get(),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {

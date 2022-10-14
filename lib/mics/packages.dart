@@ -37,3 +37,8 @@ export 'package:lostfoundapp/notfication/notification.dart';
 export 'package:lostfoundapp/model/user_requestmodel.dart';
 export 'package:lostfoundapp/notfication/viewNotification.dart';
 export 'package:lostfoundapp/chatRoom/ChatRoom.dart';
+export 'package:lostfoundapp/model/claimeditemmodel.dart';
+export 'package:lostfoundapp/achive/claimedpost.dart';
+export 'package:lostfoundapp/model/claimeditemmodel.dart';
+export 'package:lostfoundapp/achive/archive.dart';
+export 'package:lostfoundapp/mainscreen/claimedpost.dart';

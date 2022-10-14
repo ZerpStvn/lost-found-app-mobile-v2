@@ -15,6 +15,7 @@ class _ChatConvopageState extends State<ChatConvopage> {
   final ScrollController controller = ScrollController();
   final user = FirebaseAuth.instance.currentUser;
   ChatConvo chatConvo = ChatConvo();
+  ClaimedItemModel clm = ClaimedItemModel();
 
   @override
   void dispose() {
@@ -66,6 +67,15 @@ class _ChatConvopageState extends State<ChatConvopage> {
                 });
           }
         });
+  }
+
+  Future getclaimedDate() async {
+    DocumentSnapshot docs = await FirebaseFirestore.instance
+        .collection('')
+        .doc(widget.chatroom.sentbyID)
+        .collection('')
+        .doc('')
+        .get();
   }
 
   @override
@@ -146,35 +156,39 @@ class _ChatConvopageState extends State<ChatConvopage> {
                 ),
               ),
               userPost(),
-              Container(
-                  alignment: Alignment.bottomCenter,
-                  child: Container(
-                    color: colorWhite,
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                          left: 8.0, right: 8.0, bottom: 20, top: 15),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: TextFormField(
-                              controller: chat,
-                              decoration: InputDecoration(
-                                  hintText: "Chat",
-                                  hintStyle: GoogleFonts.inter(
-                                      fontSize: 14, color: colorblack),
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(20))),
+              if (widget.chatroom.status == "Claimed")
+                Container()
+              else
+                Container(
+                    alignment: Alignment.bottomCenter,
+                    child: Container(
+                      color: colorWhite,
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                            left: 8.0, right: 8.0, bottom: 20, top: 15),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: TextFormField(
+                                controller: chat,
+                                decoration: InputDecoration(
+                                    hintText: "Chat",
+                                    hintStyle: GoogleFonts.inter(
+                                        fontSize: 14, color: colorblack),
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(20))),
+                              ),
                             ),
-                          ),
-                          IconButton(
-                              onPressed: () {
-                                handleconvosent();
-                              },
-                              icon: const Icon(Icons.send_rounded))
-                        ],
+                            IconButton(
+                                onPressed: () {
+                                  handleconvosent();
+                                },
+                                icon: const Icon(Icons.send_rounded))
+                          ],
+                        ),
                       ),
-                    ),
-                  )),
+                    ))
             ],
           ),
         ));

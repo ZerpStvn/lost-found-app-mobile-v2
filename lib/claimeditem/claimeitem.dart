@@ -1,7 +1,5 @@
 import 'package:intl/intl.dart';
-import 'package:lostfoundapp/achive/archive.dart';
 import 'package:lostfoundapp/mics/packages.dart';
-import 'package:lostfoundapp/model/claimeditemmodel.dart';
 import 'dart:io';
 import 'dart:io' as io;
 
@@ -309,6 +307,8 @@ class _ClaimedPageState extends State<ClaimedPage> {
     clm.itemserailNum = widget.userpost.itemserailNum;
     clm.phtoURL = widget.userpost.phtoURL;
     clm.itemstatus = "Claimed";
+    clm.onwerprofileURl = userlogin!.profileURL;
+    clm.ownersname = userlogin!.username;
     clm.itemtype = widget.userpost.itemtype;
     clm.itemsubtype = widget.userpost.itemsubtype;
 

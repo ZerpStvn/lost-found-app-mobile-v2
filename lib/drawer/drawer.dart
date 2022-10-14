@@ -142,7 +142,8 @@ class _DrawerPropetyState extends State<DrawerPropety> {
             ),
             ListTile(
               minLeadingWidth: 5,
-              onTap: () {},
+              onTap: () => Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const ArchivePage())),
               leading: const Icon(
                 Icons.archive_outlined,
                 size: 25,
@@ -154,23 +155,26 @@ class _DrawerPropetyState extends State<DrawerPropety> {
                   fontweight: FontWeight.w300,
                   fontcolor: colorblack),
             ),
+            // ListTile(
+            //   minLeadingWidth: 5,
+            //   onTap: () {},
+            //   leading: const Icon(
+            //     Icons.settings_outlined,
+            //     size: 25,
+            //     color: colorblack45,
+            //   ),
+            //   title: const TextView(
+            //       title: 'Settings',
+            //       fontsize: 14,
+            //       fontweight: FontWeight.w300,
+            //       fontcolor: colorblack),
+            // ),
             ListTile(
               minLeadingWidth: 5,
-              onTap: () {},
-              leading: const Icon(
-                Icons.settings_outlined,
-                size: 25,
-                color: colorblack45,
-              ),
-              title: const TextView(
-                  title: 'Settings',
-                  fontsize: 14,
-                  fontweight: FontWeight.w300,
-                  fontcolor: colorblack),
-            ),
-            ListTile(
-              minLeadingWidth: 5,
-              onTap: () {},
+              onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const ClaimedItemPostPage())),
               leading: const Icon(
                 Icons.handshake_outlined,
                 size: 25,
