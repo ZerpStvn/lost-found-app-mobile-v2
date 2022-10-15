@@ -24,7 +24,7 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
 
   @override
   Widget build(BuildContext context) {
-    final widthsize = MediaQuery.of(context).size.width;
+    //final widthsize = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: colorWhite,
       appBar: AppBar(
