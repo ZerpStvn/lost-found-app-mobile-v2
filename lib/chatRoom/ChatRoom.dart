@@ -14,6 +14,7 @@ class ChatRoomPage extends StatefulWidget {
 class _ChatRoomPageState extends State<ChatRoomPage> {
   final user = FirebaseAuth.instance.currentUser;
   final TextEditingController _serach = TextEditingController();
+  String chatsearch = "";
 
   @override
   void dispose() {
@@ -83,123 +84,108 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
       body: SafeArea(
           child: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.only(top: 10.0),
+          padding: const EdgeInsets.only(top: 5.0),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               Center(
-                child: SizedBox(
-                  height: 50,
-                  width: widthsize * 0.89,
-                  child: TextFormField(
-                    controller: _serach,
-                    textInputAction: TextInputAction.search,
-                    keyboardType: TextInputType.name,
-                    decoration: InputDecoration(
-                        hintText: "Search",
-                        hintStyle: GoogleFonts.montserrat(color: colorblack),
-                        suffixIcon: const Icon(Icons.search_outlined),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(30))),
-                  ),
-                ),
-              ),
-              StreamBuilder<QuerySnapshot>(
-                  stream: FirebaseFirestore.instance
-                      .collection('ChatRooms')
-                      .snapshots(),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    } else {
-                      return Padding(
-                        padding: const EdgeInsets.only(top: 10.0),
-                        child: ListView.builder(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemCount: snapshot.data!.docs.length,
-                            itemBuilder: (context, index) {
-                              if (!snapshot.hasData) {
-                                return Container();
-                              } else {
-                                ChatRoomModel chatroom =
-                                    ChatRoomModel.fromDocument(
-                                        snapshot.data!.docs[index].data());
-                                if (chatroom.sentbyID == user!.uid) {
-                                  return ListTile(
-                                    leading: Container(
-                                      height: 65,
-                                      width: 65,
-                                      decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          image: DecorationImage(
-                                              image: NetworkImage(
-                                                  "${chatroom.sentToprofileURL}"),
-                                              fit: BoxFit.cover)),
-                                    ),
-                                    title: TextViewInter(
-                                        title: "${chatroom.sentToname}",
-                                        fontsize: 16,
-                                        fontweight: FontWeight.bold,
-                                        fontcolor: colorblack),
-                                    subtitle: const TextViewInter(
-                                        title: "Send message",
-                                        fontsize: 14,
-                                        fontweight: FontWeight.w400,
-                                        fontcolor: colorgrey),
-                                    trailing: const Padding(
-                                      padding: EdgeInsets.only(right: 12.0),
-                                      child: Icon(Icons.send_rounded),
-                                    ),
-                                    onTap: () => Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                ChatConvopage(chatroom))),
-                                  );
-                                }
-                                if (chatroom.sentToID == user!.uid) {
-                                  return ListTile(
-                                    leading: Container(
-                                      height: 65,
-                                      width: 65,
-                                      decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          image: DecorationImage(
-                                              image: NetworkImage(
-                                                  "${chatroom.sentbyprofileURL}"),
-                                              fit: BoxFit.cover)),
-                                    ),
-                                    title: TextViewInter(
-                                        title: "${chatroom.sentbyname}",
-                                        fontsize: 16,
-                                        fontweight: FontWeight.bold,
-                                        fontcolor: colorblack),
-                                    subtitle: const TextViewInter(
-                                        title: "Send message",
-                                        fontsize: 14,
-                                        fontweight: FontWeight.w400,
-                                        fontcolor: colorgrey),
-                                    trailing: const Padding(
-                                      padding: EdgeInsets.only(right: 12.0),
-                                      child: Icon(Icons.send_rounded),
-                                    ),
-                                    onTap: () => Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                ChatConvopage(chatroom))),
-                                  );
-                                } else {
+                child: StreamBuilder<QuerySnapshot>(
+                    stream: FirebaseFirestore.instance
+                        .collection('ChatRooms')
+                        .snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      } else {
+                        return Padding(
+                          padding: const EdgeInsets.only(top: 10.0),
+                          child: ListView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: snapshot.data!.docs.length,
+                              itemBuilder: (context, index) {
+                                if (!snapshot.hasData) {
                                   return Container();
+                                } else {
+                                  ChatRoomModel chatroom =
+                                      ChatRoomModel.fromDocument(
+                                          snapshot.data!.docs[index].data());
+                                  if (chatroom.sentbyID == user!.uid) {
+                                    return ListTile(
+                                      leading: Container(
+                                        height: 65,
+                                        width: 65,
+                                        decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            image: DecorationImage(
+                                                image: NetworkImage(
+                                                    "${chatroom.sentToprofileURL}"),
+                                                fit: BoxFit.cover)),
+                                      ),
+                                      title: TextViewInter(
+                                          title: "${chatroom.sentToname}",
+                                          fontsize: 16,
+                                          fontweight: FontWeight.bold,
+                                          fontcolor: colorblack),
+                                      subtitle: const TextViewInter(
+                                          title: "Send message",
+                                          fontsize: 14,
+                                          fontweight: FontWeight.w400,
+                                          fontcolor: colorgrey),
+                                      trailing: const Padding(
+                                        padding: EdgeInsets.only(right: 12.0),
+                                        child: Icon(Icons.send_rounded),
+                                      ),
+                                      onTap: () => Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ChatConvopage(chatroom))),
+                                    );
+                                  }
+                                  if (chatroom.sentToID == user!.uid) {
+                                    return ListTile(
+                                      leading: Container(
+                                        height: 65,
+                                        width: 65,
+                                        decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            image: DecorationImage(
+                                                image: NetworkImage(
+                                                    "${chatroom.sentbyprofileURL}"),
+                                                fit: BoxFit.cover)),
+                                      ),
+                                      title: TextViewInter(
+                                          title: "${chatroom.sentbyname}",
+                                          fontsize: 16,
+                                          fontweight: FontWeight.bold,
+                                          fontcolor: colorblack),
+                                      subtitle: const TextViewInter(
+                                          title: "Send message",
+                                          fontsize: 14,
+                                          fontweight: FontWeight.w400,
+                                          fontcolor: colorgrey),
+                                      trailing: const Padding(
+                                        padding: EdgeInsets.only(right: 12.0),
+                                        child: Icon(Icons.send_rounded),
+                                      ),
+                                      onTap: () => Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ChatConvopage(chatroom))),
+                                    );
+                                  } else {
+                                    return Container();
+                                  }
                                 }
-                              }
-                            }),
-                      );
-                    }
-                  }),
+                              }),
+                        );
+                      }
+                    }),
+              ),
             ],
           ),
         ),

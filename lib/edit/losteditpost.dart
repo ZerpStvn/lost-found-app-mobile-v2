@@ -111,8 +111,13 @@ class _EditTextPostLostState extends State<EditTextPostLost> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
     handleuserdatevalue();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final widthsize = MediaQuery.of(context).size.width;
     return Scaffold(
       body: SingleChildScrollView(

@@ -56,7 +56,7 @@ class Cardpost extends StatelessWidget {
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: primaryColor),
                             onPressed: () {
-                              shoowDialog(context);
+                              handleButtonModal(context);
                             },
                             child: const Center(
                               child: TextViewInter(
@@ -85,50 +85,6 @@ Future timerdelay(BuildContext context) async {
 handlefoundNavigate(BuildContext context) {
   timerdelay(context);
   Navigator.of(context).pop(true);
-}
-
-Future shoowDialog(BuildContext context) async {
-  await showDialog(
-      context: context,
-      builder: (context) => SimpleDialog(
-            backgroundColor: colorWhite,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-            title: const TextView(
-                title: "Choose Options",
-                fontsize: 17,
-                fontweight: FontWeight.bold,
-                fontcolor: colorblack),
-            children: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context, rootNavigator: true).pop();
-                  SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const FoundReportPage()));
-                  });
-                },
-                child: const TextView(
-                    title: "Report Found item",
-                    fontsize: 13,
-                    fontweight: FontWeight.w500,
-                    fontcolor: colorblack),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context, rootNavigator: true).pop();
-                  handleOption(context);
-                },
-                child: const TextView(
-                    title: "Report lost item",
-                    fontsize: 13,
-                    fontweight: FontWeight.w500,
-                    fontcolor: colorblack),
-              ),
-            ],
-          ));
 }
 
 Future handleOption(BuildContext context) async {
@@ -185,4 +141,49 @@ Future handleOption(BuildContext context) async {
           ],
         );
       });
+}
+
+Future handleButtonModal(BuildContext context) async {
+  return (await showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return Padding(
+          padding: const EdgeInsets.only(top: 11.0, bottom: 11.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                leading: const Icon(Icons.description_outlined),
+                title: const TextView(
+                    title: "Report found item",
+                    fontsize: 13,
+                    fontweight: FontWeight.w500,
+                    fontcolor: colorblack),
+                onTap: () {
+                  Navigator.of(context, rootNavigator: true).pop();
+                  SchedulerBinding.instance.scheduleFrameCallback((timeStamp) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const FoundReportPage()));
+                  });
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.description_outlined),
+                title: const TextView(
+                    title: "Report lost item",
+                    fontsize: 13,
+                    fontweight: FontWeight.w500,
+                    fontcolor: colorblack),
+                onTap: () {
+                  Navigator.of(context, rootNavigator: true).pop();
+                  handleOption(context);
+                },
+              )
+            ],
+          ),
+        );
+      }));
 }

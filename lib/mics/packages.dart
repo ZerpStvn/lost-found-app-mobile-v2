@@ -42,3 +42,4 @@ export 'package:lostfoundapp/achive/claimedpost.dart';
 export 'package:lostfoundapp/model/claimeditemmodel.dart';
 export 'package:lostfoundapp/achive/archive.dart';
 export 'package:lostfoundapp/mainscreen/claimedpost.dart';
+export 'package:lostfoundapp/claimeditem/viewCliamedItem.dart';

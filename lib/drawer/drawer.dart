@@ -48,7 +48,7 @@ class _DrawerPropetyState extends State<DrawerPropety> {
                 signout();
               },
               child: const TextViewPoppins(
-                  title: "Logout",
+                  title: "Sign out",
                   fontsize: 13,
                   fontweight: FontWeight.w200,
                   fontcolor: colorblack),

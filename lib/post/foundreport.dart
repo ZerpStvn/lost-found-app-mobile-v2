@@ -423,17 +423,17 @@ class _FoundReportPageState extends State<FoundReportPage> {
   @override
   void dispose() {
     founditemtitlecon.dispose();
-    foundmobilenumbercon.dispose();
-    foundsocialmediacon.dispose();
+    foundfounddescriptionrcon.dispose();
+    founditemcolorcon.dispose();
     foundlocationcon.dispose();
     foundlocationDescriptioncon.dispose();
     founditemdescriptioncon.dispose();
-    foundfounddescriptionrcon.dispose();
+    foundmobilenumbercon.dispose();
+    foundsocialmediacon.dispose();
     foundmodelcon.dispose();
     foundbrandcon.dispose();
     foundmarkingscon.dispose();
     foundseiralnumcon.dispose();
-    founditemcolorcon.dispose();
     founddatetimeController.dispose();
     super.dispose();
   }

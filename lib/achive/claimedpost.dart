@@ -62,17 +62,6 @@ class ClaimedPostPage extends StatelessWidget {
                         title: tiemformat, fontsize: 10, fontcolor: colorWhite),
                   ],
                 )),
-            clm.userID == userlogin!.useruid
-                ? Positioned(
-                    top: 8,
-                    right: 10,
-                    child: IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.more_vert,
-                          color: colorWhite,
-                        )))
-                : Container(),
             Positioned(
               bottom: 18,
               right: 15,
@@ -81,7 +70,10 @@ class ClaimedPostPage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(30),
                 color: Colors.transparent,
                 child: OutlinedButton(
-                    onPressed: () {},
+                    onPressed: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ViewClaimedItems(clm))),
                     style: OutlinedButton.styleFrom(
                         side: const BorderSide(width: 2, color: Colors.white),
                         shape: const StadiumBorder()),

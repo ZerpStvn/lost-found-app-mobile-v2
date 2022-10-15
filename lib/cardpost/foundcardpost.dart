@@ -126,7 +126,9 @@ class _FoundCardPostState extends State<FoundCardPost> {
                     top: 8,
                     right: 10,
                     child: IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          handleButtonModalItem(context);
+                        },
                         icon: const Icon(
                           Icons.more_vert,
                           color: colorWhite,
@@ -194,5 +196,72 @@ class _FoundCardPostState extends State<FoundCardPost> {
         ),
       ),
     );
+  }
+
+  Future handleButtonModalItem(BuildContext context) async {
+    return (await showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return Padding(
+            padding: const EdgeInsets.only(top: 11.0, bottom: 11.0),
+            child: widget.postModel.userID == userlogin!.useruid
+                ? Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      ListTile(
+                        leading: const Icon(Icons.edit_outlined),
+                        title: const TextView(
+                            title: "Edit",
+                            fontsize: 13,
+                            fontweight: FontWeight.w500,
+                            fontcolor: colorblack),
+                        onTap: () {
+                          Navigator.of(context, rootNavigator: true).pop();
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => FountItemRequestSender(
+                                      widget.postModel)));
+                        },
+                      ),
+                      ListTile(
+                        leading: const Icon(Icons.edit_outlined),
+                        title: const TextView(
+                            title: "Delete",
+                            fontsize: 13,
+                            fontweight: FontWeight.w500,
+                            fontcolor: colorblack),
+                        onTap: () {
+                          Navigator.of(context, rootNavigator: true).pop();
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      FountItemRequestSender(widget.postModel)),
+                              (route) => false);
+                        },
+                      )
+                    ],
+                  )
+                : ListTile(
+                    leading: const Icon(Icons.report_outlined),
+                    title: const TextView(
+                        title: "Report",
+                        fontsize: 13,
+                        fontweight: FontWeight.w500,
+                        fontcolor: colorblack),
+                    onTap: () {
+                      Navigator.of(context, rootNavigator: true).pop();
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  FountItemRequestSender(widget.postModel)),
+                          (route) => false);
+                    },
+                  ),
+          );
+        }));
   }
 }

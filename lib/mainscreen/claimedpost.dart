@@ -9,6 +9,15 @@ class ClaimedItemPostPage extends StatefulWidget {
 }
 
 class _ClaimedItemPostPageState extends State<ClaimedItemPostPage> {
+  final TextEditingController search = TextEditingController();
+  String onchangevalue = "";
+
+  @override
+  void dispose() {
+    search.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,6 +64,12 @@ class _ClaimedItemPostPageState extends State<ClaimedItemPostPage> {
                   height: 50,
                   width: MediaQuery.of(context).size.width * 0.89,
                   child: TextFormField(
+                    controller: search,
+                    onChanged: (value) {
+                      setState(() {
+                        onchangevalue = value;
+                      });
+                    },
                     textInputAction: TextInputAction.search,
                     keyboardType: TextInputType.name,
                     decoration: InputDecoration(
@@ -86,20 +101,39 @@ class _ClaimedItemPostPageState extends State<ClaimedItemPostPage> {
                             physics: const NeverScrollableScrollPhysics(),
                             itemCount: snapshot.data!.docs.length,
                             itemBuilder: (context, index) {
+                              ClaimedItemModel clm =
+                                  ClaimedItemModel.fromDocument(
+                                      snapshot.data!.docs[index].data());
+                              Timestamp timestamp =
+                                  clm.claimedDate as Timestamp;
+                              final DateTime timeDate = timestamp.toDate();
+                              final tiemformat =
+                                  DateFormat('M/d/y KK:mm').format(timeDate);
                               if (!snapshot.hasData) {
                                 return const Center(
                                   child: Text("No Data"),
                                 );
-                              } else {
-                                ClaimedItemModel clm =
-                                    ClaimedItemModel.fromDocument(
-                                        snapshot.data!.docs[index].data());
+                              }
 
-                                Timestamp timestamp =
-                                    clm.claimedDate as Timestamp;
-                                final DateTime timeDate = timestamp.toDate();
-                                final tiemformat =
-                                    DateFormat('M/d/y KK:mm').format(timeDate);
+                              if (clm.itemname!
+                                      .trim()
+                                      .toLowerCase()
+                                      .contains(onchangevalue) ||
+                                  clm.claimedDate
+                                      .toString()
+                                      .toLowerCase()
+                                      .contains(onchangevalue) ||
+                                  clm.claimername
+                                      .toString()
+                                      .toLowerCase()
+                                      .contains(onchangevalue) ||
+                                  clm.ownersname
+                                      .toString()
+                                      .toLowerCase()
+                                      .contains(onchangevalue)) {
+                                return ClaimedPostPage(
+                                    clm: clm, tiemformat: tiemformat);
+                              } else {
                                 return ClaimedPostPage(
                                     clm: clm, tiemformat: tiemformat);
                               }

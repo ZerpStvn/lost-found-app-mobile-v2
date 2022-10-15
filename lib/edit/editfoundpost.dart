@@ -112,8 +112,13 @@ class _EditTextPostState extends State<EditTextPost> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
     handleuserdatevalue();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     //const sizeheight = SizedBox(height: 10);
     final widthsize = MediaQuery.of(context).size.width;
     return Scaffold(

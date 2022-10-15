@@ -1,6 +1,8 @@
 // ignore_for_file: file_names
 
 import 'package:lostfoundapp/mics/packages.dart';
+import 'package:lostfoundapp/searchpage/itemsearch.dart';
+import 'package:lostfoundapp/shomodal.dart';
 
 class SliverHomePage extends StatefulWidget {
   const SliverHomePage({super.key});
@@ -71,7 +73,10 @@ class _SliverHomePageState extends State<SliverHomePage>
               children: [
                 IconButton(
                     splashRadius: 1,
-                    onPressed: () {},
+                    onPressed: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ItemSearchPage())),
                     icon: const Icon(
                       Icons.search_outlined,
                       color: colorblack45,
@@ -90,7 +95,9 @@ class _SliverHomePageState extends State<SliverHomePage>
                     )),
                 IconButton(
                     splashRadius: 1.9,
-                    onPressed: () {},
+                    onPressed: () {
+                      handleButtonModalOption(context);
+                    },
                     icon: const Icon(
                       Icons.more_vert,
                       color: colorblack45,

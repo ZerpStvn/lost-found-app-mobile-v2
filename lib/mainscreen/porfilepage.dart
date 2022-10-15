@@ -1,6 +1,7 @@
 import 'package:lostfoundapp/mainscreen/tabbarprofile/foundtab.dart';
 import 'package:lostfoundapp/mainscreen/tabbarprofile/losttab.dart';
 import 'package:lostfoundapp/mics/packages.dart';
+import 'package:lostfoundapp/shomodal.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -57,7 +58,9 @@ class _ProfilePageState extends State<ProfilePage>
               expandedHeight: 150,
               actions: [
                 IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      handleButtonModalProfile(context);
+                    },
                     icon: const Icon(
                       Icons.more_vert_rounded,
                       color: colorWhite,

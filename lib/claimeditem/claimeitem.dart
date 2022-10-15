@@ -107,7 +107,7 @@ class _ClaimedPageState extends State<ClaimedPage> {
                     textInputAction: TextInputAction.next,
                     controller: ownername,
                     decoration: InputDecoration(
-                      hintText: "Owner name",
+                      hintText: "Owner's name",
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(15),
                       ),
@@ -176,7 +176,7 @@ class _ClaimedPageState extends State<ClaimedPage> {
                   Row(
                     children: const [
                       TextViewInter(
-                        title: "Verification Image",
+                        title: "Image verification",
                         fontcolor: primaryColor,
                         fontsize: 15,
                         fontweight: FontWeight.bold,
