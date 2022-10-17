@@ -1,4 +1,5 @@
 import 'package:flutter/scheduler.dart';
+import 'package:lostfoundapp/mainscreen/test.dart';
 import 'package:lostfoundapp/mics/packages.dart';
 
 class Cardpost extends StatelessWidget {
@@ -180,6 +181,21 @@ Future handleButtonModal(BuildContext context) async {
                 onTap: () {
                   Navigator.of(context, rootNavigator: true).pop();
                   handleOption(context);
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.description_outlined),
+                title: const TextView(
+                    title: "Test",
+                    fontsize: 13,
+                    fontweight: FontWeight.w500,
+                    fontcolor: colorblack),
+                onTap: () {
+                  Navigator.of(context, rootNavigator: true).pop();
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const TestAlgo()));
                 },
               )
             ],

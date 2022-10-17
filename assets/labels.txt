@@ -1,8 +1,14 @@
-Black
-Blue
-Brown
-Green
-Orange
-Red
-Violet
-Yellow
+Mobile phone
+Bag/Purse
+laptop
+Wallet/pocket
+Notebooks/Books
+Keys
+Camera
+School ID
+peripherals
+Clothes
+Tumbler
+Umbrella
+Wristwatch
+Eyeglasses

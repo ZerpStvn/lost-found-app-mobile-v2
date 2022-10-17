@@ -15,7 +15,7 @@ class _FoundReportPageState extends State<FoundReportPage> {
   bool isloading = false;
   XFile? imagepathfile;
   final ImagePicker _picker = ImagePicker();
-  List? _colorRecognation;
+  //List? _colorRecognation;
   String postID = const Uuid().v4();
   UserPostModel userPostModel = UserPostModel();
   final user = FirebaseAuth.instance.currentUser;
@@ -50,92 +50,87 @@ class _FoundReportPageState extends State<FoundReportPage> {
     setState(() {
       imagepathfile = imagepath;
     });
-    try {
-      colordectection();
-    } catch (err) {
-      debugPrint("$err");
-    }
   }
 
-  //load the tflite model from folder assets
-  Future loadModel() async {
-    Tflite.close();
-    await Tflite.loadModel(
-      model: 'assets/model_unquant.tflite',
-      labels: 'assets/labels.txt',
-      isAsset: true,
-      useGpuDelegate: false,
-    );
-  }
+  // //load the tflite model from folder assets
+  // Future loadModel() async {
+  //   Tflite.close();
+  //   await Tflite.loadModel(
+  //     model: 'assets/model_unquant.tflite',
+  //     labels: 'assets/labels.txt',
+  //     isAsset: true,
+  //     useGpuDelegate: false,
+  //   );
+  // }
 
-  //color image detection function
-  Future colordectection() async {
-    var colordetect = await Tflite.runModelOnImage(
-        path: imagepathfile!.path,
-        numResults: 8,
-        threshold: 0.07,
-        imageMean: 127.5,
-        imageStd: 127.5,
-        asynch: true);
-    setState(() {
-      debugPrint('$colordetect');
-      _colorRecognation = colordetect;
-      isloading = true;
-    });
-  }
+  // //color image detection function
+  // Future colordectection() async {
+  //   var colordetect = await Tflite.runModelOnImage(
+  //       path: imagepathfile!.path,
+  //       numResults: 8,
+  //       threshold: 0.07,
+  //       imageMean: 127.5,
+  //       imageStd: 127.5,
+  //       asynch: true);
+  //   setState(() {
+  //     debugPrint('$colordetect');
+  //     _colorRecognation = colordetect;
+  //     isloading = true;
+  //   });
+  // }
 
-  //load the models
-  @override
-  void initState() {
-    super.initState();
-    loadModel();
-    isloading = true;
-    setState(() {
-      isloading = false;
-    });
-  }
+  // //load the models
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   loadModel();
+  //   isloading = true;
+  //   setState(() {
+  //     isloading = false;
+  //   });
+  // }
 
-  //classify the color based on the result
-  Color colorhanlde() {
-    if ("${_colorRecognation![0]['label']}" == "Black") {
-      return Colors.black;
-    } else if ("${_colorRecognation![0]['label']}" == "Yellow") {
-      return Colors.yellow;
-    } else if ("${_colorRecognation![0]['label']}" == "Blue") {
-      return Colors.blue;
-    } else if ("${_colorRecognation![0]['label']}" == "Green") {
-      return Colors.green;
-    } else if ("${_colorRecognation![0]['label']}" == "Orange") {
-      return Colors.orange;
-    } else if ("${_colorRecognation![0]['label']}" == "Brown") {
-      return Colors.brown;
-    } else if ("${_colorRecognation![0]['label']}" == "Violet") {
-      return Colors.deepPurple;
-    } else if ("${_colorRecognation![0]['label']}" == "Red") {
-      return Colors.red;
-    }
-    return primaryColor;
-  }
+  // //classify the color based on the result
+  // Color colorhanlde() {
+  //   if ("${_colorRecognation![0]['label']}" == "Black") {
+  //     return Colors.black;
+  //   } else if ("${_colorRecognation![0]['label']}" == "Yellow") {
+  //     return Colors.yellow;
+  //   } else if ("${_colorRecognation![0]['label']}" == "Blue") {
+  //     return Colors.blue;
+  //   } else if ("${_colorRecognation![0]['label']}" == "Green") {
+  //     return Colors.green;
+  //   } else if ("${_colorRecognation![0]['label']}" == "Orange") {
+  //     return Colors.orange;
+  //   } else if ("${_colorRecognation![0]['label']}" == "Brown") {
+  //     return Colors.brown;
+  //   } else if ("${_colorRecognation![0]['label']}" == "Violet") {
+  //     return Colors.deepPurple;
+  //   } else if ("${_colorRecognation![0]['label']}" == "Red") {
+  //     return Colors.red;
+  //   }
+  //   return primaryColor;
+  // }
 
   //suggest a color based on a result
-  Widget colorsuggestion(BuildContext contex) {
-    return _colorRecognation == null
-        ? Container()
-        : Container(
-            height: 30,
-            width: 65,
-            decoration: BoxDecoration(
-                color: colorhanlde(), borderRadius: BorderRadius.circular(30)),
-            child: Center(
-              child: TextViewInter(
-                title: "${_colorRecognation![0]['label']}",
-                fontcolor: colorWhite,
-                fontsize: 15,
-                fontweight: FontWeight.normal,
-              ),
-            ),
-          );
-  }
+  // Widget colorsuggestion(BuildContext contex) {
+  //   return _colorRecognation == null
+  //       ? Container()
+  //       : Container(
+  //           height: 30,
+  //           width: 65,
+  //           decoration: BoxDecoration(
+  //               color: colorhanlde(), borderRadius: BorderRadius.circular(30)),
+  //           child: Center(
+  //             child: TextViewInter(
+  //               title: "${_colorRecognation![0]['label']}",
+  //               fontcolor: colorWhite,
+  //               fontsize: 15,
+  //               fontweight: FontWeight.normal,
+  //             ),
+  //           ),
+  //         );
+  // }
 
   //return image pixel
   Widget hanldeimagepixelColor(BuildContext context) {
