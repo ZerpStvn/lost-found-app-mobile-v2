@@ -46,6 +46,9 @@ class _EditTextPostState extends State<EditTextPost> {
       editbrandcon.text = "${usermodel.itembrand}";
       editmarkingscon.text = "${usermodel.itemMarks}";
       editseiralnumcon.text = "${usermodel.itemserailNum}";
+      setState(() {
+        itemvalue = "${usermodel.itemtype}";
+      });
     });
   }
 
@@ -77,8 +80,7 @@ class _EditTextPostState extends State<EditTextPost> {
     usermodel.itemMarks = editmarkingscon.text;
     usermodel.itemserailNum = editseiralnumcon.text;
     usermodel.itemstatus = "Unclaimed";
-    usermodel.itemtype = "";
-    usermodel.itemsubtype = "";
+    usermodel.itemtype = itemvalue;
 
     await FirebaseFirestore.instance
         .collection("found_items")
@@ -169,29 +171,35 @@ class _EditTextPostState extends State<EditTextPost> {
                       ),
                     )),
                 const SizedBox(height: 10),
-                SizedBox(
-                    width: widthsize * 0.50,
-                    child: TextFormField(
-                      readOnly: true,
-                      controller: edititemcolorcon,
-                      keyboardType: TextInputType.name,
-                      textInputAction: TextInputAction.next,
-                      decoration: InputDecoration(
-                        prefixIcon: const Icon(
-                          Icons.color_lens_outlined,
-                          color: primaryColor,
+                Row(
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: TextFormField(
+                        readOnly: true,
+                        controller: edititemcolorcon,
+                        keyboardType: TextInputType.name,
+                        textInputAction: TextInputAction.next,
+                        decoration: InputDecoration(
+                          prefixIcon: const Icon(
+                            Icons.color_lens_outlined,
+                            color: primaryColor,
+                          ),
+                          suffixIcon: const Icon(
+                            Icons.square,
+                            color: primaryColor,
+                          ),
+                          labelText: 'Color ',
+                          labelStyle:
+                              GoogleFonts.inter(fontSize: 12, color: colorgrey),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(0)),
                         ),
-                        suffixIcon: const Icon(
-                          Icons.square,
-                          color: primaryColor,
-                        ),
-                        labelText: 'Color ',
-                        labelStyle:
-                            GoogleFonts.inter(fontSize: 12, color: colorgrey),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(0)),
                       ),
-                    )),
+                    ),
+                    const Expanded(flex: 1, child: ItemTypeCategory())
+                  ],
+                ),
               ],
             ),
           ),

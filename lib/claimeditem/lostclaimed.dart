@@ -315,7 +315,6 @@ class _LostClaimedPageState extends State<LostClaimedPage> {
     clm.ownersname = userlogin!.username;
     clm.itemstatus = "Claimed";
     clm.itemtype = widget.userpost.itemtype;
-    clm.itemsubtype = widget.userpost.itemsubtype;
 
     await FirebaseFirestore.instance
         .collection('Claimed_items')

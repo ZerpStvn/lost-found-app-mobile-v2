@@ -310,7 +310,6 @@ class _ClaimedPageState extends State<ClaimedPage> {
     clm.onwerprofileURl = userlogin!.profileURL;
     clm.ownersname = userlogin!.username;
     clm.itemtype = widget.userpost.itemtype;
-    clm.itemsubtype = widget.userpost.itemsubtype;
 
     await FirebaseFirestore.instance
         .collection('Claimed_items')

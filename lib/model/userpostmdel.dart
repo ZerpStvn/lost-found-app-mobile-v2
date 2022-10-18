@@ -19,7 +19,6 @@ class UserPostModel {
   String? datelossfound;
   String? itemstatus;
   String? itemtype;
-  String? itemsubtype;
   Timestamp? dateposted;
   String? userpostername;
   String? userposterPhourl;
@@ -43,7 +42,6 @@ class UserPostModel {
     this.phtoURL,
     this.itemstatus,
     this.itemtype,
-    this.itemsubtype,
     this.dateposted,
     this.userposterPhourl,
     this.userpostername,
@@ -68,7 +66,6 @@ class UserPostModel {
       itembrand: map['itembrand'],
       itemMarks: map['itemMarks'],
       itemtype: map['itemtype'],
-      itemsubtype: map['itemsubtype'],
       itemserailNum: map['itemserailNum'],
       phtoURL: map['phtoURL'],
       itemstatus: map['itemstatus'],
@@ -98,7 +95,6 @@ class UserPostModel {
       'phtoURL': phtoURL,
       'itemstatus': itemstatus,
       'itemtype': itemtype,
-      'itemsubtype': itemsubtype,
       'dateposted': DateTime.now(),
     };
   }

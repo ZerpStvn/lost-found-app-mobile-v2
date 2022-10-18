@@ -67,8 +67,7 @@ class _LostReportOption2State extends State<LostReportOption2> {
     userPostModel.datelossfound = lostdatetimeController.text;
     userPostModel.phtoURL = "empty";
     userPostModel.itemstatus = "Lost";
-    userPostModel.itemtype = "";
-    userPostModel.itemsubtype = "";
+    userPostModel.itemtype = itemvalue;
     userPostModel.userposterPhourl = userlogin!.profileURL;
     userPostModel.userpostername = userlogin!.username;
 
@@ -123,57 +122,118 @@ class _LostReportOption2State extends State<LostReportOption2> {
     return WillPopScope(
       onWillPop: onwillPop,
       child: Scaffold(
-        body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(
-                height: 30,
-              ),
-              EditTextFormField(
-                  cont2: lostfounddescriptionrcon,
-                  cont3: lostlocationcon,
-                  cont4: lostlocationDescriptioncon,
-                  cont5: lostitemdescriptioncon,
-                  cont6: lostmobilenumbercon,
-                  cont7: lostsocialmediacon,
-                  cont8: lostmodelcon,
-                  cont9: lostbrandcon,
-                  cont10: lostmarkingscon,
-                  cont11: lostseirlostalnumcon,
-                  cont12: lostdatetimeController,
-                  date: "Date of loss"),
-              const SizedBox(
-                height: 18,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 18.0),
-                child: Center(
-                  child: SizedBox(
-                    width: widthsize * 0.89,
-                    height: 50,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: primaryColor,
-                          ),
-                          onPressed: () {
-                            handlesubmit(context);
-                          },
-                          child: const Center(
-                            child: TextViewInter(
-                              title: "SUBMIT",
-                              fontsize: 14,
-                              fontcolor: colorWhite,
-                              fontweight: FontWeight.bold,
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(
+                  height: 30,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 18.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                          width: widthsize * 0.89,
+                          child: TextFormField(
+                            controller: lostitemtitlecon,
+                            keyboardType: TextInputType.name,
+                            textInputAction: TextInputAction.next,
+                            decoration: InputDecoration(
+                              prefixIcon: const Icon(
+                                Icons.description_outlined,
+                                color: primaryColor,
+                              ),
+                              labelText: 'Item name ',
+                              labelStyle: GoogleFonts.inter(
+                                  fontSize: 12, color: colorgrey),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(0)),
                             ),
                           )),
-                    ),
+                      const SizedBox(height: 10),
+                      Row(
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            child: TextFormField(
+                              readOnly: true,
+                              controller: lostitemcolorcon,
+                              keyboardType: TextInputType.name,
+                              textInputAction: TextInputAction.next,
+                              decoration: InputDecoration(
+                                prefixIcon: const Icon(
+                                  Icons.color_lens_outlined,
+                                  color: primaryColor,
+                                ),
+                                suffixIcon: const Icon(
+                                  Icons.square,
+                                  color: primaryColor,
+                                ),
+                                labelText: 'Color ',
+                                labelStyle: GoogleFonts.inter(
+                                    fontSize: 12, color: colorgrey),
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(0)),
+                              ),
+                            ),
+                          ),
+                          const Expanded(flex: 1, child: ItemTypeCategory()),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
-              )
-            ],
+                const SizedBox(
+                  height: 20,
+                ),
+                EditTextFormField(
+                    cont2: lostfounddescriptionrcon,
+                    cont3: lostlocationcon,
+                    cont4: lostlocationDescriptioncon,
+                    cont5: lostitemdescriptioncon,
+                    cont6: lostmobilenumbercon,
+                    cont7: lostsocialmediacon,
+                    cont8: lostmodelcon,
+                    cont9: lostbrandcon,
+                    cont10: lostmarkingscon,
+                    cont11: lostseirlostalnumcon,
+                    cont12: lostdatetimeController,
+                    date: "Date of loss"),
+                const SizedBox(
+                  height: 18,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 18.0),
+                  child: Center(
+                    child: SizedBox(
+                      width: widthsize * 0.89,
+                      height: 50,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: primaryColor,
+                            ),
+                            onPressed: () {
+                              handlesubmit(context);
+                            },
+                            child: const Center(
+                              child: TextViewInter(
+                                title: "SUBMIT",
+                                fontsize: 14,
+                                fontcolor: colorWhite,
+                                fontweight: FontWeight.bold,
+                              ),
+                            )),
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),

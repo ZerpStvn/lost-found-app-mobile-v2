@@ -49,6 +49,10 @@ class _EditTextPostLostState extends State<EditTextPostLost> {
       editbrandcon.text = "${usermodel.itembrand}";
       editmarkingscon.text = "${usermodel.itemMarks}";
       editseiralnumcon.text = "${usermodel.itemserailNum}";
+      edititemcolorcon.text = "${usermodel.itemcolor}";
+      setState(() {
+        itemvalue = "${usermodel.itemtype}";
+      });
     });
   }
 
@@ -67,7 +71,7 @@ class _EditTextPostLostState extends State<EditTextPostLost> {
     final navigator = Navigator.of(context);
     final snack = snackBarScreen(context, "Done");
     usermodel.itemname = edititemtitlecon.text;
-    usermodel.itemcolor = "";
+    usermodel.itemcolor = edititemcolorcon.text;
     usermodel.usermobileNum = editmobilenumbercon.text;
     usermodel.userSocialMedia = editsocialmediacon.text;
     usermodel.location = editlocationcon.text;
@@ -79,6 +83,7 @@ class _EditTextPostLostState extends State<EditTextPostLost> {
     usermodel.itembrand = editbrandcon.text;
     usermodel.itemMarks = editmarkingscon.text;
     usermodel.itemserailNum = editseiralnumcon.text;
+    usermodel.itemtype = itemvalue;
 
     await FirebaseFirestore.instance
         .collection("lost_items")
@@ -140,6 +145,65 @@ class _EditTextPostLostState extends State<EditTextPostLost> {
                         ),
                 ),
               ],
+            ),
+            const SizedBox(
+              height: 19.0,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(18.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                      width: widthsize * 0.89,
+                      child: TextFormField(
+                        controller: edititemtitlecon,
+                        keyboardType: TextInputType.name,
+                        textInputAction: TextInputAction.next,
+                        decoration: InputDecoration(
+                          prefixIcon: const Icon(
+                            Icons.description_outlined,
+                            color: primaryColor,
+                          ),
+                          labelText: 'Item name ',
+                          labelStyle:
+                              GoogleFonts.inter(fontSize: 12, color: colorgrey),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(0)),
+                        ),
+                      )),
+                  const SizedBox(height: 10),
+                  Row(
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: TextFormField(
+                          readOnly: true,
+                          controller: edititemcolorcon,
+                          keyboardType: TextInputType.name,
+                          textInputAction: TextInputAction.next,
+                          decoration: InputDecoration(
+                            prefixIcon: const Icon(
+                              Icons.color_lens_outlined,
+                              color: primaryColor,
+                            ),
+                            suffixIcon: const Icon(
+                              Icons.square,
+                              color: primaryColor,
+                            ),
+                            labelText: 'Color ',
+                            labelStyle: GoogleFonts.inter(
+                                fontSize: 12, color: colorgrey),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(0)),
+                          ),
+                        ),
+                      ),
+                      const Expanded(flex: 1, child: ItemTypeCategory())
+                    ],
+                  ),
+                ],
+              ),
             ),
             const SizedBox(
               height: 15.0,
@@ -217,7 +281,6 @@ class _EditTextPostLostState extends State<EditTextPostLost> {
     editmobilenumbercon.dispose();
     editsocialmediacon.dispose();
     editlocationcon.dispose();
-    edititemcolorcon.dispose();
     editlocationDescriptioncon.dispose();
     edititemdescriptioncon.dispose();
     editfounddescriptionrcon.dispose();
