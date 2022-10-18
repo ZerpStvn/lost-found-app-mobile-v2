@@ -145,7 +145,6 @@ class _EditTextPostLostState extends State<EditTextPostLost> {
               height: 15.0,
             ),
             EditTextFormField(
-                cont1: edititemtitlecon,
                 cont2: editfounddescriptionrcon,
                 cont3: editlocationcon,
                 cont4: editlocationDescriptioncon,
@@ -218,6 +217,7 @@ class _EditTextPostLostState extends State<EditTextPostLost> {
     editmobilenumbercon.dispose();
     editsocialmediacon.dispose();
     editlocationcon.dispose();
+    edititemcolorcon.dispose();
     editlocationDescriptioncon.dispose();
     edititemdescriptioncon.dispose();
     editfounddescriptionrcon.dispose();

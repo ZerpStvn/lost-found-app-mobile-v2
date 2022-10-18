@@ -29,14 +29,13 @@ class _EditTextPostState extends State<EditTextPost> {
   final TextEditingController editbrandcon = TextEditingController();
   final TextEditingController editmarkingscon = TextEditingController();
   final TextEditingController editseiralnumcon = TextEditingController();
-
   final TextEditingController editdatetimeController = TextEditingController();
 
   handleuserdatevalue() {
     SchedulerBinding.instance.addPostFrameCallback((timestamp) {
       edititemtitlecon.text = "${usermodel.itemname}";
       editfounddescriptionrcon.text = "${usermodel.foundlossDes}";
-      //itemcolorcon.teeditxt = "${usermodel.itemcolor}";
+      edititemcolorcon.text = "${usermodel.itemcolor}";
       editlocationcon.text = "${usermodel.location}";
       editlocationDescriptioncon.text = "${usermodel.locationDes}";
       edititemdescriptioncon.text = "${usermodel.itemDes}";
@@ -65,7 +64,7 @@ class _EditTextPostState extends State<EditTextPost> {
     final navigator = Navigator.of(context);
     final snack = snackBarScreen(context, "Done");
     usermodel.itemname = edititemtitlecon.text;
-    usermodel.itemcolor = "";
+    usermodel.itemcolor = edititemcolorcon.text;
     usermodel.usermobileNum = editmobilenumbercon.text;
     usermodel.userSocialMedia = editsocialmediacon.text;
     usermodel.location = editlocationcon.text;
@@ -144,10 +143,62 @@ class _EditTextPostState extends State<EditTextPost> {
             ],
           ),
           const SizedBox(
-            height: 15.0,
+            height: 19.0,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(18.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                    width: widthsize * 0.89,
+                    child: TextFormField(
+                      controller: edititemtitlecon,
+                      keyboardType: TextInputType.name,
+                      textInputAction: TextInputAction.next,
+                      decoration: InputDecoration(
+                        prefixIcon: const Icon(
+                          Icons.description_outlined,
+                          color: primaryColor,
+                        ),
+                        labelText: 'Item name ',
+                        labelStyle:
+                            GoogleFonts.inter(fontSize: 12, color: colorgrey),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(0)),
+                      ),
+                    )),
+                const SizedBox(height: 10),
+                SizedBox(
+                    width: widthsize * 0.50,
+                    child: TextFormField(
+                      readOnly: true,
+                      controller: edititemcolorcon,
+                      keyboardType: TextInputType.name,
+                      textInputAction: TextInputAction.next,
+                      decoration: InputDecoration(
+                        prefixIcon: const Icon(
+                          Icons.color_lens_outlined,
+                          color: primaryColor,
+                        ),
+                        suffixIcon: const Icon(
+                          Icons.square,
+                          color: primaryColor,
+                        ),
+                        labelText: 'Color ',
+                        labelStyle:
+                            GoogleFonts.inter(fontSize: 12, color: colorgrey),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(0)),
+                      ),
+                    )),
+              ],
+            ),
+          ),
+          const SizedBox(
+            height: 20.0,
           ),
           EditTextFormField(
-              cont1: edititemtitlecon,
               cont2: editfounddescriptionrcon,
               cont3: editlocationcon,
               cont4: editlocationDescriptioncon,

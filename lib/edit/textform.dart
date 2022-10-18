@@ -5,7 +5,6 @@ import 'package:lostfoundapp/mics/packages.dart';
 class EditTextFormField extends StatefulWidget {
   const EditTextFormField(
       {super.key,
-      required this.cont1,
       required this.cont2,
       required this.cont3,
       required this.cont4,
@@ -18,7 +17,6 @@ class EditTextFormField extends StatefulWidget {
       required this.cont11,
       required this.cont12,
       required this.date});
-  final TextEditingController cont1;
   final TextEditingController cont2;
   final TextEditingController cont3;
   final TextEditingController cont4;
@@ -69,24 +67,6 @@ class _EditTextFormFieldState extends State<EditTextFormField> {
           const SizedBox(
             height: 15.0,
           ),
-          SizedBox(
-              width: widthsize * 0.89,
-              child: TextFormField(
-                controller: widget.cont1,
-                keyboardType: TextInputType.name,
-                textInputAction: TextInputAction.next,
-                decoration: InputDecoration(
-                  prefixIcon: const Icon(
-                    Icons.description_outlined,
-                    color: primaryColor,
-                  ),
-                  labelText: 'Item ',
-                  labelStyle: GoogleFonts.inter(fontSize: 12, color: colorgrey),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(0)),
-                ),
-              )),
-          sizeheight,
           SizedBox(
             width: widthsize * 0.89,
             child: TextFormField(

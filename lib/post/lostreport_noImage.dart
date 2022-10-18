@@ -131,7 +131,6 @@ class _LostReportOption2State extends State<LostReportOption2> {
                 height: 30,
               ),
               EditTextFormField(
-                  cont1: lostitemtitlecon,
                   cont2: lostfounddescriptionrcon,
                   cont3: lostlocationcon,
                   cont4: lostlocationDescriptioncon,
@@ -236,6 +235,7 @@ class _LostReportOption2State extends State<LostReportOption2> {
   void dispose() {
     lostitemtitlecon.dispose();
     lostmobilenumbercon.dispose();
+    lostitemcolorcon.dispose();
     lostsocialmediacon.dispose();
     lostlocationcon.dispose();
     lostlocationDescriptioncon.dispose();
