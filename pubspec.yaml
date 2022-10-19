@@ -48,6 +48,10 @@ dependencies:
   intl: ^0.17.0
   flutter_tflite: ^1.0.1
   image_pixels: ^3.0.0
+  flutter_colorpicker: ^1.0.3
+  shared_preferences: ^2.0.15
+  flutter_launcher_icons: ^0.10.0
+  percent_indicator: ^4.2.2
 
 dev_dependencies:
   flutter_test:

@@ -226,7 +226,7 @@ class _FoundCardPostState extends State<FoundCardPost> {
                         },
                       ),
                       ListTile(
-                        leading: const Icon(Icons.edit_outlined),
+                        leading: const Icon(Icons.delete),
                         title: const TextView(
                             title: "Delete",
                             fontsize: 13,
