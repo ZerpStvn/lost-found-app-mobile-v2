@@ -1,5 +1,6 @@
 import 'package:lostfoundapp/mics/packages.dart';
 import 'package:lostfoundapp/model/userdata.dart';
+import 'package:lostfoundapp/registration/forgotpss.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -97,7 +98,7 @@ class _LoginPageState extends State<LoginPage> {
     } else if (userpassconnew.text.length < 6) {
       snacbarmessage(context, 'password to short');
     } else {
-      snacbarmessage(context, "Signing in");
+      snacbarmessage(context, "Logging in");
       login(emailconnew.text, userpassconnew.text);
     }
     setState(() {
@@ -207,7 +208,10 @@ class _LoginPageState extends State<LoginPage> {
                 padding: const EdgeInsets.only(right: 15.0),
                 alignment: Alignment.centerRight,
                 child: TextButton(
-                    onPressed: () {},
+                    onPressed: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ForgotPassword())),
                     child: const TextView(
                         title: "Forgot password ?",
                         fontsize: 14,
@@ -228,7 +232,7 @@ class _LoginPageState extends State<LoginPage> {
                         isloading ? null : handlesubmit(context);
                       },
                       child: const TextView(
-                        title: "SIGNIN",
+                        title: "LOGIN",
                         fontweight: FontWeight.bold,
                         fontcolor: colorWhite,
                         fontsize: 14,

@@ -1,6 +1,9 @@
 // ignore_for_file: file_names
 
+import 'dart:ui';
+
 import 'package:intl/intl.dart';
+import 'package:lostfoundapp/cardpost/vievsuggestionCardpost.dart';
 import 'package:lostfoundapp/claimeditem/lostclaimed.dart';
 import 'package:lostfoundapp/mics/packages.dart';
 import 'package:lostfoundapp/sendRequest/lostSendRequest.dart';
@@ -63,7 +66,7 @@ class _SuggestionCardPostState extends State<SuggestionCardPost> {
                     //=======================
                     if (post.itemtype!.trim().toLowerCase().contains(
                         widget.postModel.itemtype!.trim().toLowerCase())) {
-                      percentage = 0.40;
+                      percentage = 0.30;
                       if (!post.datelossfound!.trim().toLowerCase().contains(
                           widget.postModel.datelossfound!
                               .trim()
@@ -99,7 +102,7 @@ class _SuggestionCardPostState extends State<SuggestionCardPost> {
 
                     if (post.itemtype!.trim().toLowerCase().contains(
                         widget.postModel.itemtype!.trim().toLowerCase())) {
-                      percentage = 0.50;
+                      percentage = 0.10;
                       if (!post.datelossfound!.trim().toLowerCase().contains(
                           widget.postModel.datelossfound!
                               .trim()
@@ -134,23 +137,6 @@ class _SuggestionCardPostState extends State<SuggestionCardPost> {
                     if (!post.itemtype!.trim().toLowerCase().contains(
                         widget.postModel.itemtype!.trim().toLowerCase())) {
                       percentage = 0.0;
-                      if (post.datelossfound!.trim().toLowerCase().contains(
-                          widget.postModel.datelossfound!
-                              .trim()
-                              .toLowerCase())) {
-                        percentage2 = 0.10;
-                        if (!post.itemname!.trim().toLowerCase().contains(
-                            widget.postModel.itemname!.trim().toLowerCase())) {
-                          percentage3 = 0.10;
-                          double total = percentage + percentage2 + percentage3;
-                          return CardSuggest(total: total, userpost: post);
-                        }
-                      }
-                    }
-                    //==========================
-                    if (!post.itemtype!.trim().toLowerCase().contains(
-                        widget.postModel.itemtype!.trim().toLowerCase())) {
-                      percentage = 0.0;
                       if (!post.datelossfound!.trim().toLowerCase().contains(
                           widget.postModel.datelossfound!
                               .trim()
@@ -159,24 +145,6 @@ class _SuggestionCardPostState extends State<SuggestionCardPost> {
                         if (post.itemname!.trim().toLowerCase().contains(
                             widget.postModel.itemname!.trim().toLowerCase())) {
                           percentage4 = 0.20;
-                          double total = percentage + percentage2 + percentage3;
-                          return CardSuggest(total: total, userpost: post);
-                        }
-                      }
-                    }
-
-                    //==========================
-                    if (!post.itemtype!.trim().toLowerCase().contains(
-                        widget.postModel.itemtype!.trim().toLowerCase())) {
-                      percentage = 0.0;
-                      if (post.datelossfound!.trim().toLowerCase().contains(
-                          widget.postModel.datelossfound!
-                              .trim()
-                              .toLowerCase())) {
-                        percentage2 = 0.30;
-                        if (!post.itemname!.trim().toLowerCase().contains(
-                            widget.postModel.itemname!.trim().toLowerCase())) {
-                          percentage4 = 0.10;
                           double total = percentage + percentage2 + percentage3;
                           return CardSuggest(total: total, userpost: post);
                         }
@@ -199,7 +167,7 @@ class _SuggestionCardPostState extends State<SuggestionCardPost> {
       mainAxisSize: MainAxisSize.min,
       children: [
         SizedBox(
-            height: 270.0,
+            height: 150.0,
             width: MediaQuery.of(context).size.width,
             child: suggestion(context)),
         Padding(
@@ -433,97 +401,81 @@ class CardSuggest extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(10.0),
+    return GestureDetector(
+      onTap: () => Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => SuggestionFoundCardPost(userpost, total))),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(20),
-        child: Container(
-          width: 250,
-          height: 190,
-          color: colorWhite,
-          child: Stack(fit: StackFit.expand, children: [
-            SizedBox(
-              width: MediaQuery.of(context).size.width,
-              child: Image.network(
-                "${userpost.phtoURL}",
-                fit: BoxFit.cover,
-                color: const Color.fromARGB(131, 197, 182, 144),
-                colorBlendMode: BlendMode.exclusion,
-              ),
-            ),
-            Positioned(
-              top: 180.0,
-              left: 15.0,
-              child: MaterialButton(
-                onPressed: () {},
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(80.0)),
-                textColor: Colors.white,
-                padding: const EdgeInsets.all(0),
-                child: Container(
-                  alignment: Alignment.center,
-                  height: 45.0,
-                  width: 85,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(80.0),
-                      color: primaryColor),
-                  padding: const EdgeInsets.all(0),
-                  child: const Text(
-                    "View",
-                  ),
+        child: SizedBox(
+          width: 150,
+          child: Card(
+            child: Stack(
+              fit: StackFit.expand,
+              children: [
+                Image.network(
+                  "${userpost.phtoURL}",
+                  fit: BoxFit.cover,
+                  color: const Color.fromARGB(141, 66, 73, 69),
+                  colorBlendMode: BlendMode.multiply,
                 ),
-              ),
+                Positioned(
+                    bottom: 15,
+                    left: 10,
+                    child: Row(
+                      children: [
+                        CircularPercentIndicator(
+                            percent: total,
+                            radius: 20.0,
+                            lineWidth: 7.0,
+                            progressColor: primaryColor,
+                            backgroundColor:
+                                const Color.fromARGB(255, 251, 250, 253),
+                            circularStrokeCap: CircularStrokeCap.round,
+                            center: Text(
+                              "${total.toStringAsFixed(2)}%",
+                              style: GoogleFonts.inter(
+                                  fontSize: 6.0, color: colorWhite),
+                            )),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        const TextViewPoppins(
+                          title: "MATCH",
+                          fontsize: 10,
+                          fontcolor: colorWhite,
+                          fontweight: FontWeight.bold,
+                        ),
+                      ],
+                    )),
+                Positioned(
+                    top: 10.0,
+                    left: 10.0,
+                    child: Row(
+                      children: [
+                        Container(
+                          height: 13.0,
+                          width: 13.0,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Color.fromARGB(255, 24, 211, 80),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 10.0,
+                        ),
+                        TextViewPoppins(
+                          title: "${userpost.datelossfound}",
+                          fontsize: 10,
+                          fontcolor: colorWhite,
+                          fontweight: FontWeight.bold,
+                        ),
+                      ],
+                    )),
+              ],
             ),
-            Positioned(
-              top: 165,
-              right: 15,
-              child: CircularPercentIndicator(
-                percent: total,
-                radius: 30.0,
-                lineWidth: 11.0,
-                progressColor: primaryColor,
-                backgroundColor: const Color.fromARGB(255, 251, 250, 253),
-                circularStrokeCap: CircularStrokeCap.round,
-                center: Text(
-                  "${total.toStringAsFixed(2)}%",
-                  style: GoogleFonts.inter(fontSize: 8.0, color: colorWhite),
-                ),
-              ),
-            ),
-            Positioned(
-                top: 15.0,
-                left: 10.0,
-                child: Row(
-                  children: [
-                    Container(
-                      height: 23.0,
-                      width: 23.0,
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Color.fromARGB(255, 24, 211, 80),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 10.0,
-                    ),
-                    Text(
-                      '${userpost.datelossfound}',
-                      style: GoogleFonts.inter(fontSize: 14, color: colorWhite),
-                    ),
-                  ],
-                )),
-            Positioned(
-              top: 5.0,
-              right: 10.0,
-              child: IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.more_vert_rounded,
-                  color: colorWhite,
-                ),
-              ),
-            ),
-          ]),
+          ),
         ),
       ),
     );

@@ -5,6 +5,7 @@ import 'package:lostfoundapp/mics/packages.dart';
 XFile? imagepathfile;
 
 Color squarecolor = Colors.white;
+String? itemcolorValue;
 
 class ImageClassification extends StatefulWidget {
   const ImageClassification(
@@ -117,15 +118,18 @@ class _ImageClassificationState extends State<ImageClassification> {
               int yRelative2 = halfhieght2.toInt();
               Color color = img.pixelColorAt!(xRelative, yRelative);
               Color color2 = img.pixelColorAt!(xRelative2, yRelative2);
-              var colorhex = "#${color.value.toRadixString(16)}";
-              var colorhex2 = "#${color2.value.toRadixString(16)}";
+              var colorhex = "${color.value}";
+              var colorhex2 = "${color2.value}";
+              var colorhexvalue = "#${color.value.toRadixString(16)}";
+              var colorhexvalue2 = "#${color2.value.toRadixString(16)}";
               return Row(
                 children: [
                   GestureDetector(
                     onTap: () {
                       setState(() {
-                        widget.itemcolorcon.text = colorhex2;
-                        squarecolor = color2;
+                        itemcolorValue = colorhex;
+                        widget.itemcolorcon.text = colorhexvalue.toString();
+                        squarecolor = color;
                       });
                     },
                     child: Container(
@@ -133,10 +137,10 @@ class _ImageClassificationState extends State<ImageClassification> {
                       width: 110,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
-                          color: color2),
+                          color: color),
                       child: Center(
                         child: TextViewInter(
-                            title: colorhex2,
+                            title: colorhexvalue,
                             fontsize: 15,
                             fontweight: FontWeight.normal,
                             fontcolor: colorhex2.toString() == "#ffffffff"
@@ -151,9 +155,9 @@ class _ImageClassificationState extends State<ImageClassification> {
                   GestureDetector(
                     onTap: () {
                       setState(() {
-                        pixelcolor = colorhex;
-                        widget.itemcolorcon.text = pixelcolor;
-                        squarecolor = color;
+                        itemcolorValue = colorhex2;
+                        widget.itemcolorcon.text = colorhexvalue2.toString();
+                        squarecolor = color2;
                       });
                     },
                     child: Container(
@@ -161,10 +165,10 @@ class _ImageClassificationState extends State<ImageClassification> {
                       width: 110,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
-                          color: color),
+                          color: color2),
                       child: Center(
                         child: TextViewInter(
-                            title: colorhex,
+                            title: colorhexvalue2,
                             fontsize: 15,
                             fontweight: FontWeight.normal,
                             fontcolor: colorhex2.toString() == "#ffffffff"

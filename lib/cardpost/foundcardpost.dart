@@ -234,12 +234,11 @@ class _FoundCardPostState extends State<FoundCardPost> {
                             fontcolor: colorblack),
                         onTap: () {
                           Navigator.of(context, rootNavigator: true).pop();
-                          Navigator.pushAndRemoveUntil(
+                          Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) =>
-                                      FountItemRequestSender(widget.postModel)),
-                              (route) => false);
+                                  builder: (context) => FountItemRequestSender(
+                                      widget.postModel)));
                         },
                       )
                     ],

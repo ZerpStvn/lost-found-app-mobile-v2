@@ -152,7 +152,7 @@ class _LostReportPageState extends State<LostReportPage> {
     userPostModel.postID = postID.toString();
     userPostModel.userID = user!.uid;
     userPostModel.itemname = lostitemtitlecon.text;
-    userPostModel.itemcolor = squarecolor.toString();
+    userPostModel.itemcolor = itemcolorValue.toString();
     userPostModel.usermobileNum = lostmobilenumbercon.text;
     userPostModel.userSocialMedia = lostsocialmediacon.text;
     userPostModel.location = lostlocationcon.text;

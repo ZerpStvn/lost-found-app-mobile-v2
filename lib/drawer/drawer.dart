@@ -48,7 +48,7 @@ class _DrawerPropetyState extends State<DrawerPropety> {
                 signout();
               },
               child: const TextViewPoppins(
-                  title: "Sign out",
+                  title: "Log out",
                   fontsize: 13,
                   fontweight: FontWeight.w200,
                   fontcolor: colorblack),
@@ -205,11 +205,16 @@ class _DrawerPropetyState extends State<DrawerPropety> {
   Future signout() async {
     final snack = snacbarmessage(context, "Signed out");
     final navigaotr = Navigator.of(context);
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => const Center(
+              child: CircularProgressIndicator(),
+            ));
+    final navpop = Navigator.of(context);
     await FirebaseAuth.instance.signOut();
     await Future.delayed(const Duration(seconds: 2));
-    setState(() {
-      isloading = !isloading;
-    });
+    navpop.popUntil((route) => route.isFirst);
     navigaotr.pushAndRemoveUntil(
         MaterialPageRoute(builder: (context) => const LoginPage()),
         (route) => false);

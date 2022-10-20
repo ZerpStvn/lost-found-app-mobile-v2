@@ -3,15 +3,17 @@
 import 'package:flutter/scheduler.dart';
 import 'package:lostfoundapp/mics/packages.dart';
 
-class FountItemRequestSender extends StatefulWidget {
+class SuggestionFoundCardPost extends StatefulWidget {
   final UserPostModel userPostModel;
-  const FountItemRequestSender(this.userPostModel, {super.key});
+  final double total;
+  const SuggestionFoundCardPost(this.userPostModel, this.total, {super.key});
 
   @override
-  State<FountItemRequestSender> createState() => _FountItemRequestSenderState();
+  State<SuggestionFoundCardPost> createState() =>
+      _SuggestionFoundCardPostState();
 }
 
-class _FountItemRequestSenderState extends State<FountItemRequestSender> {
+class _SuggestionFoundCardPostState extends State<SuggestionFoundCardPost> {
   final user = FirebaseAuth.instance.currentUser;
 
   @override
@@ -142,7 +144,81 @@ class _FountItemRequestSenderState extends State<FountItemRequestSender> {
                         style:
                             GoogleFonts.inter(fontSize: 15, color: colorblack),
                       ),
-                    )
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    widget.total >= 0.60
+                        ? Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const TextView(
+                                title: "Item Description ",
+                                fontcolor: colorgrey,
+                                fontweight: FontWeight.bold,
+                                fontsize: 14,
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              SizedBox(
+                                width: sizewidth * 0.89,
+                                child: ReadMoreText(
+                                  "${widget.userPostModel.itemDes} ",
+                                  colorClickableText: primaryColor,
+                                  textAlign: TextAlign.justify,
+                                  style: GoogleFonts.inter(
+                                      fontSize: 15, color: colorblack),
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 30,
+                              ),
+                              const TextView(
+                                title: "Location ",
+                                fontcolor: colorgrey,
+                                fontweight: FontWeight.bold,
+                                fontsize: 14,
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              SizedBox(
+                                width: sizewidth * 0.89,
+                                child: ReadMoreText(
+                                  "${widget.userPostModel.locationDes} ",
+                                  colorClickableText: primaryColor,
+                                  textAlign: TextAlign.justify,
+                                  style: GoogleFonts.inter(
+                                      fontSize: 15, color: colorblack),
+                                ),
+                              ),
+                            ],
+                          )
+                        : Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const TextView(
+                                title: "Location ",
+                                fontcolor: colorgrey,
+                                fontweight: FontWeight.bold,
+                                fontsize: 14,
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              SizedBox(
+                                width: sizewidth * 0.89,
+                                child: ReadMoreText(
+                                  "${widget.userPostModel.locationDes} ",
+                                  colorClickableText: primaryColor,
+                                  textAlign: TextAlign.justify,
+                                  style: GoogleFonts.inter(
+                                      fontSize: 15, color: colorblack),
+                                ),
+                              ),
+                            ],
+                          ),
                   ],
                 ),
               ),

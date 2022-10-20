@@ -226,12 +226,11 @@ class _LostCardPostState extends State<LostCardPost> {
                         fontcolor: colorblack),
                     onTap: () {
                       Navigator.of(context, rootNavigator: true).pop();
-                      Navigator.pushAndRemoveUntil(
+                      Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                                  LostItemRequestSender(widget.postModel)),
-                          (route) => false);
+                                  LostItemRequestSender(widget.postModel)));
                     },
                   ),
           );

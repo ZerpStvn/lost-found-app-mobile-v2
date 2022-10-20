@@ -13,8 +13,12 @@ class LostItemRequestSender extends StatefulWidget {
 
 class _LostItemRequestSenderState extends State<LostItemRequestSender> {
   final user = FirebaseAuth.instance.currentUser;
+
   @override
   Widget build(BuildContext context) {
+    final String colorValue = "${widget.userPostModel.itemcolor}";
+    final int value = int.parse(colorValue);
+    final Color colorval = Color(value);
     final sizewidth = MediaQuery.of(context).size.width;
     return Scaffold(
       body: SafeArea(
@@ -88,7 +92,7 @@ class _LostItemRequestSenderState extends State<LostItemRequestSender> {
                         Container(
                           height: 30,
                           width: 30,
-                          color: Colors.green,
+                          color: colorval,
                         ),
                         const SizedBox(
                           width: 5,
@@ -96,7 +100,7 @@ class _LostItemRequestSenderState extends State<LostItemRequestSender> {
                         Container(
                           height: 30,
                           width: 30,
-                          color: Colors.green,
+                          color: colorval,
                         ),
                         const SizedBox(
                           width: 5,
@@ -104,7 +108,7 @@ class _LostItemRequestSenderState extends State<LostItemRequestSender> {
                         Container(
                           height: 30,
                           width: 30,
-                          color: Colors.green,
+                          color: colorval,
                         ),
                       ],
                     ),

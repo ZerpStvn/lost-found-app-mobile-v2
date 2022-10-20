@@ -92,14 +92,14 @@ Future handleButtonModalProfile(BuildContext context) async {
               ListTile(
                 leading: const Icon(Icons.logout_outlined),
                 title: const TextView(
-                    title: "Sign out",
+                    title: "Logout",
                     fontsize: 13,
                     fontweight: FontWeight.w500,
                     fontcolor: colorblack),
                 onTap: () {
                   Navigator.of(context, rootNavigator: true).pop();
                   FirebaseAuth.instance.signOut();
-                  snacbarmessage(context, "Signing out");
+                  snacbarmessage(context, "Log out");
                   Future.delayed(const Duration(milliseconds: 2000));
                   Navigator.pushAndRemoveUntil(
                       context,

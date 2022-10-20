@@ -48,6 +48,11 @@ class _FoundReportPageState extends State<FoundReportPage> {
                 const SizedBox(
                   height: 20,
                 ),
+                // IconButton(
+                //     onPressed: () {
+                //       debugPrint(itemcolorValue);
+                //     },
+                //     icon: const Icon(Icons.camera)),
                 EditTextFormField(
                     cont2: foundfounddescriptionrcon,
                     cont3: foundlocationcon,
@@ -132,7 +137,7 @@ class _FoundReportPageState extends State<FoundReportPage> {
     userPostModel.postID = postID.toString();
     userPostModel.userID = user!.uid;
     userPostModel.itemname = founditemtitlecon.text;
-    userPostModel.itemcolor = squarecolor.toString();
+    userPostModel.itemcolor = itemcolorValue.toString();
     userPostModel.usermobileNum = foundmobilenumbercon.text;
     userPostModel.userSocialMedia = foundsocialmediacon.text;
     userPostModel.location = foundlocationcon.text;
