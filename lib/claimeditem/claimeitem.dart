@@ -314,15 +314,13 @@ class _ClaimedPageState extends State<ClaimedPage> {
     await FirebaseFirestore.instance
         .collection('Claimed_items')
         .doc(userlogin!.useruid)
-        .collection('claimeditems')
-        .add(clm.tomap());
+        .set(clm.tomap());
     snack;
 
     Future.delayed(const Duration(milliseconds: 1000));
     deletedata();
-    navigator.pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => const ArchivePage()),
-        (route) => false);
+    navigator
+        .push(MaterialPageRoute(builder: (context) => const ArchivePage()));
   }
 
   handlesubmitcontrol() {

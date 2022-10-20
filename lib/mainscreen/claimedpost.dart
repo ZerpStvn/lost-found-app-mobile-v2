@@ -86,7 +86,7 @@ class _ClaimedItemPostPageState extends State<ClaimedItemPostPage> {
               ),
               FutureBuilder<QuerySnapshot>(
                   future: FirebaseFirestore.instance
-                      .collectionGroup('claimeditems')
+                      .collection('Claimed_items')
                       .get(),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {

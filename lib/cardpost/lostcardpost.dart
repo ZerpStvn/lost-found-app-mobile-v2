@@ -150,6 +150,13 @@ class _LostCardPostState extends State<LostCardPost> {
                                     builder: (context) =>
                                         LostClaimedPage(widget.postModel)));
                           }
+                          if (widget.postModel.userID != userlogin!.useruid) {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => LostItemRequestSender(
+                                        widget.postModel)));
+                          }
                         },
                         style: OutlinedButton.styleFrom(
                             side:

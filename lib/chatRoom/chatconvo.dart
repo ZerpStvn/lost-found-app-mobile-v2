@@ -146,35 +146,64 @@ class _ChatConvopageState extends State<ChatConvopage> {
                 ),
               ),
               userPost(),
-              Container(
-                  alignment: Alignment.bottomCenter,
-                  child: Container(
-                    color: colorWhite,
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                          left: 8.0, right: 8.0, bottom: 20, top: 15),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: TextFormField(
-                              controller: chat,
-                              decoration: InputDecoration(
-                                  hintText: "Chat",
-                                  hintStyle: GoogleFonts.inter(
-                                      fontSize: 14, color: colorblack),
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(20))),
-                            ),
-                          ),
-                          IconButton(
-                              onPressed: () {
-                                handleconvosent();
-                              },
-                              icon: const Icon(Icons.send_rounded))
-                        ],
+              oncallclmchat.itemstatus == "Claimed"
+                  ? Container(
+                      alignment: Alignment.bottomCenter,
+                      child: Container(
+                        height: 65,
+                        width: MediaQuery.of(context).size.width,
+                        color: primaryColor,
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 11.0),
+                          child: Center(
+                              child: Column(
+                            children: const [
+                              TextViewInter(
+                                  title: "Chat Unavailable",
+                                  fontsize: 14,
+                                  fontweight: FontWeight.bold,
+                                  fontcolor: colorWhite),
+                              TextViewInter(
+                                  title:
+                                      "The item is already claimed by the Owner",
+                                  fontsize: 14,
+                                  fontweight: FontWeight.normal,
+                                  fontcolor: colorWhite),
+                            ],
+                          )),
+                        ),
                       ),
-                    ),
-                  ))
+                    )
+                  : Container(
+                      alignment: Alignment.bottomCenter,
+                      child: Container(
+                        color: colorWhite,
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              left: 8.0, right: 8.0, bottom: 20, top: 15),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: TextFormField(
+                                  controller: chat,
+                                  decoration: InputDecoration(
+                                      hintText: "Chat",
+                                      hintStyle: GoogleFonts.inter(
+                                          fontSize: 14, color: colorblack),
+                                      border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20))),
+                                ),
+                              ),
+                              IconButton(
+                                  onPressed: () {
+                                    handleconvosent();
+                                  },
+                                  icon: const Icon(Icons.send_rounded))
+                            ],
+                          ),
+                        ),
+                      ))
             ],
           ),
         ));

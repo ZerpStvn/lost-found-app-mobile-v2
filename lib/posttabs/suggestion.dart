@@ -32,8 +32,11 @@ class _SuggestionItemsState extends State<SuggestionItems> {
   }
 
   Future getlostPost() async {
-    final post =
-        await FirebaseFirestore.instance.collectionGroup('litems').get();
+    final post = await FirebaseFirestore.instance
+        .collection('lost_items')
+        .doc(userlogin!.useruid)
+        .collection('litems')
+        .get();
 
     if (mounted) {
       setState(() {

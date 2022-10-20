@@ -4,6 +4,8 @@ import 'package:lostfoundapp/chatRoom/chatconvo.dart';
 import 'package:lostfoundapp/mics/packages.dart';
 import 'package:lostfoundapp/model/chatroommodel.dart';
 
+ClaimedItemModel oncallclmchat = ClaimedItemModel();
+
 class ChatRoomPage extends StatefulWidget {
   const ChatRoomPage({super.key});
 
@@ -20,6 +22,17 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
   void dispose() {
     _serach.dispose();
     super.dispose();
+  }
+
+  handlegetDataClaimed(ChatRoomModel chatroom) async {
+    DocumentSnapshot docs = await FirebaseFirestore.instance
+        .collection('Claimed_items')
+        .doc(chatroom.sentbyID)
+        .get();
+    if (!docs.exists) {
+      return null;
+    }
+    oncallclmchat = ClaimedItemModel.fromDocument(docs);
   }
 
   @override
@@ -138,11 +151,14 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
                                         padding: EdgeInsets.only(right: 12.0),
                                         child: Icon(Icons.send_rounded),
                                       ),
-                                      onTap: () => Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  ChatConvopage(chatroom))),
+                                      onTap: () {
+                                        handlegetDataClaimed(chatroom);
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ChatConvopage(chatroom)));
+                                      },
                                     );
                                   }
                                   if (chatroom.sentToID == user!.uid) {
@@ -171,11 +187,14 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
                                         padding: EdgeInsets.only(right: 12.0),
                                         child: Icon(Icons.send_rounded),
                                       ),
-                                      onTap: () => Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  ChatConvopage(chatroom))),
+                                      onTap: () {
+                                        handlegetDataClaimed(chatroom);
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ChatConvopage(chatroom)));
+                                      },
                                     );
                                   } else {
                                     return Container();

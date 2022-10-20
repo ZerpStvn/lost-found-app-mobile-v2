@@ -142,7 +142,7 @@ class _ViewClaimedItemsState extends State<ViewClaimedItems> {
                     children: const [
                       Icon(Icons.school_outlined),
                       TextView(
-                        title: "School Department ",
+                        title: "Department ",
                         fontcolor: colorgrey,
                         fontweight: FontWeight.bold,
                         fontsize: 14,

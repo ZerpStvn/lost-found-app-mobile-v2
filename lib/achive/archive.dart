@@ -50,8 +50,6 @@ class _ArchivePageState extends State<ArchivePage> {
               FutureBuilder<QuerySnapshot>(
                   future: FirebaseFirestore.instance
                       .collection('Claimed_items')
-                      .doc(userlogin!.useruid)
-                      .collection('claimeditems')
                       .get(),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
@@ -66,15 +64,15 @@ class _ArchivePageState extends State<ArchivePage> {
                             physics: const NeverScrollableScrollPhysics(),
                             itemCount: snapshot.data!.docs.length,
                             itemBuilder: (context, index) {
+                              ClaimedItemModel clm =
+                                  ClaimedItemModel.fromDocument(
+                                      snapshot.data!.docs[index].data());
                               if (!snapshot.hasData) {
                                 return const Center(
                                   child: Text("No Data"),
                                 );
-                              } else {
-                                ClaimedItemModel clm =
-                                    ClaimedItemModel.fromDocument(
-                                        snapshot.data!.docs[index].data());
-
+                              }
+                              if (userlogin!.useruid == clm.userID) {
                                 Timestamp timestamp =
                                     clm.claimedDate as Timestamp;
                                 final DateTime timeDate = timestamp.toDate();
@@ -82,6 +80,8 @@ class _ArchivePageState extends State<ArchivePage> {
                                     DateFormat('M/d/y KK:mm').format(timeDate);
                                 return ClaimedPostPage(
                                     clm: clm, tiemformat: tiemformat);
+                              } else {
+                                return Container();
                               }
                             }),
                       );

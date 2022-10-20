@@ -319,8 +319,7 @@ class _LostClaimedPageState extends State<LostClaimedPage> {
     await FirebaseFirestore.instance
         .collection('Claimed_items')
         .doc(userlogin!.useruid)
-        .collection('claimeditems')
-        .add(clm.tomap());
+        .set(clm.tomap());
     snack;
 
     Future.delayed(const Duration(milliseconds: 1000));
