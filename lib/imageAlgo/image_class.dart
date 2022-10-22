@@ -1,10 +1,11 @@
 import 'dart:io';
 
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:lostfoundapp/mics/packages.dart';
 
 XFile? imagepathfile;
 
-Color squarecolor = Colors.white;
+Color squarecolor = primaryColor;
 String? itemcolorValue;
 
 class ImageClassification extends StatefulWidget {
@@ -24,7 +25,8 @@ class _ImageClassificationState extends State<ImageClassification> {
   String imageclass = "";
   bool isloading = false;
   final ImagePicker _picker = ImagePicker();
-
+  Color prime = primaryColor;
+  Color current = primaryColor;
 //
 //
   Future showmodalloading() async {
@@ -189,6 +191,31 @@ class _ImageClassificationState extends State<ImageClassification> {
     }
   }
 
+  //BuildColorpicker
+  Widget buildcolorpicker() => ColorPicker(
+      pickerColor: current,
+      enableAlpha: false,
+      labelTypes: const [],
+      onColorChanged: (color) => setState(() {
+            squarecolor = color;
+            widget.itemcolorcon.text = "#${color.value.toRadixString(16)}";
+            itemcolorValue = color.value.toString();
+          }));
+  //pickedcolor
+  pickedColor(BuildContext context) => showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                buildcolorpicker(),
+                TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: const Text("SELECT")),
+              ],
+            ),
+          ));
+  //==
   @override
   void initState() {
     loadModel();
@@ -324,9 +351,14 @@ class _ImageClassificationState extends State<ImageClassification> {
                           Icons.color_lens_outlined,
                           color: primaryColor,
                         ),
-                        suffixIcon: Icon(
-                          Icons.square,
-                          color: squarecolor,
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            pickedColor(context);
+                          },
+                          icon: Icon(
+                            Icons.square,
+                            color: squarecolor,
+                          ),
                         ),
                         labelText: 'Color ',
                         labelStyle:

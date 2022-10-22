@@ -152,7 +152,9 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
                                         child: Icon(Icons.send_rounded),
                                       ),
                                       onTap: () {
-                                        handlegetDataClaimed(chatroom);
+                                        setState(() {
+                                          handlegetDataClaimed(chatroom);
+                                        });
                                         Navigator.push(
                                             context,
                                             MaterialPageRoute(
@@ -188,7 +190,9 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
                                         child: Icon(Icons.send_rounded),
                                       ),
                                       onTap: () {
-                                        handlegetDataClaimed(chatroom);
+                                        setState(() {
+                                          handlegetDataClaimed(chatroom);
+                                        });
                                         Navigator.push(
                                             context,
                                             MaterialPageRoute(

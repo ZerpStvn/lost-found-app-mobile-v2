@@ -14,6 +14,9 @@ class _ViewNotificationState extends State<ViewNotification> {
   @override
   Widget build(BuildContext context) {
     final sizewidth = MediaQuery.of(context).size.width;
+    final String colorValue = "${widget.requesmodel.reqitemcolor}";
+    final int value = int.parse(colorValue);
+    final Color colorval = Color(value);
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -139,7 +142,7 @@ class _ViewNotificationState extends State<ViewNotification> {
                       Container(
                         height: 30,
                         width: 30,
-                        color: Colors.green,
+                        color: colorval,
                       ),
                       const SizedBox(
                         width: 5,
@@ -147,7 +150,7 @@ class _ViewNotificationState extends State<ViewNotification> {
                       Container(
                         height: 30,
                         width: 30,
-                        color: Colors.green,
+                        color: colorval,
                       ),
                       const SizedBox(
                         width: 5,
@@ -155,7 +158,7 @@ class _ViewNotificationState extends State<ViewNotification> {
                       Container(
                         height: 30,
                         width: 30,
-                        color: Colors.green,
+                        color: colorval,
                       ),
                     ],
                   ),

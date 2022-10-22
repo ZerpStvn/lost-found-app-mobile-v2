@@ -1,6 +1,9 @@
 import 'package:flutter/services.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:intl/intl.dart';
 import 'package:lostfoundapp/mics/packages.dart';
+
+String? reqcolorValue;
 
 class RequestForm extends StatefulWidget {
   const RequestForm({
@@ -19,6 +22,7 @@ class RequestForm extends StatefulWidget {
     required this.con13,
     required this.con14,
     required this.con15,
+    required this.con16,
     required this.date,
   });
   final TextEditingController con1;
@@ -35,6 +39,7 @@ class RequestForm extends StatefulWidget {
   final TextEditingController con13;
   final TextEditingController con14;
   final TextEditingController con15;
+  final TextEditingController con16;
   final String date;
 
   @override
@@ -42,6 +47,32 @@ class RequestForm extends StatefulWidget {
 }
 
 class _RequestFormState extends State<RequestForm> {
+  Color current = primaryColor;
+  Color onchange = primaryColor;
+  //BuildColorpicker
+  Widget buildcolorpicker() => ColorPicker(
+      pickerColor: current,
+      enableAlpha: false,
+      labelTypes: const [],
+      onColorChanged: (color) => setState(() {
+            onchange = color;
+            widget.con16.text = "#${color.value.toRadixString(16)}";
+            reqcolorValue = color.value.toString();
+          }));
+  //pickedcolor
+  pickedColor(BuildContext context) => showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                buildcolorpicker(),
+                TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: const Text("SELECT")),
+              ],
+            ),
+          ));
   @override
   Widget build(BuildContext context) {
     final widthsize = MediaQuery.of(context).size.width;
@@ -169,6 +200,46 @@ class _RequestFormState extends State<RequestForm> {
                     OutlineInputBorder(borderRadius: BorderRadius.circular(0)),
               ),
             ),
+          ),
+          sizeheight,
+          Row(
+            children: [
+              Expanded(
+                flex: 1,
+                child: TextFormField(
+                  readOnly: true,
+                  controller: widget.con16,
+                  keyboardType: TextInputType.name,
+                  textInputAction: TextInputAction.next,
+                  decoration: InputDecoration(
+                    prefixIcon: const Icon(
+                      Icons.color_lens_outlined,
+                      color: primaryColor,
+                    ),
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        pickedColor(context);
+                      },
+                      icon: Icon(
+                        Icons.square,
+                        color: onchange,
+                      ),
+                    ),
+                    labelText: 'Color ',
+                    labelStyle:
+                        GoogleFonts.inter(fontSize: 12, color: colorgrey),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(0)),
+                  ),
+                ),
+              ),
+              const Expanded(
+                  flex: 1,
+                  child: Padding(
+                    padding: EdgeInsets.only(right: 8.0),
+                    child: ItemTypeCategory(),
+                  )),
+            ],
           ),
           sizeheight,
           SizedBox(

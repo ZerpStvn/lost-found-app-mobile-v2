@@ -17,6 +17,7 @@ class _SendRequestState extends State<SendRequest> {
   final TextEditingController reqitemtitlecon = TextEditingController();
   final TextEditingController reqfounddescriptionrcon = TextEditingController();
   final TextEditingController reqlocationcon = TextEditingController();
+  final TextEditingController reqcolorcon = TextEditingController();
   final TextEditingController reqlocationDescriptioncon =
       TextEditingController();
   final TextEditingController reqitemdescriptioncon = TextEditingController();
@@ -49,14 +50,20 @@ class _SendRequestState extends State<SendRequest> {
     reqmodelcon.dispose();
     reqbrandcon.dispose();
     reqmarkingscon.dispose();
+    reqcolorcon.dispose();
     reqmessagecon.dispose();
     reqdatetimeController.dispose();
     super.dispose();
   }
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
     getuser();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final widthsize = MediaQuery.of(context).size.width;
     return Scaffold(
       body: SafeArea(
@@ -176,8 +183,13 @@ class _SendRequestState extends State<SendRequest> {
                   ],
                 ),
               ),
+              // IconButton(
+              //     onPressed: () {
+              //       debugPrint(reqcolorValue);
+              //     },
+              //     icon: const Icon(Icons.burst_mode)),
               const SizedBox(
-                height: 20,
+                height: 15,
               ),
               RequestForm(
                   con1: requsermamecon,
@@ -194,6 +206,7 @@ class _SendRequestState extends State<SendRequest> {
                   con13: reqbrandcon,
                   con14: reqmarkingscon,
                   con15: reqmessagecon,
+                  con16: reqcolorcon,
                   date: "Date of loss/found"),
               const SizedBox(
                 height: 23,
@@ -253,7 +266,7 @@ class _SendRequestState extends State<SendRequest> {
     reqmodel.reqpostID = widget.postmodel.postID;
     reqmodel.requserID = user!.uid;
     reqmodel.reqitemname = reqitemtitlecon.text;
-    reqmodel.reqitemcolor = "";
+    reqmodel.reqitemcolor = reqcolorValue;
     reqmodel.requsermobileNum = reqmobilenumbercon.text;
     reqmodel.reqlocation = reqlocationcon.text;
     reqmodel.reqlocationDes = reqlocationDescriptioncon.text;
@@ -302,6 +315,7 @@ class _SendRequestState extends State<SendRequest> {
     reqbrandcon.clear();
     reqmarkingscon.clear();
     reqmessagecon.clear();
+    reqcolorcon.clear();
     requsermamecon.clear();
     requserIDcon.clear();
     requserDeptcon.clear();
@@ -318,6 +332,7 @@ class _SendRequestState extends State<SendRequest> {
         reqmessagecon.text.isEmpty ||
         requsermamecon.text.isEmpty ||
         requserDeptcon.text.isEmpty ||
+        reqcolorcon.text.isEmpty ||
         requserIDcon.text.isEmpty) {
       snackBarScreen(context, "Please fill out all the information");
     } else {

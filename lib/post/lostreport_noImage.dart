@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:lostfoundapp/mics/packages.dart';
 
 class LostReportOption2 extends StatefulWidget {
@@ -53,7 +54,7 @@ class _LostReportOption2State extends State<LostReportOption2> {
     userPostModel.postID = postID.toString();
     userPostModel.userID = user!.uid;
     userPostModel.itemname = lostitemtitlecon.text;
-    userPostModel.itemcolor = "";
+    userPostModel.itemcolor = lostcolorValue;
     userPostModel.usermobileNum = lostmobilenumbercon.text;
     userPostModel.userSocialMedia = lostsocialmediacon.text;
     userPostModel.location = lostlocationcon.text;
@@ -116,6 +117,33 @@ class _LostReportOption2State extends State<LostReportOption2> {
     lostitemcolorcon.clear();
   }
 
+  Color current = primaryColor;
+  Color onchange = primaryColor;
+  String? lostcolorValue;
+  //BuildColorpicker
+  Widget buildcolorpicker() => ColorPicker(
+      pickerColor: current,
+      enableAlpha: false,
+      labelTypes: const [],
+      onColorChanged: (color) => setState(() {
+            onchange = color;
+            lostitemcolorcon.text = "#${color.value.toRadixString(16)}";
+            lostcolorValue = color.value.toString();
+          }));
+  //pickedcolor
+  pickedColor(BuildContext context) => showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                buildcolorpicker(),
+                TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: const Text("SELECT")),
+              ],
+            ),
+          ));
   @override
   Widget build(BuildContext context) {
     final widthsize = MediaQuery.of(context).size.width;
@@ -168,9 +196,14 @@ class _LostReportOption2State extends State<LostReportOption2> {
                                   Icons.color_lens_outlined,
                                   color: primaryColor,
                                 ),
-                                suffixIcon: const Icon(
-                                  Icons.square,
-                                  color: primaryColor,
+                                suffixIcon: IconButton(
+                                  onPressed: () {
+                                    pickedColor(context);
+                                  },
+                                  icon: Icon(
+                                    Icons.square,
+                                    color: onchange,
+                                  ),
                                 ),
                                 labelText: 'Color ',
                                 labelStyle: GoogleFonts.inter(
@@ -295,7 +328,6 @@ class _LostReportOption2State extends State<LostReportOption2> {
   void dispose() {
     lostitemtitlecon.dispose();
     lostmobilenumbercon.dispose();
-    lostitemcolorcon.dispose();
     lostsocialmediacon.dispose();
     lostlocationcon.dispose();
     lostlocationDescriptioncon.dispose();

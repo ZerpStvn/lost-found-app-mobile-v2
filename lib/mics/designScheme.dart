@@ -8,7 +8,7 @@ const colorgrey = Colors.grey;
 const primaryColor = Color(0xff23B574);
 const seconprimaryColor = Color(0xff9FFDD2);
 
-const second = Color(4294561908);
+//const second = Color(4294561908);
 const er = Color(0xff26252d);
 const colorgreenHue = Color.fromARGB(255, 27, 250, 101);
 

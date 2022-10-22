@@ -203,7 +203,7 @@ class _DrawerPropetyState extends State<DrawerPropety> {
   }
 
   Future signout() async {
-    final snack = snacbarmessage(context, "Signed out");
+    final snack = snacbarmessage(context, "Logged out");
     final navigaotr = Navigator.of(context);
     showDialog(
         context: context,

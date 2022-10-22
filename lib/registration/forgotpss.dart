@@ -37,6 +37,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                     ),
                     TextFormField(
                       controller: emailtext,
+                      keyboardType: TextInputType.emailAddress,
                       textInputAction: TextInputAction.done,
                       decoration: InputDecoration(
                           prefixIcon: const Icon(
