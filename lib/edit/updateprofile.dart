@@ -15,6 +15,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
   final TextEditingController edituseremailcon = TextEditingController();
   final _formkey = GlobalKey<FormState>();
   final userAuth = FirebaseAuth.instance;
+  bool onchange = false;
   String? errormessage;
   String? value;
   bool isloading = false;
@@ -160,135 +161,151 @@ class _UpdateProfileState extends State<UpdateProfile> {
     const sizeheight = SizedBox(height: 15.0);
     final sizewidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      body: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        physics: const BouncingScrollPhysics(),
-        child: Padding(
-          padding: const EdgeInsets.only(top: 45.0, left: 25.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                height: 60,
-                width: 60,
-                decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: primaryColor,
-                    image: DecorationImage(
-                        image: AssetImage("assets/banner.png"))),
-              ),
-              const TextViewPoppins(
-                  title: "Update Profile!",
-                  fontsize: 40,
-                  fontweight: FontWeight.bold,
-                  fontcolor: primaryColor),
-              sizeheight,
-              SizedBox(
-                width: sizewidth * 0.88,
-                child: Form(
-                  key: _formkey,
-                  child: Column(
-                    children: [
-                      TextFormField(
-                        controller: editusernamecon,
-                        textCapitalization: TextCapitalization.values.first,
-                        keyboardType: TextInputType.name,
-                        textInputAction: TextInputAction.next,
-                        decoration: InputDecoration(
-                          prefixIcon: const Icon(Icons.person),
-                          labelText: 'Full name',
-                          labelStyle: GoogleFonts.montserrat(
-                              fontSize: 14, color: colorgrey),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10.0)),
-                        ),
-                      ),
-                      sizeheight,
-                      Row(
+      body: SafeArea(
+        child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: Padding(
+              padding: const EdgeInsets.only(top: 45.0, left: 25.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    height: 60,
+                    width: 60,
+                    decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: primaryColor,
+                        image: DecorationImage(
+                            image: AssetImage("assets/banner.png"))),
+                  ),
+                  const TextViewPoppins(
+                      title: "Update Profile!",
+                      fontsize: 40,
+                      fontweight: FontWeight.bold,
+                      fontcolor: primaryColor),
+                  sizeheight,
+                  SizedBox(
+                    width: sizewidth * 0.88,
+                    child: Form(
+                      key: _formkey,
+                      child: Column(
                         children: [
-                          Expanded(
-                              flex: 1,
-                              child: TextFormField(
-                                controller: editschoolIDcon,
-                                keyboardType: TextInputType.name,
-                                textInputAction: TextInputAction.next,
-                                decoration: InputDecoration(
-                                  prefixIcon: const Icon(Icons.description),
-                                  labelText: 'School ID',
-                                  labelStyle: GoogleFonts.montserrat(
-                                      fontSize: 14, color: colorgrey),
-                                  border: OutlineInputBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(10.0)),
-                                ),
-                              )),
-                          const SizedBox(
-                            width: 10.0,
+                          TextFormField(
+                            controller: editusernamecon,
+                            textCapitalization: TextCapitalization.values.first,
+                            keyboardType: TextInputType.name,
+                            textInputAction: TextInputAction.next,
+                            decoration: InputDecoration(
+                              prefixIcon: const Icon(Icons.person),
+                              labelText: 'Full name',
+                              labelStyle: GoogleFonts.montserrat(
+                                  fontSize: 14, color: colorgrey),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10.0)),
+                            ),
                           ),
-                          Expanded(
-                            flex: 1,
-                            child: dropdown(),
+                          sizeheight,
+                          Row(
+                            children: [
+                              Expanded(
+                                  flex: 1,
+                                  child: TextFormField(
+                                    controller: editschoolIDcon,
+                                    keyboardType: TextInputType.name,
+                                    textInputAction: TextInputAction.next,
+                                    decoration: InputDecoration(
+                                      prefixIcon: const Icon(Icons.description),
+                                      labelText: 'School ID',
+                                      labelStyle: GoogleFonts.montserrat(
+                                          fontSize: 14, color: colorgrey),
+                                      border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0)),
+                                    ),
+                                  )),
+                              const SizedBox(
+                                width: 10.0,
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: dropdown(),
+                              ),
+                            ],
+                          ),
+                          sizeheight,
+                          TextFormField(
+                              controller: edituserAddcon,
+                              textCapitalization:
+                                  TextCapitalization.values.first,
+                              keyboardType: TextInputType.name,
+                              textInputAction: TextInputAction.next,
+                              decoration: InputDecoration(
+                                prefixIcon: const Icon(Icons.location_on),
+                                labelText: 'Complete address',
+                                labelStyle: GoogleFonts.montserrat(
+                                    fontSize: 14, color: colorgrey),
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10.0)),
+                              )),
+                          sizeheight,
+                          TextFormField(
+                            controller: edituseremailcon,
+                            keyboardType: TextInputType.emailAddress,
+                            textInputAction: TextInputAction.done,
+                            decoration: InputDecoration(
+                              prefixIcon: const Icon(Icons.email),
+                              labelText: 'Email',
+                              labelStyle: GoogleFonts.montserrat(
+                                  fontSize: 14, color: colorgrey),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10.0)),
+                            ),
                           ),
                         ],
                       ),
-                      sizeheight,
-                      TextFormField(
-                          controller: edituserAddcon,
-                          textCapitalization: TextCapitalization.values.first,
-                          keyboardType: TextInputType.name,
-                          textInputAction: TextInputAction.next,
-                          decoration: InputDecoration(
-                            prefixIcon: const Icon(Icons.location_on),
-                            labelText: 'Complete address',
-                            labelStyle: GoogleFonts.montserrat(
-                                fontSize: 14, color: colorgrey),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10.0)),
-                          )),
-                      sizeheight,
-                      TextFormField(
-                        controller: edituseremailcon,
-                        keyboardType: TextInputType.emailAddress,
-                        textInputAction: TextInputAction.done,
-                        decoration: InputDecoration(
-                          prefixIcon: const Icon(Icons.email),
-                          labelText: 'Email',
-                          labelStyle: GoogleFonts.montserrat(
-                              fontSize: 14, color: colorgrey),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10.0)),
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
-                ),
-              ),
-              sizeheight,
-              SizedBox(
-                height: 55.0,
-                width: sizewidth * 0.88,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: primaryColor,
-                      ),
-                      onPressed: () {
-                        isloading ? null : handleSubmit(context);
-                      },
-                      child: const TextView(
-                        title: "UPDATE",
-                        fontweight: FontWeight.bold,
-                        fontcolor: colorWhite,
-                        fontsize: 14,
-                      )),
-                ),
-              ),
-            ],
-          ),
+                  sizeheight,
+                  SizedBox(
+                    height: 55.0,
+                    width: sizewidth * 0.88,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: primaryColor,
+                          ),
+                          onPressed: () {
+                            isloading ? null : handleSubmit(context);
+                          },
+                          child: const TextView(
+                            title: "UPDATE",
+                            fontweight: FontWeight.bold,
+                            fontcolor: colorWhite,
+                            fontsize: 14,
+                          )),
+                    ),
+                  ),
+                ],
+              )),
         ),
       ),
     );
+  }
+
+  handleupadatefunction() async {
+    final navpop = Navigator.of(context);
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => const Center(
+              child: CircularProgressIndicator(),
+            ));
+    navpop.popUntil((route) => route.isFirst);
+    await FirebaseAuth.instance.signOut().then((value) =>
+        navpop.pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => const LoginPage()),
+            (route) => false));
   }
 
   postDetailsToFireStore() async {
@@ -304,7 +321,9 @@ class _UpdateProfileState extends State<UpdateProfile> {
     usersmodel.userSchool = "Central Philippine University";
     usersmodel.profileURL = userlogin!.profileURL;
 
-    await userDataRef.doc(user.uid).update(usersmodel.tomap());
+    await userDataRef.doc(user.uid).update(usersmodel.tomap()).then((value) {
+      handleupadatefunction();
+    });
     debugPrint("Account updated");
     snack;
   }

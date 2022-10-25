@@ -1,6 +1,8 @@
 import 'package:lostfoundapp/mics/packages.dart';
 import 'package:lostfoundapp/model/userdata.dart';
 import 'package:lostfoundapp/registration/forgotpss.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -17,6 +19,8 @@ class _LoginPageState extends State<LoginPage> {
   String? errorMessage;
   TextEditingController userpassconnew = TextEditingController();
   TextEditingController emailconnew = TextEditingController();
+  final Uri urluancher =
+      Uri.parse('https://zerpstvn.github.io/landfterms.github.io');
 
   //snakbarmessage
   snacbarmessage(BuildContext context, String title) {
@@ -86,12 +90,12 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   //handle login
-  handlesubmit(BuildContext context) {
+  handlesubmit() {
     setState(() {
       isloading = true;
     });
     if (userpassconnew.text.isEmpty || emailconnew.text.isEmpty) {
-      snacbarmessage(context, 'fill out all the form');
+      snacbarmessage(context, 'Enter your Email and Password');
     } else if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
         .hasMatch(emailconnew.text)) {
       snacbarmessage(context, 'You entered invalid email');
@@ -228,9 +232,7 @@ class _LoginPageState extends State<LoginPage> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: primaryColor,
                       ),
-                      onPressed: () {
-                        isloading ? null : handlesubmit(context);
-                      },
+                      onPressed: isloading ? null : checkpermission,
                       child: const TextView(
                         title: "LOGIN",
                         fontweight: FontWeight.bold,
@@ -256,19 +258,22 @@ class _LoginPageState extends State<LoginPage> {
               Container(
                 alignment: Alignment.bottomCenter,
                 child: Column(
-                  children: const [
-                    TextView(
+                  children: [
+                    const TextView(
                       title: 'By using our App you agree to our',
                       fontsize: 14,
                       fontcolor: colorblack,
                       textalign: TextAlign.center,
                     ),
-                    TextView(
-                      title: 'Terms and Privacy Policy',
-                      fontsize: 14,
-                      fontweight: FontWeight.bold,
-                      fontcolor: colorblack,
-                      textalign: TextAlign.center,
+                    TextButton(
+                      onPressed: urluach,
+                      child: const TextView(
+                        title: 'Terms and Privacy Policy',
+                        fontsize: 14,
+                        fontweight: FontWeight.bold,
+                        fontcolor: colorblack,
+                        textalign: TextAlign.center,
+                      ),
                     ),
                   ],
                 ),
@@ -278,5 +283,33 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+  }
+
+  Future urluach() async {
+    if (!await launchUrl(urluancher)) {
+      throw 'could not launch $urluancher';
+    }
+  }
+
+  @override
+  void initState() {
+    requestpermissionhandler();
+    super.initState();
+  }
+
+  void checkpermission() async {
+    var reqstatus = await Permission.storage.status;
+    if (reqstatus.isGranted) {
+      handlesubmit();
+    } else {
+      requestpermissionhandler();
+    }
+  }
+
+  void requestpermissionhandler() async {
+    var reqstatus = await Permission.storage.status;
+    if (!reqstatus.isGranted) {
+      await Permission.storage.request();
+    }
   }
 }

@@ -1,5 +1,4 @@
 // ignore_for_file: file_names
-
 import 'package:lostfoundapp/chatRoom/chatconvo.dart';
 import 'package:lostfoundapp/mics/packages.dart';
 import 'package:lostfoundapp/model/chatroommodel.dart';
@@ -32,7 +31,9 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
     if (!docs.exists) {
       return null;
     }
-    oncallclmchat = ClaimedItemModel.fromDocument(docs);
+    setState(() {
+      oncallclmchat = ClaimedItemModel.fromDocument(docs);
+    });
   }
 
   @override
@@ -152,9 +153,7 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
                                         child: Icon(Icons.send_rounded),
                                       ),
                                       onTap: () {
-                                        setState(() {
-                                          handlegetDataClaimed(chatroom);
-                                        });
+                                        handlegetDataClaimed(chatroom);
                                         Navigator.push(
                                             context,
                                             MaterialPageRoute(
@@ -190,9 +189,7 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
                                         child: Icon(Icons.send_rounded),
                                       ),
                                       onTap: () {
-                                        setState(() {
-                                          handlegetDataClaimed(chatroom);
-                                        });
+                                        handlegetDataClaimed(chatroom);
                                         Navigator.push(
                                             context,
                                             MaterialPageRoute(

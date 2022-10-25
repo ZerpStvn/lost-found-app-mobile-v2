@@ -68,17 +68,20 @@ class TextViewInter extends StatelessWidget {
       {super.key,
       required this.title,
       required this.fontsize,
-      required this.fontweight,
-      required this.fontcolor});
+      this.fontweight,
+      required this.fontcolor,
+      this.alignment});
   final String title;
   final double fontsize;
-  final FontWeight fontweight;
+  final FontWeight? fontweight;
   final Color fontcolor;
+  final TextAlign? alignment;
 
   @override
   Widget build(BuildContext context) {
     return Text(
       title,
+      textAlign: alignment,
       style: GoogleFonts.inter(
           fontSize: fontsize, fontWeight: fontweight, color: fontcolor),
     );

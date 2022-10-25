@@ -130,7 +130,7 @@ class _SignupPageState extends State<SignupPage> {
         userAddcon.text.isEmpty ||
         useremailcon.text.isEmpty ||
         userpasscon.text.isEmpty) {
-      snacbarmessage(context, 'Fill out all the form');
+      snacbarmessage(context, 'Enter your Email and Password');
     } else if (confirmpasscon.text != userpasscon.text) {
       snacbarmessage(context, "password did not match");
     } else if (userpasscon.text.length < 6) {
@@ -313,19 +313,22 @@ class _SignupPageState extends State<SignupPage> {
                       )),
                 ),
               ),
-              TextButton(
-                  onPressed: () => Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const LoginPage()),
-                      (route) => false),
-                  child: const Center(
-                    child: TextView(
-                        title: "Already have an account? Signin",
-                        fontsize: 14,
-                        fontweight: FontWeight.normal,
-                        fontcolor: colorblack),
-                  ))
+              Padding(
+                padding: const EdgeInsets.only(bottom: 11.0),
+                child: TextButton(
+                    onPressed: () => Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const LoginPage()),
+                        (route) => false),
+                    child: const Center(
+                      child: TextView(
+                          title: "Already have an account? Login",
+                          fontsize: 14,
+                          fontweight: FontWeight.normal,
+                          fontcolor: colorblack),
+                    )),
+              )
             ],
           ),
         ),

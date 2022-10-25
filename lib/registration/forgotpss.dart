@@ -28,7 +28,9 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 child: Column(
                   children: [
                     const TextViewInter(
-                        title: "Email will be sent to you",
+                        alignment: TextAlign.center,
+                        title:
+                            "Email will be sent to you to \nreset your passoword",
                         fontsize: 14,
                         fontweight: FontWeight.bold,
                         fontcolor: colorblack),
@@ -59,7 +61,9 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                               backgroundColor: primaryColor,
                             ),
                             onPressed: () {
-                              handleReset();
+                              emailtext.text.isEmpty
+                                  ? snacbarmessage(context, "Enter your email")
+                                  : handleReset();
                             },
                             child: const Text("Reset password")))
                   ],
