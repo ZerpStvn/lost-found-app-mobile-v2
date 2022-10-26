@@ -16,6 +16,20 @@ class _ChatConvopageState extends State<ChatConvopage> {
   final user = FirebaseAuth.instance.currentUser;
   ChatConvo chatConvo = ChatConvo();
   bool onchangevalue = false;
+  ClaimedItemModel oncallclmchat = ClaimedItemModel();
+
+  handlegetDataClaimed(ChatRoomModel chatroom) async {
+    DocumentSnapshot docs = await FirebaseFirestore.instance
+        .collection('Claimed_items')
+        .doc(chatroom.itemID)
+        .get();
+    if (!docs.exists) {
+      return null;
+    }
+    setState(() {
+      oncallclmchat = ClaimedItemModel.fromDocument(docs);
+    });
+  }
 
   Future handlecheck() async {
     await Future.delayed(const Duration(seconds: 5));
@@ -24,10 +38,16 @@ class _ChatConvopageState extends State<ChatConvopage> {
         onchangevalue = true;
       });
     }
+    if (oncallclmchat.itemstatus == null) {
+      setState(() {
+        onchangevalue = true;
+      });
+    }
   }
 
   @override
   void initState() {
+    handlegetDataClaimed(widget.chatroom);
     handlecheck();
     super.initState();
   }
@@ -170,64 +190,7 @@ class _ChatConvopageState extends State<ChatConvopage> {
                         child: CircularProgressIndicator(),
                       ),
                     )
-                  : oncallclmchat.itemstatus == "Claimed"
-                      ? Container(
-                          alignment: Alignment.bottomCenter,
-                          child: Container(
-                            height: 65,
-                            width: MediaQuery.of(context).size.width,
-                            color: primaryColor,
-                            child: Padding(
-                              padding: const EdgeInsets.only(top: 11.0),
-                              child: Center(
-                                  child: Column(
-                                children: const [
-                                  TextViewInter(
-                                      title: "Chat Unavailable",
-                                      fontsize: 14,
-                                      fontweight: FontWeight.bold,
-                                      fontcolor: colorWhite),
-                                  TextViewInter(
-                                      title:
-                                          "The item is already claimed by the Owner",
-                                      fontsize: 14,
-                                      fontweight: FontWeight.normal,
-                                      fontcolor: colorWhite),
-                                ],
-                              )),
-                            ),
-                          ),
-                        )
-                      : Container(
-                          alignment: Alignment.bottomCenter,
-                          child: Container(
-                            color: colorWhite,
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 8.0, right: 8.0, bottom: 20, top: 15),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: TextFormField(
-                                      controller: chat,
-                                      decoration: InputDecoration(
-                                          hintText: "Chat",
-                                          hintStyle: GoogleFonts.inter(
-                                              fontSize: 14, color: colorblack),
-                                          border: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(20))),
-                                    ),
-                                  ),
-                                  IconButton(
-                                      onPressed: () {
-                                        handleconvosent();
-                                      },
-                                      icon: const Icon(Icons.send_rounded))
-                                ],
-                              ),
-                            ),
-                          ))
+                  : getchatContainer(context),
             ],
           ),
         ));
@@ -280,6 +243,67 @@ class _ChatConvopageState extends State<ChatConvopage> {
         ),
       ),
     );
+  }
+
+  Widget getchatContainer(BuildContext context) {
+    if (oncallclmchat.itemstatus == "Claimed") {
+      return Container(
+        alignment: Alignment.bottomCenter,
+        child: Container(
+          height: 65,
+          width: MediaQuery.of(context).size.width,
+          color: primaryColor,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 11.0),
+            child: Center(
+                child: Column(
+              children: const [
+                TextViewInter(
+                    title: "Chat Unavailable",
+                    fontsize: 14,
+                    fontweight: FontWeight.bold,
+                    fontcolor: colorWhite),
+                TextViewInter(
+                    title: "The item is already claimed by the Owner",
+                    fontsize: 14,
+                    fontweight: FontWeight.normal,
+                    fontcolor: colorWhite),
+              ],
+            )),
+          ),
+        ),
+      );
+    } else {
+      return Container(
+          alignment: Alignment.bottomCenter,
+          child: Container(
+            color: colorWhite,
+            child: Padding(
+              padding: const EdgeInsets.only(
+                  left: 8.0, right: 8.0, bottom: 20, top: 15),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextFormField(
+                      controller: chat,
+                      decoration: InputDecoration(
+                          hintText: "Chat",
+                          hintStyle: GoogleFonts.inter(
+                              fontSize: 14, color: colorblack),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20))),
+                    ),
+                  ),
+                  IconButton(
+                      onPressed: () {
+                        handleconvosent();
+                      },
+                      icon: const Icon(Icons.send_rounded))
+                ],
+              ),
+            ),
+          ));
+    }
   }
 }
 

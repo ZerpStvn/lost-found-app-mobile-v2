@@ -313,7 +313,7 @@ class _ClaimedPageState extends State<ClaimedPage> {
 
     await FirebaseFirestore.instance
         .collection('Claimed_items')
-        .doc(userlogin!.useruid)
+        .doc(widget.userpost.postID)
         .set(clm.tomap());
     snack;
 

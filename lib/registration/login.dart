@@ -20,7 +20,7 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController userpassconnew = TextEditingController();
   TextEditingController emailconnew = TextEditingController();
   final Uri urluancher =
-      Uri.parse('https://zerpstvn.github.io/landfterms.github.io');
+      Uri.parse('https://zerpstvn.github.io/termsandprivacyLF.github.io');
 
   //snakbarmessage
   snacbarmessage(BuildContext context, String title) {
@@ -223,6 +223,15 @@ class _LoginPageState extends State<LoginPage> {
                         fontcolor: primaryColor)),
               ),
               sizeheight,
+              // IconButton(
+              //     onPressed: () async {
+              //       final nav = Navigator.of(context);
+              //       final pref = await SharedPreferences.getInstance();
+              //       pref.setBool('showHome', false);
+              //       nav.push(MaterialPageRoute(
+              //           builder: (context) => const OnBoardingScreen()));
+              //     },
+              //     icon: const Icon(Icons.add_a_photo)),
               SizedBox(
                 height: 55.0,
                 width: sizewidth * 0.88,

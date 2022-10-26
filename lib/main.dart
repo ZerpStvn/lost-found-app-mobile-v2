@@ -1,7 +1,9 @@
 import 'package:flutter/services.dart';
 import 'package:lostfoundapp/firebase_options.dart';
+import 'package:lostfoundapp/mainscreen/onboarding.dart';
 import 'package:lostfoundapp/mics/packages.dart';
 import 'package:lostfoundapp/model/userdata.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 CollectionReference userDataRef =
     FirebaseFirestore.instance.collection('users');
@@ -10,11 +12,15 @@ UserDataModel? userlogin;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  runApp(const MyApp());
+
+  final prefs = await SharedPreferences.getInstance();
+  final showHome = prefs.getBool('showHome') ?? false;
+  runApp(MyApp(showHome: showHome));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final bool showHome;
+  const MyApp({super.key, required this.showHome});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +32,7 @@ class MyApp extends StatelessWidget {
         splashColor: Colors.transparent,
         primarySwatch: Colors.green,
       ),
-      home: const LoginPage(),
+      home: showHome ? const LoginPage() : const OnBoardingScreen(),
     );
   }
 }

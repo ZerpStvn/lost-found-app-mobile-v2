@@ -318,7 +318,7 @@ class _LostClaimedPageState extends State<LostClaimedPage> {
 
     await FirebaseFirestore.instance
         .collection('Claimed_items')
-        .doc(userlogin!.useruid)
+        .doc(widget.userpost.postID)
         .set(clm.tomap());
     snack;
 

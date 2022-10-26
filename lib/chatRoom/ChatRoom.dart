@@ -3,8 +3,6 @@ import 'package:lostfoundapp/chatRoom/chatconvo.dart';
 import 'package:lostfoundapp/mics/packages.dart';
 import 'package:lostfoundapp/model/chatroommodel.dart';
 
-ClaimedItemModel oncallclmchat = ClaimedItemModel();
-
 class ChatRoomPage extends StatefulWidget {
   const ChatRoomPage({super.key});
 
@@ -21,19 +19,6 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
   void dispose() {
     _serach.dispose();
     super.dispose();
-  }
-
-  handlegetDataClaimed(ChatRoomModel chatroom) async {
-    DocumentSnapshot docs = await FirebaseFirestore.instance
-        .collection('Claimed_items')
-        .doc(chatroom.sentbyID)
-        .get();
-    if (!docs.exists) {
-      return null;
-    }
-    setState(() {
-      oncallclmchat = ClaimedItemModel.fromDocument(docs);
-    });
   }
 
   @override
@@ -153,7 +138,7 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
                                         child: Icon(Icons.send_rounded),
                                       ),
                                       onTap: () {
-                                        handlegetDataClaimed(chatroom);
+                                        //handlegetDataClaimed(chatroom);
                                         Navigator.push(
                                             context,
                                             MaterialPageRoute(
@@ -189,7 +174,7 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
                                         child: Icon(Icons.send_rounded),
                                       ),
                                       onTap: () {
-                                        handlegetDataClaimed(chatroom);
+                                        // handlegetDataClaimed(chatroom);
                                         Navigator.push(
                                             context,
                                             MaterialPageRoute(
