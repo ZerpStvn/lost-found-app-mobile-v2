@@ -9,6 +9,7 @@ class NotificationFeed extends StatefulWidget {
 
 class _NotificationFeedState extends State<NotificationFeed> {
   final user = FirebaseAuth.instance.currentUser;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,6 +69,7 @@ class _NotificationFeedState extends State<NotificationFeed> {
                                 if (!snapshot.hasData) {
                                   return Container();
                                 }
+
                                 if (reqmodel.posteruserID == user!.uid) {
                                   if (reqmodel.feed == "Notif") {
                                     return Padding(

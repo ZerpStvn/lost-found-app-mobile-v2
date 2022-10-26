@@ -1,6 +1,7 @@
 // ignore_for_file: no_logic_in_create_state
 
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:lostfoundapp/mics/packages.dart';
 
 class EditTextPost extends StatefulWidget {
@@ -12,6 +13,8 @@ class EditTextPost extends StatefulWidget {
 }
 
 class _EditTextPostState extends State<EditTextPost> {
+  Color sqcolor = primaryColor;
+  String? itemcolorval;
   final UserPostModel usermodel;
   _EditTextPostState(this.usermodel);
   final user = FirebaseAuth.instance.currentUser;
@@ -30,12 +33,17 @@ class _EditTextPostState extends State<EditTextPost> {
   final TextEditingController editmarkingscon = TextEditingController();
   final TextEditingController editseiralnumcon = TextEditingController();
   final TextEditingController editdatetimeController = TextEditingController();
+  Color prime = primaryColor;
+  Color current = primaryColor;
 
   handleuserdatevalue() {
+    final String colorValue = "${widget.usermodel.itemcolor}";
+    final int value = int.parse(colorValue);
+    final Color colorval = Color(value);
     SchedulerBinding.instance.addPostFrameCallback((timestamp) {
       edititemtitlecon.text = "${usermodel.itemname}";
       editfounddescriptionrcon.text = "${usermodel.foundlossDes}";
-      edititemcolorcon.text = "${usermodel.itemcolor}";
+      edititemcolorcon.text = "#${colorval.value.toRadixString(16)}";
       editlocationcon.text = "${usermodel.location}";
       editlocationDescriptioncon.text = "${usermodel.locationDes}";
       edititemdescriptioncon.text = "${usermodel.itemDes}";
@@ -46,7 +54,9 @@ class _EditTextPostState extends State<EditTextPost> {
       editbrandcon.text = "${usermodel.itembrand}";
       editmarkingscon.text = "${usermodel.itemMarks}";
       editseiralnumcon.text = "${usermodel.itemserailNum}";
+
       setState(() {
+        sqcolor = colorval;
         itemvalue = "${usermodel.itemtype}";
       });
     });
@@ -67,7 +77,7 @@ class _EditTextPostState extends State<EditTextPost> {
     final navigator = Navigator.of(context);
     final snack = snackBarScreen(context, "Done");
     usermodel.itemname = edititemtitlecon.text;
-    usermodel.itemcolor = edititemcolorcon.text;
+    usermodel.itemcolor = itemcolorval;
     usermodel.usermobileNum = editmobilenumbercon.text;
     usermodel.userSocialMedia = editsocialmediacon.text;
     usermodel.location = editlocationcon.text;
@@ -112,6 +122,30 @@ class _EditTextPostState extends State<EditTextPost> {
     }
   }
 
+  //BuildColorpicker
+  Widget buildcolorpicker() => ColorPicker(
+      pickerColor: current,
+      enableAlpha: false,
+      labelTypes: const [],
+      onColorChanged: (color) => setState(() {
+            sqcolor = color;
+            edititemcolorcon.text = "#${color.value.toRadixString(16)}";
+            itemcolorval = color.value.toString();
+          }));
+  //pickedcolor
+  pickedColor(BuildContext context) => showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                buildcolorpicker(),
+                TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: const Text("SELECT")),
+              ],
+            ),
+          ));
   @override
   void initState() {
     handleuserdatevalue();
@@ -185,9 +219,14 @@ class _EditTextPostState extends State<EditTextPost> {
                             Icons.color_lens_outlined,
                             color: primaryColor,
                           ),
-                          suffixIcon: const Icon(
-                            Icons.square,
-                            color: primaryColor,
+                          suffixIcon: IconButton(
+                            onPressed: () {
+                              pickedColor(context);
+                            },
+                            icon: Icon(
+                              Icons.square,
+                              color: sqcolor,
+                            ),
                           ),
                           labelText: 'Color ',
                           labelStyle:
