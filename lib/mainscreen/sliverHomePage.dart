@@ -90,6 +90,7 @@ class _SliverHomePageState extends State<SliverHomePage>
             android: AndroidNotificationDetails(
               channel.id,
               channel.name,
+              // ignore: todo
               // TODO add a proper drawable resource to android, for now using
               //      one that already exists in example app.
               icon: '@mipmap/ic_launcher',

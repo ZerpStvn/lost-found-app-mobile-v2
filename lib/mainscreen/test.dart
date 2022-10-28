@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:lostfoundapp/mics/packages.dart';
 import 'package:http/http.dart' as http;
@@ -87,6 +85,7 @@ class _WidgetViewState extends State<WidgetView> {
   //           android: AndroidNotificationDetails(
   //             channel.id,
   //             channel.name,
+  // ignore: todo
   //             // TODO add a proper drawable resource to android, for now using
   //             //      one that already exists in example app.
   //             icon: 'launch_background',
