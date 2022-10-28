@@ -8,6 +8,7 @@ class UserDataModel {
   String? useradd;
   String? userSchool;
   String? profileURL;
+  String? divToken;
 
   UserDataModel({
     this.username,
@@ -19,10 +20,12 @@ class UserDataModel {
     this.useradd,
     this.profileURL,
     this.userSchool,
+    this.divToken,
   });
 
   factory UserDataModel.fromDocuments(map) {
     return UserDataModel(
+      divToken: map['divToken'],
       username: map['username'],
       schoolID: map['schoolID'],
       schoolDept: map['schoolDept'],
@@ -36,6 +39,7 @@ class UserDataModel {
   }
   Map<String, dynamic> tomap() {
     return {
+      'divToken': divToken,
       'username': username,
       'schoolID': schoolID,
       'profileURL': profileURL,

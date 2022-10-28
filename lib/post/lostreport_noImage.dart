@@ -68,6 +68,7 @@ class _LostReportOption2State extends State<LostReportOption2> {
     userPostModel.datelossfound = lostdatetimeController.text;
     userPostModel.phtoURL = "empty";
     userPostModel.itemstatus = "Lost";
+     userPostModel.divToken = userlogin!.divToken;
     userPostModel.itemtype = itemvalue;
     userPostModel.userposterPhourl = userlogin!.profileURL;
     userPostModel.userpostername = userlogin!.username;

@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:lostfoundapp/mics/packages.dart';
 import 'package:lostfoundapp/model/userdata.dart';
 
@@ -17,6 +18,7 @@ class _SignupPageState extends State<SignupPage> {
   final TextEditingController confirmpasscon = TextEditingController();
   final _formkey = GlobalKey<FormState>();
   final userAuth = FirebaseAuth.instance;
+  String? mtoken = "";
   String? errormessage;
   String? value;
   bool isloading = false;
@@ -147,6 +149,12 @@ class _SignupPageState extends State<SignupPage> {
     setState(() {
       isloading = false;
     });
+  }
+
+  @override
+  void initState() {
+    gettotekon();
+    super.initState();
   }
 
   @override
@@ -328,7 +336,7 @@ class _SignupPageState extends State<SignupPage> {
                           fontweight: FontWeight.normal,
                           fontcolor: colorblack),
                     )),
-              )
+              ),
             ],
           ),
         ),
@@ -349,6 +357,7 @@ class _SignupPageState extends State<SignupPage> {
     usersmodel.userpassword = userpasscon.text;
     usersmodel.userSchool = "Central Philippine University";
     usersmodel.profileURL = "";
+    usersmodel.divToken = mtoken;
 
     await userDataRef.doc(user.uid).set(usersmodel.tomap());
     navigator.pushAndRemoveUntil(
@@ -356,6 +365,7 @@ class _SignupPageState extends State<SignupPage> {
         (route) => false);
 
     debugPrint("Account created");
+    debugPrint("$mtoken");
   }
 
   @override
@@ -367,5 +377,12 @@ class _SignupPageState extends State<SignupPage> {
     userpasscon.dispose();
     confirmpasscon.dispose();
     super.dispose();
+  }
+
+  void gettotekon() async {
+    final token = await FirebaseMessaging.instance.getToken();
+    setState(() {
+      mtoken = token;
+    });
   }
 }

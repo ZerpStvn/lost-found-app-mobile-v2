@@ -166,6 +166,7 @@ class _LostReportPageState extends State<LostReportPage> {
     userPostModel.phtoURL = photoURL;
     userPostModel.datelossfound = lostdatetimeController.text;
     userPostModel.itemstatus = "Lost";
+    userPostModel.divToken = userlogin!.divToken;
     userPostModel.itemtype = itemvalue;
     userPostModel.userposterPhourl = userlogin!.profileURL;
     userPostModel.userpostername = userlogin!.username;

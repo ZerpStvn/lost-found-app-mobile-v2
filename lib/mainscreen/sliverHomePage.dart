@@ -3,7 +3,6 @@
 import 'package:lostfoundapp/mics/packages.dart';
 import 'package:lostfoundapp/searchpage/itemsearch.dart';
 import 'package:lostfoundapp/shomodal.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class SliverHomePage extends StatefulWidget {
   const SliverHomePage({super.key});

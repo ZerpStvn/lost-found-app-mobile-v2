@@ -22,6 +22,7 @@ class UserPostModel {
   Timestamp? dateposted;
   String? userpostername;
   String? userposterPhourl;
+  String? divToken;
 
   UserPostModel({
     this.postID,
@@ -45,6 +46,7 @@ class UserPostModel {
     this.dateposted,
     this.userposterPhourl,
     this.userpostername,
+    this.divToken,
   });
 
   factory UserPostModel.fromDocuments(map) {
@@ -70,11 +72,13 @@ class UserPostModel {
       phtoURL: map['phtoURL'],
       itemstatus: map['itemstatus'],
       dateposted: map['dateposted'],
+      divToken: map['divToken'],
     );
   }
 
   Map<String, dynamic> tomap() {
     return {
+      'divToken': divToken,
       'postID': postID,
       'userID': userID,
       'itemname': itemname,

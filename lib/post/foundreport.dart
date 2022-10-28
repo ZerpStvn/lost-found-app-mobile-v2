@@ -150,6 +150,7 @@ class _FoundReportPageState extends State<FoundReportPage> {
     userPostModel.itemMarks = foundmarkingscon.text;
     userPostModel.itemserailNum = foundseiralnumcon.text;
     userPostModel.phtoURL = photoURL;
+    userPostModel.divToken = userlogin!.divToken;
     userPostModel.itemstatus = "Unclaimed";
     userPostModel.itemtype = itemvalue;
     userPostModel.userposterPhourl = userlogin!.profileURL;

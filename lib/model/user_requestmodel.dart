@@ -30,8 +30,10 @@ class Requesmodel {
   String? reqType;
   String? useronwerphotopostUrl;
   String? feed;
+  String? divToken;
 
   Requesmodel({
+    this.divToken,
     this.feed,
     this.reqType,
     this.nmame,
@@ -65,6 +67,7 @@ class Requesmodel {
 
   factory Requesmodel.fromDocuments(map) {
     return Requesmodel(
+      divToken: map['divToken'],
       itemname: map['itemname'],
       feed: map['feeds'],
       nmame: map['nmame'],
@@ -99,6 +102,7 @@ class Requesmodel {
 
   Map<String, dynamic> tomap() {
     return {
+      'divToken': divToken,
       'itemname': itemname,
       'feeds': "Notif",
       'nmame': nmame,

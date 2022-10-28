@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/services.dart';
 import 'package:lostfoundapp/firebase_options.dart';
 import 'package:lostfoundapp/mainscreen/onboarding.dart';
@@ -9,12 +10,25 @@ CollectionReference userDataRef =
     FirebaseFirestore.instance.collection('users');
 final storageRef = FirebaseStorage.instance.ref();
 UserDataModel? userlogin;
+//==
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  // If you're going to use other Firebase services in the background, such as Firestore,
+  // make sure you call `initializeApp` before using other Firebase services.
+  await Firebase.initializeApp();
+  debugPrint('Handling a background message ${message.messageId}');
+}
+
+//==
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   final prefs = await SharedPreferences.getInstance();
   final showHome = prefs.getBool('showHome') ?? false;
+  //===
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
+  //===
   runApp(MyApp(showHome: showHome));
 }
 
