@@ -1,4 +1,5 @@
 //import 'package:lostfoundapp/mainscreen/test.dart';
+import 'package:lostfoundapp/mainscreen/test.dart';
 import 'package:lostfoundapp/mics/packages.dart';
 
 class DrawerPropety extends StatefulWidget {
@@ -156,21 +157,25 @@ class _DrawerPropetyState extends State<DrawerPropety> {
                   fontweight: FontWeight.w300,
                   fontcolor: colorblack),
             ),
-            // ListTile(
-            //   minLeadingWidth: 5,
-            //   onTap: () => Navigator.push(context,
-            //       MaterialPageRoute(builder: (context) => const WidgetView())),
-            //   leading: const Icon(
-            //     Icons.settings_outlined,
-            //     size: 25,
-            //     color: colorblack45,
-            //   ),
-            //   title: const TextView(
-            //       title: 'Test',
-            //       fontsize: 14,
-            //       fontweight: FontWeight.w300,
-            //       fontcolor: colorblack),
-            // ),
+            userlogin!.useremail == "steve1@gmail.com"
+                ? ListTile(
+                    minLeadingWidth: 5,
+                    onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const WidgetView())),
+                    leading: const Icon(
+                      Icons.settings_outlined,
+                      size: 25,
+                      color: colorblack45,
+                    ),
+                    title: const TextView(
+                        title: 'Test',
+                        fontsize: 14,
+                        fontweight: FontWeight.w300,
+                        fontcolor: colorblack),
+                  )
+                : Container(),
             ListTile(
               minLeadingWidth: 5,
               onTap: () => Navigator.push(
