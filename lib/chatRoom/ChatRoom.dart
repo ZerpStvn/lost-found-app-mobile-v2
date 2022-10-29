@@ -2,7 +2,6 @@
 import 'package:lostfoundapp/chatRoom/chatconvo.dart';
 import 'package:lostfoundapp/mics/packages.dart';
 import 'package:lostfoundapp/model/chatroommodel.dart';
-import 'package:lostfoundapp/model/convo.dart';
 
 class ChatRoomPage extends StatefulWidget {
   const ChatRoomPage({super.key});

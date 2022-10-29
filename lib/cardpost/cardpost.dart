@@ -46,12 +46,13 @@ class Cardpost extends StatelessWidget {
                   subtitle: Column(
                     children: [
                       const TextViewInter(
-                          title: 'Lorem ipsum dolor sit amet consec elit.',
+                          title:
+                              "Meet them halfway what's yours will comeback eventually.",
                           fontsize: 15,
                           fontweight: FontWeight.normal,
                           fontcolor: colorWhite),
                       Padding(
-                        padding: const EdgeInsets.only(top: 26.0),
+                        padding: const EdgeInsets.only(top: 17.0),
                         child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: primaryColor),

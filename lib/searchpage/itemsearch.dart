@@ -1,5 +1,5 @@
-import 'package:lostfoundapp/cardpost/foundcardpost.dart';
 import 'package:lostfoundapp/mics/packages.dart';
+import 'package:lostfoundapp/searchpage/viewSearch.dart';
 
 class ItemSearchPage extends StatefulWidget {
   const ItemSearchPage({super.key});
@@ -58,7 +58,7 @@ class _ItemSearchPageState extends State<ItemSearchPage> {
                         padding: const EdgeInsets.only(left: 11.0, right: 11.0),
                         child: StreamBuilder<QuerySnapshot>(
                             stream: FirebaseFirestore.instance
-                                .collectionGroup('fitems')
+                                .collection('users_Post')
                                 .snapshots(),
                             builder: (context, snapshot) {
                               if (snapshot.connectionState ==
@@ -88,6 +88,10 @@ class _ItemSearchPageState extends State<ItemSearchPage> {
                                               .trim()
                                               .toLowerCase()
                                               .contains(onchangevalue) ||
+                                          post.datelossfound!
+                                              .trim()
+                                              .toLowerCase()
+                                              .contains(onchangevalue) ||
                                           post.locationDes!
                                               .trim()
                                               .toLowerCase()
@@ -112,7 +116,7 @@ class _ItemSearchPageState extends State<ItemSearchPage> {
                                               .trim()
                                               .toLowerCase()
                                               .contains(onchangevalue)) {
-                                        return FoundCardPost(post);
+                                        return ViewSearchPost(post);
                                       }
                                       return Container();
                                     });

@@ -320,6 +320,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
     usersmodel.useremail = edituseremailcon.text;
     usersmodel.userSchool = "Central Philippine University";
     usersmodel.profileURL = userlogin!.profileURL;
+    usersmodel.divToken = userlogin!.divToken;
 
     await userDataRef.doc(user.uid).update(usersmodel.tomap()).then((value) {
       handleupadatefunction();

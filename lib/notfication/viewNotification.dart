@@ -486,9 +486,8 @@ class _ViewNotificationState extends State<ViewNotification> {
 
     await FirebaseFirestore.instance
         .collection('Request_Accept')
-        .doc(user!.uid)
-        .collection('Request')
-        .add(reqmodel.tomap())
+        .doc(widget.requesmodel.reqpostID)
+        .set(reqmodel.tomap())
         .then((value) => debugPrint("request Accepted"));
   }
 

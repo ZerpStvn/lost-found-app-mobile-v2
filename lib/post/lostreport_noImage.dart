@@ -12,6 +12,7 @@ class LostReportOption2 extends StatefulWidget {
 }
 
 class _LostReportOption2State extends State<LostReportOption2> {
+  bool isloading = false;
   String postID = const Uuid().v4();
   UserPostModel userPostModel = UserPostModel();
   final user = FirebaseAuth.instance.currentUser;
@@ -50,7 +51,6 @@ class _LostReportOption2State extends State<LostReportOption2> {
 
   createposttoFirebase() async {
     final navigator = Navigator.of(context);
-    final snack = snackBarScreen(context, "Done");
     userPostModel.postID = postID.toString();
     userPostModel.userID = user!.uid;
     userPostModel.itemname = lostitemtitlecon.text;
@@ -72,12 +72,6 @@ class _LostReportOption2State extends State<LostReportOption2> {
     userPostModel.itemtype = itemvalue;
     userPostModel.userposterPhourl = userlogin!.profileURL;
     userPostModel.userpostername = userlogin!.username;
-    showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (context) => const Center(
-              child: CircularProgressIndicator(),
-            ));
     await FirebaseFirestore.instance
         .collection('lost_items')
         .doc(user!.uid)
@@ -85,19 +79,23 @@ class _LostReportOption2State extends State<LostReportOption2> {
         .doc(postID)
         .set(userPostModel.tomap());
 
-    navigator.popUntil((route) => route.isFirst);
+    await FirebaseFirestore.instance
+        .collection('users_Post')
+        .add(userPostModel.tomap());
 
     handleformclear();
-    snack;
+
     navigator.pushAndRemoveUntil(
         MaterialPageRoute(builder: (context) => const SliverHomePage()),
         (route) => false);
+
     setState(() {
       postID;
+      isloading = false;
     });
   }
 
-  handlesubmit(BuildContext context) {
+  handlesubmit() {
     if (lostitemtitlecon.text.isEmpty ||
         lostdatetimeController.text.isEmpty ||
         lostfounddescriptionrcon.text.isEmpty ||
@@ -108,6 +106,9 @@ class _LostReportOption2State extends State<LostReportOption2> {
         lostcolorValue == null) {
       snackBarScreen(context, "Please fill out all the important form");
     } else {
+      setState(() {
+        isloading = true;
+      });
       createposttoFirebase();
     }
   }
@@ -264,16 +265,19 @@ class _LostReportOption2State extends State<LostReportOption2> {
                               backgroundColor: primaryColor,
                             ),
                             onPressed: () {
-                              handlesubmit(context);
+                              isloading == false ? handlesubmit() : null;
                             },
-                            child: const Center(
-                              child: TextViewInter(
-                                title: "SUBMIT",
-                                fontsize: 14,
-                                fontcolor: colorWhite,
-                                fontweight: FontWeight.bold,
-                              ),
-                            )),
+                            child: Center(
+                                child: isloading == false
+                                    ? const TextViewInter(
+                                        title: "SUBMIT",
+                                        fontsize: 14,
+                                        fontcolor: colorWhite,
+                                        fontweight: FontWeight.bold,
+                                      )
+                                    : const CircularProgressIndicator(
+                                        backgroundColor: colorWhite,
+                                      ))),
                       ),
                     ),
                   ),

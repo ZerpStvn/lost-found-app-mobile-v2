@@ -90,15 +90,19 @@ class _LostReportPageState extends State<LostReportPage> {
                               backgroundColor: primaryColor,
                             ),
                             onPressed: () {
-                              handlesubmit(context);
+                              isloading == false ? handlesubmit(context) : null;
                             },
-                            child: const Center(
-                              child: TextViewInter(
-                                title: "SUBMIT",
-                                fontsize: 14,
-                                fontcolor: colorWhite,
-                                fontweight: FontWeight.bold,
-                              ),
+                            child: Center(
+                              child: isloading == false
+                                  ? const TextViewInter(
+                                      title: "SUBMIT",
+                                      fontsize: 14,
+                                      fontcolor: colorWhite,
+                                      fontweight: FontWeight.bold,
+                                    )
+                                  : const CircularProgressIndicator(
+                                      backgroundColor: colorWhite,
+                                    ),
                             )),
                       ),
                     ),
@@ -147,7 +151,6 @@ class _LostReportPageState extends State<LostReportPage> {
   //firebase
   createposttoFirebase() async {
     final navigator = Navigator.of(context);
-    final snack = snackBarScreen(context, "Done");
     String photoURL = await uploadImage();
     userPostModel.postID = postID.toString();
     userPostModel.userID = user!.uid;
@@ -170,27 +173,24 @@ class _LostReportPageState extends State<LostReportPage> {
     userPostModel.itemtype = itemvalue;
     userPostModel.userposterPhourl = userlogin!.profileURL;
     userPostModel.userpostername = userlogin!.username;
-    showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (context) => const Center(
-              child: CircularProgressIndicator(),
-            ));
     await FirebaseFirestore.instance
         .collection('lost_items')
         .doc(user!.uid)
         .collection('litems')
         .doc(postID)
         .set(userPostModel.tomap());
-    navigator.popUntil((route) => route.isFirst);
+
+    await FirebaseFirestore.instance
+        .collection('users_Post')
+        .add(userPostModel.tomap());
 
     handleformclear();
-    snack;
     navigator.pushAndRemoveUntil(
         MaterialPageRoute(builder: (context) => const SliverHomePage()),
         (route) => false);
     setState(() {
       postID;
+      isloading = false;
     });
   }
   //===========================================
@@ -205,11 +205,15 @@ class _LostReportPageState extends State<LostReportPage> {
         lostlocationcon.text.isEmpty ||
         lostlocationDescriptioncon.text.isEmpty ||
         lostitemdescriptioncon.text.isEmpty ||
-        lostmarkingscon.text.isEmpty) {
+        lostmarkingscon.text.isEmpty ||
+        itemcolorValue == null) {
       snackBarScreen(context, "Please fill out all the important form");
     } else if (imagepathfile == null) {
       snackBarScreen(context, "Please select an image");
     } else {
+      setState(() {
+        isloading = true;
+      });
       createposttoFirebase();
     }
   }

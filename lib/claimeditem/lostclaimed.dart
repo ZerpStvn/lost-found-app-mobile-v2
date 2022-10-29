@@ -341,4 +341,28 @@ class _LostClaimedPageState extends State<LostClaimedPage> {
       handlesubmit();
     }
   }
+
+  @override
+  void initState() {
+    super.initState();
+
+    getclaimedData();
+  }
+
+  Requesmodel reqmodel = Requesmodel();
+  Future getclaimedData() async {
+    DocumentSnapshot data = await FirebaseFirestore.instance
+        .collection('Request_Accept')
+        .doc(widget.userpost.postID)
+        .get();
+    if (!data.exists) {
+      return null;
+    }
+    reqmodel = Requesmodel.fromDocuments(data);
+    if (reqmodel.reqpostID == widget.userpost.postID) {
+      ownername.text = "${reqmodel.nmame}";
+      ownerID.text = "${reqmodel.scholid}";
+      ownerDept.text = "${reqmodel.ndept}";
+    }
+  }
 }

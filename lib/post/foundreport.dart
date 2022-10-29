@@ -82,15 +82,19 @@ class _FoundReportPageState extends State<FoundReportPage> {
                               backgroundColor: primaryColor,
                             ),
                             onPressed: () {
-                              handlesubmit(context);
+                              isloading == false ? handlesubmit() : null;
                             },
-                            child: const Center(
-                              child: TextViewInter(
-                                title: "SUBMIT",
-                                fontsize: 14,
-                                fontcolor: colorWhite,
-                                fontweight: FontWeight.bold,
-                              ),
+                            child: Center(
+                              child: isloading == false
+                                  ? const TextViewInter(
+                                      title: "SUBMIT",
+                                      fontsize: 14,
+                                      fontcolor: colorWhite,
+                                      fontweight: FontWeight.bold,
+                                    )
+                                  : const CircularProgressIndicator(
+                                      backgroundColor: colorWhite,
+                                    ),
                             )),
                       ),
                     ),
@@ -132,7 +136,7 @@ class _FoundReportPageState extends State<FoundReportPage> {
 
   createposttoFirebase() async {
     final navigator = Navigator.of(context);
-    final snack = snackBarScreen(context, "Done");
+
     String photoURL = await uploadImage();
     userPostModel.postID = postID.toString();
     userPostModel.userID = user!.uid;
@@ -155,12 +159,6 @@ class _FoundReportPageState extends State<FoundReportPage> {
     userPostModel.itemtype = itemvalue;
     userPostModel.userposterPhourl = userlogin!.profileURL;
     userPostModel.userpostername = userlogin!.username;
-    showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (context) => const Center(
-              child: CircularProgressIndicator(),
-            ));
     await FirebaseFirestore.instance
         .collection("found_items")
         .doc(user!.uid)
@@ -168,29 +166,38 @@ class _FoundReportPageState extends State<FoundReportPage> {
         .doc(postID)
         .set(userPostModel.tomap());
 
-    navigator.popUntil((route) => route.isFirst);
+    //===========
+    await FirebaseFirestore.instance
+        .collection('users_Post')
+        .add(userPostModel.tomap());
+    //===========
+
     handleformclear();
-    snack;
     navigator.pushAndRemoveUntil(
         MaterialPageRoute(builder: (context) => const SliverHomePage()),
         (route) => false);
     setState(() {
       postID;
+      isloading = false;
     });
   }
 
-  handlesubmit(BuildContext context) {
+  handlesubmit() {
     if (founditemtitlecon.text.isEmpty ||
         founddatetimeController.text.isEmpty ||
         foundfounddescriptionrcon.text.isEmpty ||
         foundlocationcon.text.isEmpty ||
         foundlocationDescriptioncon.text.isEmpty ||
         founditemdescriptioncon.text.isEmpty ||
-        foundmarkingscon.text.isEmpty) {
+        foundmarkingscon.text.isEmpty ||
+        itemcolorValue == null) {
       snackBarScreen(context, "Please fill out all the important form");
     } else if (imagepathfile == null) {
       snackBarScreen(context, "Please select an image");
     } else {
+      setState(() {
+        isloading = true;
+      });
       createposttoFirebase();
     }
   }
