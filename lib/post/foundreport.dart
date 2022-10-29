@@ -155,7 +155,12 @@ class _FoundReportPageState extends State<FoundReportPage> {
     userPostModel.itemtype = itemvalue;
     userPostModel.userposterPhourl = userlogin!.profileURL;
     userPostModel.userpostername = userlogin!.username;
-
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => const Center(
+              child: CircularProgressIndicator(),
+            ));
     await FirebaseFirestore.instance
         .collection("found_items")
         .doc(user!.uid)
@@ -163,11 +168,12 @@ class _FoundReportPageState extends State<FoundReportPage> {
         .doc(postID)
         .set(userPostModel.tomap());
 
+    navigator.popUntil((route) => route.isFirst);
+    handleformclear();
+    snack;
     navigator.pushAndRemoveUntil(
         MaterialPageRoute(builder: (context) => const SliverHomePage()),
         (route) => false);
-    snack;
-    handleformclear();
     setState(() {
       postID;
     });
@@ -185,7 +191,6 @@ class _FoundReportPageState extends State<FoundReportPage> {
     } else if (imagepathfile == null) {
       snackBarScreen(context, "Please select an image");
     } else {
-      snackBarScreen(context, "Submitting please wait");
       createposttoFirebase();
     }
   }

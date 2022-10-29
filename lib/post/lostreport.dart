@@ -170,19 +170,25 @@ class _LostReportPageState extends State<LostReportPage> {
     userPostModel.itemtype = itemvalue;
     userPostModel.userposterPhourl = userlogin!.profileURL;
     userPostModel.userpostername = userlogin!.username;
-
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => const Center(
+              child: CircularProgressIndicator(),
+            ));
     await FirebaseFirestore.instance
         .collection('lost_items')
         .doc(user!.uid)
         .collection('litems')
         .doc(postID)
         .set(userPostModel.tomap());
+    navigator.popUntil((route) => route.isFirst);
 
+    handleformclear();
+    snack;
     navigator.pushAndRemoveUntil(
         MaterialPageRoute(builder: (context) => const SliverHomePage()),
         (route) => false);
-    snack;
-    handleformclear();
     setState(() {
       postID;
     });
@@ -204,7 +210,6 @@ class _LostReportPageState extends State<LostReportPage> {
     } else if (imagepathfile == null) {
       snackBarScreen(context, "Please select an image");
     } else {
-      snackBarScreen(context, "Submitting please wait");
       createposttoFirebase();
     }
   }

@@ -246,13 +246,17 @@ class _LostItemRequestSenderState extends State<LostItemRequestSender> {
               style: ElevatedButton.styleFrom(
                   backgroundColor: const Color.fromARGB(255, 28, 218, 44)),
               onPressed: () {
-                SchedulerBinding.instance.scheduleFrameCallback((timeStamp) {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              SendRequest(widget.userPostModel)));
-                });
+                onuserReq == false
+                    ? SchedulerBinding.instance
+                        .scheduleFrameCallback((timeStamp) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    SendRequest(widget.userPostModel)));
+                      })
+                    : snackBarScreen(
+                        context, "You can only send a request once");
               },
               child: const TextViewInter(
                   title: "SEND REQUEST",
@@ -297,5 +301,32 @@ class _LostItemRequestSenderState extends State<LostItemRequestSender> {
         MaterialPageRoute(builder: (context) => const SliverHomePage()),
         (route) => false);
     snackdone;
+  }
+
+  bool onuserReq = false;
+  Requesmodel reqmodel = Requesmodel();
+  Future getdatarequest() async {
+    DocumentSnapshot data = await FirebaseFirestore.instance
+        .collection('request_feeds')
+        .doc(userlogin!.useruid)
+        .collection('Activityfeed')
+        .doc(widget.userPostModel.postID)
+        .get();
+    if (!data.exists) {
+      return null;
+    }
+    reqmodel = Requesmodel.fromDocuments(data);
+    if (reqmodel.reqpostID == widget.userPostModel.postID) {
+      setState(() {
+        onuserReq = true;
+      });
+      debugPrint("$onuserReq");
+    }
+  }
+
+  @override
+  void initState() {
+    getdatarequest();
+    super.initState();
   }
 }

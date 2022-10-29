@@ -265,7 +265,7 @@ class _SendRequestState extends State<SendRequest> {
 
   Future handlesendRequest() async {
     final snack = snackBarScreen(context, "Request sent");
-    //final navigator = Navigator.of(context);
+    final navigator = Navigator.of(context);
     final user = FirebaseAuth.instance.currentUser;
     Requesmodel reqmodel = Requesmodel();
     reqmodel.itemname = widget.postmodel.itemname;
@@ -296,7 +296,13 @@ class _SendRequestState extends State<SendRequest> {
     reqmodel.scholid = requserIDcon.text;
     reqmodel.divToken = userlogin!.divToken;
     reqmodel.useronwerphotopostUrl = widget.postmodel.userposterPhourl;
-
+    //===
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => const Center(
+              child: CircularProgressIndicator(),
+            ));
     await FirebaseFirestore.instance
         .collection('request_feeds')
         .doc(user.uid)
@@ -306,9 +312,12 @@ class _SendRequestState extends State<SendRequest> {
         .then((value) => debugPrint("Request Submitted"))
         .onError(
             (error, stackTrace) => (value) => debugPrint("Request Submitted"));
-
-    snack;
+    navigator.popUntil((route) => route.isFirst);
     handlecleartext();
+    navigator.pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => const SliverHomePage()),
+        (route) => false);
+    snack;
   }
 
   handlecleartext() {
@@ -340,7 +349,8 @@ class _SendRequestState extends State<SendRequest> {
         requsermamecon.text.isEmpty ||
         requserDeptcon.text.isEmpty ||
         reqcolorcon.text.isEmpty ||
-        requserIDcon.text.isEmpty) {
+        requserIDcon.text.isEmpty ||
+        reqcolorValue == null) {
       snackBarScreen(context, "Please fill out all the information");
     } else {
       sendPushMessage(widget.postmodel.divToken.toString(),

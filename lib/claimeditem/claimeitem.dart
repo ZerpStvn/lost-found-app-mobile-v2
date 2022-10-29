@@ -87,6 +87,7 @@ class _ClaimedPageState extends State<ClaimedPage> {
                         child: SizedBox(
                           width: MediaQuery.of(context).size.width,
                           child: TextFormField(
+                            readOnly: true,
                             textInputAction: TextInputAction.next,
                             controller: refID,
                             decoration: InputDecoration(
@@ -107,7 +108,7 @@ class _ClaimedPageState extends State<ClaimedPage> {
                     textInputAction: TextInputAction.next,
                     controller: ownername,
                     decoration: InputDecoration(
-                      hintText: "Owner's name",
+                      label: const Text("Owner's name"),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(15),
                       ),
@@ -124,7 +125,7 @@ class _ClaimedPageState extends State<ClaimedPage> {
                           textInputAction: TextInputAction.next,
                           controller: ownerID,
                           decoration: InputDecoration(
-                            hintText: "School ID",
+                            label: const Text("School ID"),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(15),
                             ),
@@ -140,7 +141,7 @@ class _ClaimedPageState extends State<ClaimedPage> {
                           textInputAction: TextInputAction.done,
                           controller: ownerDept,
                           decoration: InputDecoration(
-                            hintText: "Department",
+                            label: const Text("Department"),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(15),
                             ),
@@ -162,7 +163,7 @@ class _ClaimedPageState extends State<ClaimedPage> {
                       prefixIcon:
                           const Icon(Icons.calendar_month, color: primaryColor),
                       contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
-                      hintText: "Date claim",
+                      label: const Text("Date claim"),
                       hintStyle:
                           GoogleFonts.inter(fontSize: 12, color: colorgrey),
                       border: OutlineInputBorder(

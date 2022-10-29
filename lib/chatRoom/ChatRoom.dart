@@ -2,6 +2,7 @@
 import 'package:lostfoundapp/chatRoom/chatconvo.dart';
 import 'package:lostfoundapp/mics/packages.dart';
 import 'package:lostfoundapp/model/chatroommodel.dart';
+import 'package:lostfoundapp/model/convo.dart';
 
 class ChatRoomPage extends StatefulWidget {
   const ChatRoomPage({super.key});
@@ -23,7 +24,6 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
 
   @override
   Widget build(BuildContext context) {
-    //final widthsize = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: colorWhite,
       appBar: AppBar(
@@ -138,7 +138,6 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
                                         child: Icon(Icons.send_rounded),
                                       ),
                                       onTap: () {
-                                        //handlegetDataClaimed(chatroom);
                                         Navigator.push(
                                             context,
                                             MaterialPageRoute(
@@ -174,7 +173,6 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
                                         child: Icon(Icons.send_rounded),
                                       ),
                                       onTap: () {
-                                        // handlegetDataClaimed(chatroom);
                                         Navigator.push(
                                             context,
                                             MaterialPageRoute(

@@ -303,24 +303,15 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     requestpermissionhandler();
-    requestnotifpermissionhandler();
     super.initState();
   }
 
   void checkpermission() async {
     var reqstatus = await Permission.storage.status;
-    var notif = await Permission.notification.status;
-    if (reqstatus.isGranted || notif.isGranted) {
+    if (reqstatus.isGranted) {
       handlesubmit();
     } else {
       requestpermissionhandler();
-    }
-  }
-
-  void requestnotifpermissionhandler() async {
-    var notif = await Permission.notification.status;
-    if (!notif.isGranted) {
-      await Permission.notification.request();
     }
   }
 

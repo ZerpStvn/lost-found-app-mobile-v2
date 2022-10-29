@@ -417,13 +417,7 @@ class _ViewNotificationState extends State<ViewNotification> {
                 child: ElevatedButton(
                     style:
                         ElevatedButton.styleFrom(backgroundColor: primaryColor),
-                    onPressed: () {
-                      sendPushMessage(
-                          widget.requesmodel.divToken.toString(),
-                          "Accepted your request",
-                          userlogin!.username.toString());
-                      handleSubmit();
-                    },
+                    onPressed: handleSubmit,
                     child: const TextView(
                         title: "ACCEPT",
                         fontsize: 14,
@@ -515,6 +509,8 @@ class _ViewNotificationState extends State<ViewNotification> {
     chat.chatRoomID =
         "${widget.requesmodel.posteruserID}_${widget.requesmodel.requserID}";
     chat.sentbyID = user!.uid;
+    chat.devTokenby = userlogin!.divToken;
+    chat.devTokenTo = widget.requesmodel.divToken;
     chat.sentToID = widget.requesmodel.requserID;
     chat.sentToname = widget.requesmodel.nmame;
     chat.sentbyname = widget.requesmodel.requserpostername;
@@ -550,6 +546,8 @@ class _ViewNotificationState extends State<ViewNotification> {
   }
 
   handleSubmit() {
+    sendPushMessage(widget.requesmodel.divToken.toString(),
+        "Accepted your request", userlogin!.username.toString());
     handleAcceptRequest();
     handleUpdate();
     handleChatRoom();

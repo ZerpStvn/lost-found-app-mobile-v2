@@ -13,10 +13,14 @@ class ChatRoomModel {
   Timestamp? datecreated;
   String? status;
   String? chatRoomID;
+  String? devTokenby;
+  String? devTokenTo;
 
   ChatRoomModel({
     this.chatRoomID,
     this.sentbyID,
+    this.devTokenby,
+    this.devTokenTo,
     this.sentToID,
     this.sentbyname,
     this.sentToname,
@@ -31,6 +35,8 @@ class ChatRoomModel {
 
   factory ChatRoomModel.fromDocument(map) {
     return ChatRoomModel(
+      devTokenby: map['devTokenby'],
+      devTokenTo: map['devTokenTo'],
       chatRoomID: map['chatRoomID'],
       sentbyID: map['sentbyID'],
       sentToID: map['sentToID'],
@@ -47,6 +53,8 @@ class ChatRoomModel {
   }
   Map<String, dynamic> tomap() {
     return {
+      'devTokenby': devTokenby,
+      'devTokenTo': devTokenTo,
       'chatRoomID': chatRoomID,
       'sentbyID': sentbyID,
       'sentToID': sentToID,

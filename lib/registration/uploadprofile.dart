@@ -61,8 +61,15 @@ class _UploadProgilePageState extends State<UploadProgilePage> {
       setState(() {
         isloading = true;
       });
+      showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (context) => const Center(
+                child: CircularProgressIndicator(),
+              ));
       String? mediaURL = await uploadImage(image);
       userDataRef.doc(user!.uid).update({'profileURL': mediaURL});
+      navigator.popUntil((route) => route.isFirst);
       setState(() {
         postId;
         isloading = false;

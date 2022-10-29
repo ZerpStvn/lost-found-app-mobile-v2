@@ -68,11 +68,16 @@ class _LostReportOption2State extends State<LostReportOption2> {
     userPostModel.datelossfound = lostdatetimeController.text;
     userPostModel.phtoURL = "empty";
     userPostModel.itemstatus = "Lost";
-     userPostModel.divToken = userlogin!.divToken;
+    userPostModel.divToken = userlogin!.divToken;
     userPostModel.itemtype = itemvalue;
     userPostModel.userposterPhourl = userlogin!.profileURL;
     userPostModel.userpostername = userlogin!.username;
-
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => const Center(
+              child: CircularProgressIndicator(),
+            ));
     await FirebaseFirestore.instance
         .collection('lost_items')
         .doc(user!.uid)
@@ -80,9 +85,13 @@ class _LostReportOption2State extends State<LostReportOption2> {
         .doc(postID)
         .set(userPostModel.tomap());
 
-    navigator.pop();
-    snack;
+    navigator.popUntil((route) => route.isFirst);
+
     handleformclear();
+    snack;
+    navigator.pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => const SliverHomePage()),
+        (route) => false);
     setState(() {
       postID;
     });
@@ -95,10 +104,10 @@ class _LostReportOption2State extends State<LostReportOption2> {
         lostlocationcon.text.isEmpty ||
         lostlocationDescriptioncon.text.isEmpty ||
         lostitemdescriptioncon.text.isEmpty ||
-        lostmarkingscon.text.isEmpty) {
+        lostmarkingscon.text.isEmpty ||
+        lostcolorValue == null) {
       snackBarScreen(context, "Please fill out all the important form");
     } else {
-      snackBarScreen(context, "Submitting please wait");
       createposttoFirebase();
     }
   }
@@ -130,19 +139,22 @@ class _LostReportOption2State extends State<LostReportOption2> {
             onchange = color;
             lostitemcolorcon.text = "#${color.value.toRadixString(16)}";
             lostcolorValue = color.value.toString();
+            debugPrint("$lostcolorValue");
           }));
   //pickedcolor
   pickedColor(BuildContext context) => showDialog(
       context: context,
       builder: (context) => AlertDialog(
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                buildcolorpicker(),
-                TextButton(
-                    onPressed: () => Navigator.pop(context),
-                    child: const Text("SELECT")),
-              ],
+            content: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  buildcolorpicker(),
+                  TextButton(
+                      onPressed: () => Navigator.pop(context),
+                      child: const Text("SELECT")),
+                ],
+              ),
             ),
           ));
   @override

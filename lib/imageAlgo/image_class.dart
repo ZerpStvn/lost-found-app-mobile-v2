@@ -205,14 +205,16 @@ class _ImageClassificationState extends State<ImageClassification> {
   pickedColor(BuildContext context) => showDialog(
       context: context,
       builder: (context) => AlertDialog(
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                buildcolorpicker(),
-                TextButton(
-                    onPressed: () => Navigator.pop(context),
-                    child: const Text("SELECT")),
-              ],
+            content: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  buildcolorpicker(),
+                  TextButton(
+                      onPressed: () => Navigator.pop(context),
+                      child: const Text("SELECT")),
+                ],
+              ),
             ),
           ));
   //==
