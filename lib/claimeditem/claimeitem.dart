@@ -281,6 +281,11 @@ class _ClaimedPageState extends State<ClaimedPage> {
         .delete()
         .then((value) => debugPrint("data deleted"))
         .catchError((err) => debugPrint("Field to delete data"));
+
+    await FirebaseFirestore.instance
+        .collection('users_Post')
+        .doc(widget.userpost.postID)
+        .delete();
   }
 
   handlesubmit() async {

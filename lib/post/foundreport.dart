@@ -2,6 +2,7 @@ import 'dart:io' as io;
 
 import 'package:flutter/scheduler.dart';
 import 'package:lostfoundapp/mics/packages.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class FoundReportPage extends StatefulWidget {
   const FoundReportPage({super.key});
@@ -169,7 +170,8 @@ class _FoundReportPageState extends State<FoundReportPage> {
     //===========
     await FirebaseFirestore.instance
         .collection('users_Post')
-        .add(userPostModel.tomap());
+        .doc(postID)
+        .set(userPostModel.tomap());
     //===========
 
     handleformclear();
@@ -223,23 +225,23 @@ class _FoundReportPageState extends State<FoundReportPage> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: const TextView(
+            title: const TextViewPoppins(
               title: "Exit",
               fontsize: 18,
               fontcolor: primaryColor,
               fontweight: FontWeight.bold,
             ),
-            content: const TextView(
+            content: const TextViewPoppins(
               title: "Are you sure you want to exit this page? ",
               fontsize: 15,
-              fontcolor: primaryColor,
+              fontcolor: colorblack,
             ),
             actions: [
               TextButton(
                 onPressed: () {
                   Navigator.of(context, rootNavigator: true).pop();
                 },
-                child: const TextView(
+                child: const TextViewPoppins(
                   title: "No",
                   fontsize: 18,
                   fontcolor: primaryColor,
@@ -257,7 +259,7 @@ class _FoundReportPageState extends State<FoundReportPage> {
                             builder: (context) => const SliverHomePage()));
                   });
                 },
-                child: const TextView(
+                child: const TextViewPoppins(
                   title: "Yes",
                   fontsize: 18,
                   fontcolor: primaryColor,
@@ -267,6 +269,14 @@ class _FoundReportPageState extends State<FoundReportPage> {
             ],
           );
         }));
+  }
+
+  @override
+  void initState() {
+    SchedulerBinding.instance.scheduleFrameCallback((timeStamp) {
+      showdescriptionModal(context);
+    });
+    super.initState();
   }
 
   @override

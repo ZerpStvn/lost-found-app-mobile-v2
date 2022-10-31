@@ -81,7 +81,8 @@ class _LostReportOption2State extends State<LostReportOption2> {
 
     await FirebaseFirestore.instance
         .collection('users_Post')
-        .add(userPostModel.tomap());
+        .doc(postID)
+        .set(userPostModel.tomap());
 
     handleformclear();
 
@@ -295,23 +296,23 @@ class _LostReportOption2State extends State<LostReportOption2> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: const TextView(
+            title: const TextViewPoppins(
               title: "Exit",
               fontsize: 18,
               fontcolor: primaryColor,
               fontweight: FontWeight.bold,
             ),
-            content: const TextView(
+            content: const TextViewPoppins(
               title: "Are you sure you want to exit this page? ",
               fontsize: 15,
-              fontcolor: primaryColor,
+              fontcolor: colorblack,
             ),
             actions: [
               TextButton(
                 onPressed: () {
                   Navigator.of(context, rootNavigator: true).pop();
                 },
-                child: const TextView(
+                child: const TextViewPoppins(
                   title: "No",
                   fontsize: 18,
                   fontcolor: primaryColor,
@@ -329,7 +330,7 @@ class _LostReportOption2State extends State<LostReportOption2> {
                     handleformclear();
                   });
                 },
-                child: const TextView(
+                child: const TextViewPoppins(
                   title: "Yes",
                   fontsize: 18,
                   fontcolor: primaryColor,
@@ -339,6 +340,14 @@ class _LostReportOption2State extends State<LostReportOption2> {
             ],
           );
         }));
+  }
+
+  @override
+  void initState() {
+    SchedulerBinding.instance.scheduleFrameCallback((timeStamp) {
+      showdescriptionModal(context);
+    });
+    super.initState();
   }
 
   @override

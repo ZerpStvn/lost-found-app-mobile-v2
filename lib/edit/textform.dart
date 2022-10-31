@@ -49,7 +49,7 @@ class _EditTextFormFieldState extends State<EditTextFormField> {
           Row(
             children: const [
               TextViewInter(
-                title: "ITEM DETIALS",
+                title: "ITEM DETAILS",
                 fontcolor: primaryColor,
                 fontsize: 15,
                 fontweight: FontWeight.bold,
@@ -372,7 +372,7 @@ class _EditTextFormFieldState extends State<EditTextFormField> {
                     Icons.description_outlined,
                     color: primaryColor,
                   ),
-                  labelText: 'Distinguishing markings ',
+                  labelText: 'Distinguishing marks ',
                   labelStyle: GoogleFonts.inter(fontSize: 12, color: colorgrey),
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(0)),
@@ -390,7 +390,7 @@ class _EditTextFormFieldState extends State<EditTextFormField> {
                   Icons.description_outlined,
                   color: primaryColor,
                 ),
-                labelText: 'Serialnumber(Optional) ',
+                labelText: 'Serial number(Optional) ',
                 labelStyle: GoogleFonts.inter(fontSize: 12, color: colorgrey),
                 border:
                     OutlineInputBorder(borderRadius: BorderRadius.circular(0)),

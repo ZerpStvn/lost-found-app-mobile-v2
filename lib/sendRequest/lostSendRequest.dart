@@ -296,6 +296,10 @@ class _LostItemRequestSenderState extends State<LostItemRequestSender> {
         .delete()
         .then((value) => debugPrint("data deleted"))
         .catchError((err) => debugPrint("Field to delete data"));
+    await FirebaseFirestore.instance
+        .collection('users_Post')
+        .doc(widget.userPostModel.postID)
+        .delete();
     snack;
     navigator.pushAndRemoveUntil(
         MaterialPageRoute(builder: (context) => const SliverHomePage()),

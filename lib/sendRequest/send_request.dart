@@ -264,7 +264,6 @@ class _SendRequestState extends State<SendRequest> {
   }
 
   Future handlesendRequest() async {
-    final snack = snackBarScreen(context, "Request sent");
     final navigator = Navigator.of(context);
     final user = FirebaseAuth.instance.currentUser;
     Requesmodel reqmodel = Requesmodel();
@@ -312,12 +311,12 @@ class _SendRequestState extends State<SendRequest> {
         .then((value) => debugPrint("Request Submitted"))
         .onError(
             (error, stackTrace) => (value) => debugPrint("Request Submitted"));
+
     navigator.popUntil((route) => route.isFirst);
     handlecleartext();
     navigator.pushAndRemoveUntil(
         MaterialPageRoute(builder: (context) => const SliverHomePage()),
         (route) => false);
-    snack;
   }
 
   handlecleartext() {

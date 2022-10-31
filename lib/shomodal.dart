@@ -1,5 +1,6 @@
 import 'package:lostfoundapp/edit/updateprofile.dart';
 import 'package:lostfoundapp/mics/packages.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 Future handleButtonModalOption(BuildContext context) async {
   return (await showModalBottomSheet(
@@ -110,6 +111,82 @@ Future handleButtonModalProfile(BuildContext context) async {
               )
             ],
           ),
+        );
+      }));
+}
+
+Future showdescriptionModal(BuildContext context) async {
+  //const duration = Duration(seconds: 6);
+  return (await showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(
+            "Reminder",
+            style: GoogleFonts.inter(
+                fontSize: 18, color: primaryColor, fontWeight: FontWeight.bold),
+          ),
+          content: Text(
+            "PRO TIPS!\n(for success and accuracy of potential matches)\n\n1. Fill-in as much details as possible\n\n2. Double check grammar and spelling\n\n3. Make sure to post clear pictures of the lost/found item.",
+            style: GoogleFonts.inter(
+              fontSize: 14,
+              color: colorblack,
+            ),
+          ),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 12.0),
+              child: TextButton(
+                onPressed: () =>
+                    Navigator.of(context, rootNavigator: true).pop(),
+                child: Text(
+                  "Continue",
+                  style: GoogleFonts.inter(
+                      fontSize: 18,
+                      color: primaryColor,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+            )
+          ],
+        );
+      }));
+}
+
+Future onAccept(BuildContext context) async {
+  //const duration = Duration(seconds: 6);
+  return (await showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(
+            "Reminder",
+            style: GoogleFonts.inter(
+                fontSize: 18, color: primaryColor, fontWeight: FontWeight.bold),
+          ),
+          content: Text(
+            "SAFETY AND GUIDELINES!\n\n1. Meet-up at public areas (Malls, School, etc.)\n\n2. To avoid scams, make sure to review information given is accurate by the person you are transacting with.\n\n3. Make sure that the person you are dealing with is a certified student of your university.",
+            style: GoogleFonts.inter(
+              fontSize: 14,
+              color: colorblack,
+            ),
+          ),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 12.0),
+              child: TextButton(
+                onPressed: () =>
+                    Navigator.of(context, rootNavigator: true).pop(),
+                child: Text(
+                  "Continue",
+                  style: GoogleFonts.inter(
+                      fontSize: 18,
+                      color: primaryColor,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+            )
+          ],
         );
       }));
 }

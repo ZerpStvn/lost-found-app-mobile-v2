@@ -23,6 +23,7 @@ class UserPostModel {
   String? userpostername;
   String? userposterPhourl;
   String? divToken;
+  bool? isShown;
 
   UserPostModel({
     this.postID,
@@ -47,6 +48,7 @@ class UserPostModel {
     this.userposterPhourl,
     this.userpostername,
     this.divToken,
+    this.isShown,
   });
 
   factory UserPostModel.fromDocuments(map) {
@@ -73,6 +75,7 @@ class UserPostModel {
       itemstatus: map['itemstatus'],
       dateposted: map['dateposted'],
       divToken: map['divToken'],
+      isShown: map['isShown'],
     );
   }
 
@@ -100,6 +103,7 @@ class UserPostModel {
       'itemstatus': itemstatus,
       'itemtype': itemtype,
       'dateposted': DateTime.now(),
+      'isShown': true,
     };
   }
 }

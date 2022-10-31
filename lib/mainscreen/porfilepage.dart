@@ -1,7 +1,6 @@
 import 'package:lostfoundapp/mainscreen/tabbarprofile/foundtab.dart';
 import 'package:lostfoundapp/mainscreen/tabbarprofile/losttab.dart';
 import 'package:lostfoundapp/mics/packages.dart';
-import 'package:lostfoundapp/shomodal.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});

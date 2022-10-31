@@ -93,16 +93,16 @@ Future handleOption(BuildContext context) async {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const TextView(
-            title: "options",
+          title: const TextViewPoppins(
+            title: "Options",
             fontsize: 18,
             fontcolor: primaryColor,
             fontweight: FontWeight.bold,
           ),
-          content: const TextView(
-            title: "Do you have an image? ",
+          content: const TextViewPoppins(
+            title: "Do you have image? ",
             fontsize: 15,
-            fontcolor: primaryColor,
+            fontcolor: colorblack,
           ),
           actions: [
             TextButton(
@@ -115,7 +115,7 @@ Future handleOption(BuildContext context) async {
                           builder: (context) => const LostReportOption2()));
                 });
               },
-              child: const TextView(
+              child: const TextViewPoppins(
                 title: "No",
                 fontsize: 18,
                 fontcolor: primaryColor,
@@ -132,7 +132,7 @@ Future handleOption(BuildContext context) async {
                           builder: (context) => const LostReportPage()));
                 });
               },
-              child: const TextView(
+              child: const TextViewPoppins(
                 title: "Yes",
                 fontsize: 18,
                 fontcolor: primaryColor,
@@ -156,7 +156,7 @@ Future handleButtonModal(BuildContext context) async {
             children: [
               ListTile(
                 leading: const Icon(Icons.description_outlined),
-                title: const TextView(
+                title: const TextViewPoppins(
                     title: "Report found item",
                     fontsize: 13,
                     fontweight: FontWeight.w500,
@@ -173,7 +173,52 @@ Future handleButtonModal(BuildContext context) async {
               ),
               ListTile(
                 leading: const Icon(Icons.description_outlined),
-                title: const TextView(
+                title: const TextViewPoppins(
+                    title: "Report lost item",
+                    fontsize: 13,
+                    fontweight: FontWeight.w500,
+                    fontcolor: colorblack),
+                onTap: () {
+                  Navigator.of(context, rootNavigator: true).pop();
+                  handleOption(context);
+                },
+              ),
+            ],
+          ),
+        );
+      }));
+}
+
+Future oncallaccept(BuildContext context) async {
+  return (await showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return Padding(
+          padding: const EdgeInsets.only(top: 11.0, bottom: 11.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                leading: const Icon(Icons.description_outlined),
+                title: const TextViewPoppins(
+                    title: "Report found item",
+                    fontsize: 13,
+                    fontweight: FontWeight.w500,
+                    fontcolor: colorblack),
+                onTap: () {
+                  Navigator.of(context, rootNavigator: true).pop();
+                  SchedulerBinding.instance.scheduleFrameCallback((timeStamp) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const FoundReportPage()));
+                  });
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.description_outlined),
+                title: const TextViewPoppins(
                     title: "Report lost item",
                     fontsize: 13,
                     fontweight: FontWeight.w500,

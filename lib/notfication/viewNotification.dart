@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 import 'dart:convert';
 
+import 'package:flutter/scheduler.dart';
 import 'package:lostfoundapp/mics/packages.dart';
 import 'package:lostfoundapp/model/chatroommodel.dart';
 import 'package:http/http.dart' as http;
@@ -39,6 +40,14 @@ class _ViewNotificationState extends State<ViewNotification> {
     } catch (e) {
       debugPrint("error push notification");
     }
+  }
+
+  @override
+  void initState() {
+    SchedulerBinding.instance.scheduleFrameCallback((timeStamp) {
+      onAccept(context);
+    });
+    super.initState();
   }
 
   @override
