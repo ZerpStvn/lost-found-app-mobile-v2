@@ -2,7 +2,6 @@ import 'dart:io' as io;
 
 import 'package:flutter/scheduler.dart';
 import 'package:lostfoundapp/mics/packages.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class FoundReportPage extends StatefulWidget {
   const FoundReportPage({super.key});
@@ -49,11 +48,6 @@ class _FoundReportPageState extends State<FoundReportPage> {
                 const SizedBox(
                   height: 20,
                 ),
-                // IconButton(
-                //     onPressed: () {
-                //       debugPrint(itemcolorValue);
-                //     },
-                //  icon: const Icon(Icons.camera)),
                 EditTextFormField(
                     cont2: foundfounddescriptionrcon,
                     cont3: foundlocationcon,

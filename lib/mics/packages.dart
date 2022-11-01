@@ -41,7 +41,7 @@ export 'package:lostfoundapp/model/claimeditemmodel.dart';
 export 'package:lostfoundapp/achive/claimedpost.dart';
 export 'package:lostfoundapp/model/claimeditemmodel.dart';
 export 'package:lostfoundapp/achive/archive.dart';
-export 'package:lostfoundapp/mainscreen/claimedpost.dart';
+export 'package:lostfoundapp/mainscreen/claimedPost.dart';
 export 'package:lostfoundapp/claimeditem/viewCliamedItem.dart';
 export 'package:lostfoundapp/imageAlgo/image_class.dart';
 export 'package:lostfoundapp/mics/item_type.dart';

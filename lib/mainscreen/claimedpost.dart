@@ -27,8 +27,7 @@ class _ClaimedItemPostPageState extends State<ClaimedItemPostPage> {
         backgroundColor: colorWhite,
         automaticallyImplyLeading: false,
         leading: IconButton(
-          onPressed: () => Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const SliverHomePage())),
+          onPressed: () => Navigator.pop(context),
           icon: const Icon(
             Icons.arrow_back,
             color: colorblack,

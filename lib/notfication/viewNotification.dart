@@ -382,7 +382,10 @@ class _ViewNotificationState extends State<ViewNotification> {
             const SizedBox(
               height: 20,
             ),
-            buildButton(context, sizewidth)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 12.0),
+              child: buildButton(context, sizewidth),
+            )
           ],
         ),
       ),
@@ -447,7 +450,7 @@ class _ViewNotificationState extends State<ViewNotification> {
             child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromARGB(255, 28, 218, 44)),
-                onPressed: () {},
+                onPressed: (){},
                 child: TextView(
                     title: widget.requesmodel.reqitemstatus == "Accept"
                         ? "ACCEPTED"

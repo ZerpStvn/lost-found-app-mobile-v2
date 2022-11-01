@@ -30,12 +30,11 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
         leading: Padding(
           padding: const EdgeInsets.only(left: 8.0),
           child: IconButton(
-              onPressed: () => Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const SliverHomePage()),
-                  (route) => false),
-              icon: const Icon(Icons.arrow_back)),
+              onPressed: () => Navigator.pop(context),
+              icon: const Icon(
+                Icons.arrow_back,
+                color: colorblack,
+              )),
         ),
         leadingWidth: 40,
         elevation: 0,

@@ -76,8 +76,14 @@ class _SliverHomePageState extends State<SliverHomePage>
     }
   }
 
+  int onNotifCounter = 0;
+
   void listenFCM() async {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      setState(() {
+        onNotifCounter++;
+      });
+      debugPrint("$onNotifCounter");
       RemoteNotification? notification = message.notification;
       AndroidNotification? android = message.notification?.android;
       if (notification != null && android != null && !kIsWeb) {
@@ -170,17 +176,37 @@ class _SliverHomePageState extends State<SliverHomePage>
                       color: colorblack45,
                       size: 25,
                     )),
-                IconButton(
-                    splashRadius: 1.9,
-                    onPressed: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const NotificationFeed())),
-                    icon: const Icon(
-                      Icons.notifications_outlined,
-                      color: colorblack45,
-                      size: 25,
-                    )),
+                Stack(
+                  children: [
+                    IconButton(
+                        splashRadius: 1.9,
+                        onPressed: () {
+                          setState(() {
+                            onNotifCounter = 0;
+                          });
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const NotificationFeed()));
+                        },
+                        icon: const Icon(
+                          Icons.notifications_outlined,
+                          color: colorblack45,
+                          size: 25,
+                        )),
+                    Positioned(
+                        top: 10,
+                        right: 10,
+                        child: Icon(
+                          Icons.circle,
+                          color: onNotifCounter >= 1
+                              ? Colors.red
+                              : Colors.transparent,
+                          size: 10,
+                        ))
+                  ],
+                ),
                 IconButton(
                     splashRadius: 1.9,
                     onPressed: () {

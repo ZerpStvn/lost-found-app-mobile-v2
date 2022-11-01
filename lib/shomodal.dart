@@ -1,6 +1,5 @@
 import 'package:lostfoundapp/edit/updateprofile.dart';
 import 'package:lostfoundapp/mics/packages.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 Future handleButtonModalOption(BuildContext context) async {
   return (await showModalBottomSheet(
@@ -98,10 +97,8 @@ Future handleButtonModalProfile(BuildContext context) async {
                     fontweight: FontWeight.w500,
                     fontcolor: colorblack),
                 onTap: () {
-                  Navigator.of(context, rootNavigator: true).pop();
                   FirebaseAuth.instance.signOut();
                   snacbarmessage(context, "Logged out");
-                  Future.delayed(const Duration(milliseconds: 2000));
                   Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(

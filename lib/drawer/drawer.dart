@@ -1,6 +1,7 @@
 //import 'package:lostfoundapp/mainscreen/test.dart';
 import 'package:lostfoundapp/mainscreen/test.dart';
 import 'package:lostfoundapp/mics/packages.dart';
+import 'package:lostfoundapp/model/convo.dart';
 
 class DrawerPropety extends StatefulWidget {
   const DrawerPropety({
@@ -16,6 +17,13 @@ class DrawerPropety extends StatefulWidget {
 
 class _DrawerPropetyState extends State<DrawerPropety> {
   bool isloading = false;
+
+  @override
+  void initState() {
+    getchatData();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -92,11 +100,7 @@ class _DrawerPropetyState extends State<DrawerPropety> {
             ListTile(
               hoverColor: seconprimaryColor,
               minLeadingWidth: 5,
-              onTap: () => Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const SliverHomePage()),
-                  (route) => false),
+              onTap: () => Navigator.pop(context),
               leading: const Icon(
                 Icons.home_outlined,
                 size: 25,
@@ -110,20 +114,45 @@ class _DrawerPropetyState extends State<DrawerPropety> {
             ),
             ListTile(
               minLeadingWidth: 5,
-              onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const ChatRoomPage())),
+              onTap: () {
+                setState(() {
+                  indexval = 0;
+                });
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ChatRoomPage()));
+              },
               leading: const Icon(
                 Icons.chat_bubble_outline,
                 size: 22,
                 color: colorblack45,
               ),
-              title: const TextView(
-                  title: 'Messages',
-                  fontsize: 14,
-                  fontweight: FontWeight.w300,
-                  fontcolor: colorblack),
+              title: Row(
+                children: [
+                  const TextView(
+                      title: 'Messages',
+                      fontsize: 14,
+                      fontweight: FontWeight.w300,
+                      fontcolor: colorblack),
+                  const SizedBox(
+                    width: 13,
+                  ),
+                  Container(
+                    height: 14,
+                    width: 15,
+                    decoration: BoxDecoration(
+                        color: indexval == 0 ? colorWhite : Colors.red,
+                        shape: BoxShape.circle),
+                    child: Center(
+                      child: TextView(
+                          title: "$indexval",
+                          fontsize: indexval >= 10 ? 9 : 13,
+                          fontcolor: colorWhite),
+                    ),
+                  )
+                ],
+              ),
             ),
             ListTile(
               minLeadingWidth: 5,
@@ -226,5 +255,21 @@ class _DrawerPropetyState extends State<DrawerPropety> {
         MaterialPageRoute(builder: (context) => const LoginPage()),
         (route) => false);
     snack;
+  }
+
+  int indexval = 0;
+  int indexvalw = 10;
+  ChatConvo chat = ChatConvo();
+  Future getchatData() async {
+    QuerySnapshot docs =
+        await FirebaseFirestore.instance.collectionGroup('conversation').get();
+
+    if (docs.docs.isNotEmpty) {
+      setState(() {
+        indexval = docs.docs.length;
+      });
+    } else {
+      return null;
+    }
   }
 }
