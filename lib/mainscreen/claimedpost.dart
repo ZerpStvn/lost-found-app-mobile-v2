@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:intl/intl.dart';
 import 'package:lostfoundapp/mics/packages.dart';
 

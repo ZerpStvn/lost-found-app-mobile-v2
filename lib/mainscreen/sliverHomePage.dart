@@ -248,6 +248,7 @@ class _SliverHomePageState extends State<SliverHomePage>
                       height: 60,
                       width: 60,
                       decoration: BoxDecoration(
+                        color: colorgrey,
                         shape: BoxShape.circle,
                         image: DecorationImage(
                             image: NetworkImage('${userlogin!.profileURL}'),

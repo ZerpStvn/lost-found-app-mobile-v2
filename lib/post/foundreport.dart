@@ -41,6 +41,7 @@ class _FoundReportPageState extends State<FoundReportPage> {
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 ImageClassification(
                     itemcolorcon: founditemcolorcon,

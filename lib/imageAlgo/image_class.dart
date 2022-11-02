@@ -66,9 +66,8 @@ class _ImageClassificationState extends State<ImageClassification> {
 //
   //hanlde pick imagefrom gallery
   handlepickphotoGallery() async {
-    XFile? imagepath = await _picker.pickImage(
-      source: ImageSource.gallery,
-    );
+    XFile? imagepath =
+        await _picker.pickImage(source: ImageSource.gallery, imageQuality: 60);
     setState(() {
       imagepathfile = imagepath;
     });

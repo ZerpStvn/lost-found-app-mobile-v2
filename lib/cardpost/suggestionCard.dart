@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:lostfoundapp/cardpost/vievsuggestionCardpost.dart';
 import 'package:lostfoundapp/claimeditem/lostclaimed.dart';
 import 'package:lostfoundapp/mics/packages.dart';
+import 'package:lostfoundapp/model/userdata.dart';
 import 'package:lostfoundapp/sendRequest/lostSendRequest.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
@@ -182,147 +183,198 @@ class _SuggestionCardPostState extends State<SuggestionCardPost> {
                           LostItemRequestSender(widget.postModel))),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
-                child: Card(
-                  elevation: 10,
-                  child: Stack(fit: StackFit.expand, children: [
-                    widget.postModel.phtoURL == "empty"
-                        ? Container(
-                            color: const Color.fromARGB(141, 66, 73, 69),
-                            child: Container(
-                              decoration: const BoxDecoration(
-                                image: DecorationImage(
-                                    image: AssetImage(
-                                        'assets/background_green.jpg'),
-                                    fit: BoxFit.cover),
-                              ),
-                              child: const Center(
-                                child: TextViewPoppins(
-                                    title: "no image",
-                                    fontsize: 12,
-                                    fontcolor: colorWhite),
-                              ),
-                            ),
-                          )
-                        : Image.network(
-                            "${widget.postModel.phtoURL}",
-                            fit: BoxFit.cover,
-                            color: const Color.fromARGB(141, 66, 73, 69),
-                            colorBlendMode: BlendMode.multiply,
-                          ),
-                    Positioned(
-                        top: 10,
-                        left: 15,
-                        child: Container(
-                          height: 40,
-                          width: 40,
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              image: DecorationImage(
-                                  image: NetworkImage(
-                                      "${widget.postModel.userposterPhourl}"),
-                                  fit: BoxFit.cover)),
-                        )),
-                    Positioned(
-                        top: 13,
-                        left: 65,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                                width: 130,
-                                child: AutoSizeText(
-                                  "${widget.postModel.userpostername}",
-                                  maxLines: 1,
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 14, color: colorWhite),
-                                )),
-                            TextViewPoppins(
-                                title: tiemformat,
-                                fontsize: 10,
-                                fontcolor: colorWhite),
-                          ],
-                        )),
-                    Positioned(
-                        top: 8,
-                        right: 10,
-                        child: IconButton(
-                            onPressed: () {
-                              handleButtonModalItem(context);
-                            },
-                            icon: const Icon(
-                              Icons.more_vert,
-                              color: colorWhite,
-                            ))),
-                    Positioned(
-                      bottom: 33,
-                      left: 10,
-                      child: Row(
-                        children: [
-                          const Icon(
-                            Icons.location_on_outlined,
-                            color: colorWhite,
-                          ),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          SizedBox(
-                            width: 87,
-                            child: AutoSizeText(
-                              "${widget.postModel.location}",
-                              maxLines: 1,
-                              style: GoogleFonts.poppins(
-                                  fontSize: 12, color: colorWhite),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const Positioned(
-                      bottom: 18,
-                      left: 15,
-                      child: TextViewPoppins(
-                          title: "location last seen",
-                          fontsize: 12,
-                          fontcolor: colorWhite),
-                    ),
-                    Positioned(
-                      bottom: 18,
-                      right: 15,
-                      child: Material(
-                        elevation: 5,
-                        borderRadius: BorderRadius.circular(30),
-                        color: Colors.transparent,
-                        child: OutlinedButton(
-                            onPressed: () {
-                              if (widget.postModel.userID ==
-                                  userlogin!.useruid) {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            LostClaimedPage(widget.postModel)));
-                              }
-                            },
-                            style: OutlinedButton.styleFrom(
-                                side: const BorderSide(
-                                    width: 2, color: Colors.white),
-                                shape: const StadiumBorder()),
-                            child: TextViewPoppins(
-                                title: widget.postModel.userID ==
-                                        userlogin!.useruid
-                                    ? "Mark Claimed"
-                                    : "View",
-                                fontsize: 12,
-                                fontcolor: colorWhite)),
-                      ),
-                    ),
-                  ]),
-                ),
+                child: getUserProfileLoad(tiemformat),
               ),
             ),
           ),
         ),
       ],
+    );
+  }
+
+  Widget getUserProfileLoad(String tiemformat) {
+    return FutureBuilder<DocumentSnapshot>(
+        future: FirebaseFirestore.instance
+            .collection('users')
+            .doc(widget.postModel.userID)
+            .get(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return loadingScreen();
+          } else {
+            UserDataModel usrs =
+                UserDataModel.fromDocuments(snapshot.data!.data());
+            return Card(
+              elevation: 10,
+              child: Stack(fit: StackFit.expand, children: [
+                widget.postModel.phtoURL == "empty"
+                    ? Container(
+                        color: const Color.fromARGB(141, 66, 73, 69),
+                        child: Container(
+                          decoration: const BoxDecoration(
+                            image: DecorationImage(
+                                image:
+                                    AssetImage('assets/background_green.jpg'),
+                                fit: BoxFit.cover),
+                          ),
+                          child: const Center(
+                            child: TextViewPoppins(
+                                title: "no image",
+                                fontsize: 12,
+                                fontcolor: colorWhite),
+                          ),
+                        ),
+                      )
+                    : Image.network(
+                        "${widget.postModel.phtoURL}",
+                        fit: BoxFit.cover,
+                        color: const Color.fromARGB(141, 66, 73, 69),
+                        colorBlendMode: BlendMode.multiply,
+                      ),
+                Positioned(
+                    top: 10,
+                    left: 15,
+                    child: Container(
+                      height: 40,
+                      width: 40,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                              image: NetworkImage("${usrs.profileURL}"),
+                              fit: BoxFit.cover)),
+                    )),
+                Positioned(
+                    top: 13,
+                    left: 65,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                            width: 130,
+                            child: AutoSizeText(
+                              "${usrs.username}",
+                              maxLines: 1,
+                              style: GoogleFonts.poppins(
+                                  fontSize: 14, color: colorWhite),
+                            )),
+                        TextViewPoppins(
+                            title: tiemformat,
+                            fontsize: 10,
+                            fontcolor: colorWhite),
+                      ],
+                    )),
+                Positioned(
+                    top: 8,
+                    right: 10,
+                    child: IconButton(
+                        onPressed: () {
+                          handleButtonModalItem(context);
+                        },
+                        icon: const Icon(
+                          Icons.more_vert,
+                          color: colorWhite,
+                        ))),
+                Positioned(
+                  bottom: 33,
+                  left: 10,
+                  child: Row(
+                    children: [
+                      const Icon(
+                        Icons.location_on_outlined,
+                        color: colorWhite,
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      SizedBox(
+                        width: 87,
+                        child: AutoSizeText(
+                          "${widget.postModel.location}",
+                          maxLines: 1,
+                          style: GoogleFonts.poppins(
+                              fontSize: 12, color: colorWhite),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const Positioned(
+                  bottom: 18,
+                  left: 15,
+                  child: TextViewPoppins(
+                      title: "location last seen",
+                      fontsize: 12,
+                      fontcolor: colorWhite),
+                ),
+                Positioned(
+                  bottom: 18,
+                  right: 15,
+                  child: Material(
+                    elevation: 5,
+                    borderRadius: BorderRadius.circular(30),
+                    color: Colors.transparent,
+                    child: OutlinedButton(
+                        onPressed: () {
+                          if (widget.postModel.userID == userlogin!.useruid) {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        LostClaimedPage(widget.postModel)));
+                          }
+                        },
+                        style: OutlinedButton.styleFrom(
+                            side:
+                                const BorderSide(width: 2, color: Colors.white),
+                            shape: const StadiumBorder()),
+                        child: TextViewPoppins(
+                            title: widget.postModel.userID == userlogin!.useruid
+                                ? "Mark Claimed"
+                                : "View",
+                            fontsize: 12,
+                            fontcolor: colorWhite)),
+                  ),
+                ),
+              ]),
+            );
+          }
+        });
+  }
+
+  Widget loadingScreen() {
+    return Card(
+      elevation: 10,
+      child: Stack(fit: StackFit.expand, children: [
+        Image.asset(
+          "assets/banner.png",
+          fit: BoxFit.cover,
+          color: const Color.fromARGB(141, 66, 73, 69),
+          colorBlendMode: BlendMode.multiply,
+        ),
+        Positioned(
+            top: 10,
+            left: 15,
+            child: Container(
+              height: 40,
+              width: 40,
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                color: Color.fromARGB(255, 90, 87, 87),
+              ),
+            )),
+        Positioned(
+            top: 15,
+            left: 65,
+            child: Container(
+              height: 30,
+              width: 130,
+              decoration: BoxDecoration(
+                shape: BoxShape.rectangle,
+                color: const Color.fromARGB(255, 90, 87, 87),
+                borderRadius: BorderRadius.circular(30),
+              ),
+            )),
+      ]),
     );
   }
 

@@ -1,6 +1,7 @@
 // ignore_for_file: no_logic_in_create_state
 
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:lostfoundapp/mics/packages.dart';
 
 class EditTextPostLost extends StatefulWidget {
@@ -8,13 +9,10 @@ class EditTextPostLost extends StatefulWidget {
   const EditTextPostLost(this.usermodel, {super.key});
 
   @override
-  State<EditTextPostLost> createState() => _EditTextPostLostState(usermodel);
+  State<EditTextPostLost> createState() => _EditTextPostLostState();
 }
 
 class _EditTextPostLostState extends State<EditTextPostLost> {
-  final UserPostModel usermodel;
-
-  _EditTextPostLostState(this.usermodel);
   final user = FirebaseAuth.instance.currentUser;
 
   final TextEditingController edititemtitlecon = TextEditingController();
@@ -35,23 +33,27 @@ class _EditTextPostLostState extends State<EditTextPostLost> {
   final TextEditingController editdatetimeController = TextEditingController();
 
   handleuserdatevalue() async {
+    final String colorValue = "${widget.usermodel.itemcolor}";
+    final int value = int.parse(colorValue);
+    final Color colorval = Color(value);
     SchedulerBinding.instance.addPostFrameCallback((timestamp) {
-      edititemtitlecon.text = "${usermodel.itemname}";
-      editfounddescriptionrcon.text = "${usermodel.foundlossDes}";
-      //itemcolorcon.teeditxt = "${usermodel.itemcolor}";
-      editlocationcon.text = "${usermodel.location}";
-      editlocationDescriptioncon.text = "${usermodel.locationDes}";
-      edititemdescriptioncon.text = "${usermodel.itemDes}";
-      editmobilenumbercon.text = "${usermodel.usermobileNum}";
-      editsocialmediacon.text = "${usermodel.userSocialMedia}";
-      editmodelcon.text = "${usermodel.itemmodel}";
-      editdatetimeController.text = "${usermodel.datelossfound}";
-      editbrandcon.text = "${usermodel.itembrand}";
-      editmarkingscon.text = "${usermodel.itemMarks}";
-      editseiralnumcon.text = "${usermodel.itemserailNum}";
-      edititemcolorcon.text = "${usermodel.itemcolor}";
+      edititemtitlecon.text = "${widget.usermodel.itemname}";
+      editfounddescriptionrcon.text = "${widget.usermodel.foundlossDes}";
+      //itemcolorcon.teeditxt = "${widget.usermodel.itemcolor}";
+      editlocationcon.text = "${widget.usermodel.location}";
+      editlocationDescriptioncon.text = "${widget.usermodel.locationDes}";
+      edititemdescriptioncon.text = "${widget.usermodel.itemDes}";
+      editmobilenumbercon.text = "${widget.usermodel.usermobileNum}";
+      editsocialmediacon.text = "${widget.usermodel.userSocialMedia}";
+      editmodelcon.text = "${widget.usermodel.itemmodel}";
+      editdatetimeController.text = "${widget.usermodel.datelossfound}";
+      editbrandcon.text = "${widget.usermodel.itembrand}";
+      editmarkingscon.text = "${widget.usermodel.itemMarks}";
+      editseiralnumcon.text = "${widget.usermodel.itemserailNum}";
+      edititemcolorcon.text = "${widget.usermodel.itemcolor}";
       setState(() {
-        itemvalue = "${usermodel.itemtype}";
+        colorvalue = colorval;
+        itemvalue = "${widget.usermodel.itemtype}";
       });
     });
   }
@@ -70,27 +72,27 @@ class _EditTextPostLostState extends State<EditTextPostLost> {
   Future handlepostEdit() async {
     final navigator = Navigator.of(context);
     final snack = snackBarScreen(context, "Done");
-    usermodel.itemname = edititemtitlecon.text;
-    usermodel.itemcolor = edititemcolorcon.text;
-    usermodel.usermobileNum = editmobilenumbercon.text;
-    usermodel.userSocialMedia = editsocialmediacon.text;
-    usermodel.location = editlocationcon.text;
-    usermodel.locationDes = editlocationDescriptioncon.text;
-    usermodel.itemDes = edititemdescriptioncon.text;
-    usermodel.foundlossDes = editfounddescriptionrcon.text;
-    usermodel.itemmodel = editmodelcon.text;
-    usermodel.datelossfound = editdatetimeController.text;
-    usermodel.itembrand = editbrandcon.text;
-    usermodel.itemMarks = editmarkingscon.text;
-    usermodel.itemserailNum = editseiralnumcon.text;
-    usermodel.itemtype = itemvalue;
+    widget.usermodel.itemname = edititemtitlecon.text;
+    widget.usermodel.itemcolor = itemcolorpresent.toString();
+    widget.usermodel.usermobileNum = editmobilenumbercon.text;
+    widget.usermodel.userSocialMedia = editsocialmediacon.text;
+    widget.usermodel.location = editlocationcon.text;
+    widget.usermodel.locationDes = editlocationDescriptioncon.text;
+    widget.usermodel.itemDes = edititemdescriptioncon.text;
+    widget.usermodel.foundlossDes = editfounddescriptionrcon.text;
+    widget.usermodel.itemmodel = editmodelcon.text;
+    widget.usermodel.datelossfound = editdatetimeController.text;
+    widget.usermodel.itembrand = editbrandcon.text;
+    widget.usermodel.itemMarks = editmarkingscon.text;
+    widget.usermodel.itemserailNum = editseiralnumcon.text;
+    widget.usermodel.itemtype = itemvalue;
 
     await FirebaseFirestore.instance
         .collection("lost_items")
         .doc(user!.uid)
         .collection('litems')
-        .doc(usermodel.postID)
-        .update(usermodel.tomap());
+        .doc(widget.usermodel.postID)
+        .update(widget.usermodel.tomap());
 
     snack;
     navigator.pushAndRemoveUntil(
@@ -121,6 +123,36 @@ class _EditTextPostLostState extends State<EditTextPostLost> {
     super.initState();
   }
 
+//BuildColorpicker
+  Color colorvalue = primaryColor;
+  String? itemcolorpresent;
+  Color current = primaryColor;
+  Widget buildcolorpicker() => ColorPicker(
+      pickerColor: current,
+      enableAlpha: false,
+      labelTypes: const [],
+      onColorChanged: (color) => setState(() {
+            colorvalue = color;
+            edititemcolorcon.text = "#${color.value.toRadixString(16)}";
+            itemcolorpresent = color.value.toString();
+          }));
+  //pickedcolor
+  pickedColor(BuildContext context) => showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+            content: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  buildcolorpicker(),
+                  TextButton(
+                      onPressed: () => Navigator.pop(context),
+                      child: const Text("SELECT")),
+                ],
+              ),
+            ),
+          ));
+  //==
   @override
   Widget build(BuildContext context) {
     final widthsize = MediaQuery.of(context).size.width;
@@ -187,9 +219,14 @@ class _EditTextPostLostState extends State<EditTextPostLost> {
                               Icons.color_lens_outlined,
                               color: primaryColor,
                             ),
-                            suffixIcon: const Icon(
-                              Icons.square,
-                              color: primaryColor,
+                            suffixIcon: IconButton(
+                              onPressed: () {
+                                pickedColor(context);
+                              },
+                              icon: Icon(
+                                Icons.square,
+                                color: colorvalue,
+                              ),
                             ),
                             labelText: 'Color ',
                             labelStyle: GoogleFonts.inter(
