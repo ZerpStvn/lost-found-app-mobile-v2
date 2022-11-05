@@ -1,7 +1,9 @@
+import 'package:lostfoundapp/mainscreen/onboarding.dart';
 import 'package:lostfoundapp/mics/packages.dart';
 import 'package:lostfoundapp/model/userdata.dart';
 import 'package:lostfoundapp/registration/forgotpss.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class LoginPage extends StatefulWidget {
@@ -40,15 +42,22 @@ class _LoginPageState extends State<LoginPage> {
   Future handleuserdate() async {
     final navigate = Navigator.of(context);
     User? users = userAuth.currentUser;
+    final prefs = await SharedPreferences.getInstance();
+    final showHome = prefs.getBool('showHome') ?? false;
+
     DocumentSnapshot docs = await userDataRef.doc(users!.uid).get();
     if (docs.exists) {
       userlogin = UserDataModel.fromDocuments(docs);
     }
     userlogin = UserDataModel.fromDocuments(docs);
 
-    navigate.pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => const SliverHomePage()),
-        (route) => false);
+    showHome
+        ? navigate.pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => const SliverHomePage()),
+            (route) => false)
+        : navigate.pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => const OnBoardingScreen()),
+            (route) => false);
   }
 
   //signingup

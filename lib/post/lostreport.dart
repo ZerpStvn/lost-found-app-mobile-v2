@@ -209,6 +209,15 @@ class _LostReportPageState extends State<LostReportPage> {
         lostmarkingscon.text.isEmpty ||
         itemcolorValue == null) {
       snackBarScreen(context, "Please fill out all the important form");
+    } else if (lostfounddescriptionrcon.text.length < 120) {
+      notifyUserText(context,
+          "Provide more details about how you lost the item (100 character)");
+    } else if (lostlocationDescriptioncon.text.length < 120) {
+      notifyUserText(context,
+          "Provide more description about the location (120 character)");
+    } else if (lostitemcolorcon.text.length < 120) {
+      notifyUserText(
+          context, "Provide more details about the item (120 character)");
     } else if (imagepathfile == null) {
       snackBarScreen(context, "Please select an image");
     } else {

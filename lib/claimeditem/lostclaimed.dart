@@ -335,6 +335,8 @@ class _LostClaimedPageState extends State<LostClaimedPage> {
         ownerDept.text.isEmpty ||
         refID.text.isEmpty) {
       snackBarScreen(context, "please fill out all the form");
+    } else if (!RegExp("^[0-9]{2}-[0-9]{4}-[0-9]{2}").hasMatch(ownerID.text)) {
+      snackBarScreen(context, "Invalid School ID");
     } else if (imagepathfile == null) {
       snackBarScreen(context, "please provide an image verification");
     } else {

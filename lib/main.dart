@@ -1,10 +1,8 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/services.dart';
 import 'package:lostfoundapp/firebase_options.dart';
-import 'package:lostfoundapp/mainscreen/onboarding.dart';
 import 'package:lostfoundapp/mics/packages.dart';
 import 'package:lostfoundapp/model/userdata.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 CollectionReference userDataRef =
     FirebaseFirestore.instance.collection('users');
@@ -24,18 +22,15 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-  final prefs = await SharedPreferences.getInstance();
-  final showHome = prefs.getBool('showHome') ?? false;
   //===
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   //===
-  runApp(MyApp(showHome: showHome));
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  final bool showHome;
-  const MyApp({super.key, required this.showHome});
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +42,7 @@ class MyApp extends StatelessWidget {
         splashColor: Colors.transparent,
         primarySwatch: Colors.green,
       ),
-      home: showHome ? const LoginPage() : const OnBoardingScreen(),
+      home: const LoginPage(),
     );
   }
 }

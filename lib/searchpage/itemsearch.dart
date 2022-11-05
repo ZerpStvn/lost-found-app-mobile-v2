@@ -18,6 +18,14 @@ class _ItemSearchPageState extends State<ItemSearchPage> {
     super.dispose();
   }
 
+  List<String> postdataquery = [];
+
+  void searchqueary(String query) {
+    setState(() {
+      postdataquery = query.split(' ');
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +44,7 @@ class _ItemSearchPageState extends State<ItemSearchPage> {
                             controller: search,
                             onChanged: (value) {
                               setState(() {
-                                onchangevalue = value;
+                                searchqueary(value);
                               });
                             },
                             textInputAction: TextInputAction.search,
@@ -78,52 +86,27 @@ class _ItemSearchPageState extends State<ItemSearchPage> {
                                               .data!.docs[index]
                                               .data());
 
-                                      // String searchfrag =
-                                      //     "${post.itemname}${post.location}${post.datelossfound}${post.locationDes}${post.itemDes}${post.itemMarks}${post.itemmodel}${post.itembrand}${post.foundlossDes}"
-                                      //         .trim();
-                                      // var reviewRegex = RegExp(onchangevalue)
-                                      //     .hasMatch(searchfrag);
                                       if (!snapshot.hasData) {
                                         return Container();
                                       }
-                                      if (post.itemname!
-                                              .trim()
-                                              .toLowerCase()
-                                              .contains(onchangevalue) ||
-                                          post.location!
-                                              .trim()
-                                              .toLowerCase()
-                                              .contains(onchangevalue) ||
-                                          post.datelossfound!
-                                              .trim()
-                                              .toLowerCase()
-                                              .contains(onchangevalue) ||
-                                          post.locationDes!
-                                              .trim()
-                                              .toLowerCase()
-                                              .contains(onchangevalue) ||
-                                          post.itemDes!
-                                              .trim()
-                                              .toLowerCase()
-                                              .contains(onchangevalue) ||
-                                          post.itemMarks!
-                                              .trim()
-                                              .toLowerCase()
-                                              .contains(onchangevalue) ||
-                                          post.itemmodel!
-                                              .trim()
-                                              .toLowerCase()
-                                              .contains(onchangevalue) ||
-                                          post.itembrand!
-                                              .trim()
-                                              .toLowerCase()
-                                              .contains(onchangevalue) ||
-                                          post.foundlossDes!
-                                              .trim()
-                                              .toLowerCase()
-                                              .contains(onchangevalue)) {
-                                        return ViewSearchPost(post);
+                                      List<String> queryingdata = [
+                                        '${post.itemname}',
+                                        '${post.location}',
+                                        '${post.datelossfound}',
+                                        '${post.locationDes}',
+                                        '${post.itemDes}',
+                                        '${post.itemMarks}',
+                                        '${post.itemmodel}',
+                                        '${post.itembrand}',
+                                        '${post.foundlossDes}'
+                                      ];
+                                      for (var value in queryingdata) {
+                                        if (postdataquery.any((element) =>
+                                            value.contains(element))) {
+                                          return ViewSearchPost(post);
+                                        }
                                       }
+
                                       return Container();
                                     });
                               }

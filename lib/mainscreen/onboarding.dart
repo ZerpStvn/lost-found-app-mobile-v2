@@ -29,11 +29,47 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         child: PageView(
           onPageChanged: (value) {
             setState(() {
-              lastpage = value == 2;
+              lastpage = value == 3;
             });
           },
           controller: controller,
           children: [
+            Container(
+              padding: const EdgeInsets.only(bottom: 40),
+              color: colorWhite,
+              child: Center(
+                  child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: 220,
+                    width: 220,
+                    child: CircleAvatar(
+                      backgroundImage: NetworkImage("${userlogin!.profileURL}"),
+                    ),
+                  ),
+                  sizeheight,
+                  const TextViewPoppins(
+                      title: "Welcome to,",
+                      fontweight: FontWeight.bold,
+                      fontsize: 25,
+                      fontcolor: primaryColor),
+                  const TextViewPoppins(
+                      title: "Lost and Found Mobile App",
+                      fontweight: FontWeight.bold,
+                      fontsize: 18,
+                      fontcolor: primaryColor),
+                  sizeheight,
+                  sizeheight,
+                  const TextViewPoppins(
+                      title:
+                          "A platform that helps you identifying,\nstoring,and returning missing properties.",
+                      fontsize: 15,
+                      textalign: TextAlign.center,
+                      fontcolor: colorblack),
+                ],
+              )),
+            ),
             Container(
               padding: const EdgeInsets.only(bottom: 40),
               color: colorWhite,
@@ -126,7 +162,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   TextButton(
-                    onPressed: () => controller.jumpToPage(3),
+                    onPressed: () => controller.jumpToPage(4),
                     child: const TextViewPoppins(
                         title: "SKIP",
                         fontweight: FontWeight.bold,
@@ -136,7 +172,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   Center(
                     child: SmoothPageIndicator(
                       controller: controller,
-                      count: 3,
+                      count: 4,
                       effect: const WormEffect(
                         spacing: 15,
                         dotColor: seconprimaryColor,
@@ -165,7 +201,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     final prefs = await SharedPreferences.getInstance();
     prefs.setBool('showHome', true);
     navigator.pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => const LoginPage()),
+        MaterialPageRoute(builder: (context) => const SliverHomePage()),
         (route) => false);
   }
 }

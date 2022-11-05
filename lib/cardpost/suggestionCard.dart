@@ -129,7 +129,6 @@ class _SuggestionCardPostState extends State<SuggestionCardPost> {
                           final match3 = post.itemname
                               .crossMatch(widget.postModel.itemname);
                           double percentage = match * match2 * match3;
-
                           return percentage == 0.0
                               ? Container()
                               : CardSuggest(total: percentage, userpost: post);
@@ -199,9 +198,10 @@ class _SuggestionCardPostState extends State<SuggestionCardPost> {
       mainAxisSize: MainAxisSize.min,
       children: [
         SizedBox(
-            height: 150.0,
-            width: MediaQuery.of(context).size.width,
-            child: suggestion(context)),
+          height: 150.0,
+          width: MediaQuery.of(context).size.width,
+          child: suggestion(context),
+        ),
         Padding(
           padding: const EdgeInsets.only(top: 8.0),
           child: SizedBox(

@@ -191,6 +191,15 @@ class _FoundReportPageState extends State<FoundReportPage> {
       snackBarScreen(context, "Please fill out all the important form");
     } else if (imagepathfile == null) {
       snackBarScreen(context, "Please select an image");
+    } else if (foundfounddescriptionrcon.text.length < 120) {
+      notifyUserText(context,
+          "Provide more details about how you found the item (100 character)");
+    } else if (foundlocationDescriptioncon.text.length < 120) {
+      notifyUserText(context,
+          "Provide more description about the location (120 character)");
+    } else if (founditemcolorcon.text.length < 120) {
+      notifyUserText(
+          context, "Provide more details about the item (120 character)");
     } else {
       setState(() {
         isloading = true;

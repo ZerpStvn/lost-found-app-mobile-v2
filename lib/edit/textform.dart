@@ -47,19 +47,24 @@ class _EditTextFormFieldState extends State<EditTextFormField> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            children: const [
-              TextViewInter(
+            children: [
+              const TextViewInter(
                 title: "ITEM DETAILS",
                 fontcolor: primaryColor,
                 fontsize: 15,
                 fontweight: FontWeight.bold,
               ),
               Padding(
-                padding: EdgeInsets.only(left: 5.0),
-                child: Icon(
-                  Icons.help_outline,
-                  color: primaryColor,
-                  size: 18,
+                padding: const EdgeInsets.only(left: 5.0),
+                child: GestureDetector(
+                  onTap: () {
+                    notifyUserText(context, "Lorem");
+                  },
+                  child: const Icon(
+                    Icons.help_outline,
+                    color: primaryColor,
+                    size: 18,
+                  ),
                 ),
               )
             ],
@@ -110,7 +115,7 @@ class _EditTextFormFieldState extends State<EditTextFormField> {
               controller: widget.cont2,
               keyboardType: TextInputType.name,
               textInputAction: TextInputAction.next,
-              maxLength: 120,
+              maxLength: 320,
               maxLengthEnforcement: MaxLengthEnforcement.enforced,
               maxLines: 30,
               decoration: InputDecoration(
@@ -123,19 +128,24 @@ class _EditTextFormFieldState extends State<EditTextFormField> {
           ),
           sizeheight,
           Row(
-            children: const [
-              TextViewInter(
+            children: [
+              const TextViewInter(
                 title: "LOCATIONS",
                 fontcolor: primaryColor,
                 fontsize: 15,
                 fontweight: FontWeight.bold,
               ),
               Padding(
-                padding: EdgeInsets.only(left: 5.0),
-                child: Icon(
-                  Icons.help_outline,
-                  color: primaryColor,
-                  size: 18,
+                padding: const EdgeInsets.only(left: 5.0),
+                child: GestureDetector(
+                  onTap: () {
+                    notifyUserText(context, "Lorem");
+                  },
+                  child: const Icon(
+                    Icons.help_outline,
+                    color: primaryColor,
+                    size: 18,
+                  ),
                 ),
               ),
             ],
@@ -169,7 +179,7 @@ class _EditTextFormFieldState extends State<EditTextFormField> {
               controller: widget.cont4,
               keyboardType: TextInputType.name,
               textInputAction: TextInputAction.next,
-              maxLength: 120,
+              maxLength: 220,
               maxLines: 30,
               maxLengthEnforcement: MaxLengthEnforcement.enforced,
               decoration: InputDecoration(
@@ -183,19 +193,24 @@ class _EditTextFormFieldState extends State<EditTextFormField> {
           ),
           sizeheight,
           Row(
-            children: const [
-              TextViewInter(
+            children: [
+              const TextViewInter(
                 title: "DESCRIPTIONS",
                 fontcolor: primaryColor,
                 fontsize: 15,
                 fontweight: FontWeight.bold,
               ),
               Padding(
-                padding: EdgeInsets.only(left: 5.0),
-                child: Icon(
-                  Icons.help_outline,
-                  color: primaryColor,
-                  size: 18,
+                padding: const EdgeInsets.only(left: 5.0),
+                child: GestureDetector(
+                  onTap: () {
+                    notifyUserText(context, "lorem");
+                  },
+                  child: const Icon(
+                    Icons.help_outline,
+                    color: primaryColor,
+                    size: 18,
+                  ),
                 ),
               ),
             ],
@@ -210,7 +225,7 @@ class _EditTextFormFieldState extends State<EditTextFormField> {
               controller: widget.cont5,
               keyboardType: TextInputType.name,
               textInputAction: TextInputAction.next,
-              maxLength: 150,
+              maxLength: 550,
               maxLines: 40,
               maxLengthEnforcement: MaxLengthEnforcement.enforced,
               decoration: InputDecoration(
@@ -223,19 +238,24 @@ class _EditTextFormFieldState extends State<EditTextFormField> {
           ),
           sizeheight,
           Row(
-            children: const [
-              TextViewInter(
+            children: [
+              const TextViewInter(
                 title: "CONTACTS",
                 fontcolor: primaryColor,
                 fontsize: 15,
                 fontweight: FontWeight.bold,
               ),
               Padding(
-                padding: EdgeInsets.only(left: 5.0),
-                child: Icon(
-                  Icons.help_outline,
-                  color: primaryColor,
-                  size: 18,
+                padding: const EdgeInsets.only(left: 5.0),
+                child: GestureDetector(
+                  onTap: () {
+                    notifyUserText(context, "Lorem");
+                  },
+                  child: const Icon(
+                    Icons.help_outline,
+                    color: primaryColor,
+                    size: 18,
+                  ),
                 ),
               ),
             ],
@@ -282,19 +302,24 @@ class _EditTextFormFieldState extends State<EditTextFormField> {
           ),
           const SizedBox(height: 29),
           Row(
-            children: const [
-              TextViewInter(
+            children: [
+              const TextViewInter(
                 title: "ITEMS",
                 fontcolor: primaryColor,
                 fontsize: 15,
                 fontweight: FontWeight.bold,
               ),
               Padding(
-                padding: EdgeInsets.only(left: 5.0),
-                child: Icon(
-                  Icons.help_outline,
-                  color: primaryColor,
-                  size: 18,
+                padding: const EdgeInsets.only(left: 5.0),
+                child: GestureDetector(
+                  onTap: () {
+                    notifyUserText(context, "Lorem");
+                  },
+                  child: const Icon(
+                    Icons.help_outline,
+                    color: primaryColor,
+                    size: 18,
+                  ),
                 ),
               ),
             ],
@@ -341,19 +366,24 @@ class _EditTextFormFieldState extends State<EditTextFormField> {
           ),
           const SizedBox(height: 29),
           Row(
-            children: const [
-              TextViewInter(
+            children: [
+              const TextViewInter(
                 title: "OTHERS",
                 fontcolor: primaryColor,
                 fontsize: 15,
                 fontweight: FontWeight.bold,
               ),
               Padding(
-                padding: EdgeInsets.only(left: 5.0),
-                child: Icon(
-                  Icons.help_outline,
-                  color: primaryColor,
-                  size: 18,
+                padding: const EdgeInsets.only(left: 5.0),
+                child: GestureDetector(
+                  onTap: () {
+                    notifyUserText(context, "Lorem");
+                  },
+                  child: const Icon(
+                    Icons.help_outline,
+                    color: primaryColor,
+                    size: 18,
+                  ),
                 ),
               ),
             ],

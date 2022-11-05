@@ -61,7 +61,7 @@ class Cardpost extends StatelessWidget {
                             },
                             child: const Center(
                               child: TextViewInter(
-                                  title: 'Create Post',
+                                  title: 'Create post',
                                   fontsize: 13,
                                   fontweight: FontWeight.normal,
                                   fontcolor: colorWhite),

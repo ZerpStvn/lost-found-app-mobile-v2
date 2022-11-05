@@ -106,6 +106,15 @@ class _LostReportOption2State extends State<LostReportOption2> {
         lostmarkingscon.text.isEmpty ||
         lostcolorValue == null) {
       snackBarScreen(context, "Please fill out all the important form");
+    } else if (lostfounddescriptionrcon.text.length < 120) {
+      notifyUserText(context,
+          "Provide more details about how you lost the item (100 character)");
+    } else if (lostlocationDescriptioncon.text.length < 120) {
+      notifyUserText(context,
+          "Provide more description about the location (120 character)");
+    } else if (lostitemcolorcon.text.length < 120) {
+      notifyUserText(
+          context, "Provide more details about the item (120 character)");
     } else {
       setState(() {
         isloading = true;

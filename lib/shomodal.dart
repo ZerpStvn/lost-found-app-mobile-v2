@@ -114,6 +114,7 @@ Future handleButtonModalProfile(BuildContext context) async {
 
 Future showdescriptionModal(BuildContext context) async {
   //const duration = Duration(seconds: 6);
+  await Future.delayed(const Duration(milliseconds: 1000));
   return (await showDialog(
       context: context,
       builder: (context) {
@@ -150,8 +151,46 @@ Future showdescriptionModal(BuildContext context) async {
       }));
 }
 
+Future notifyUserText(BuildContext context, String content) async {
+  await Future.delayed(const Duration(milliseconds: 900));
+  return (await showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(
+            "Reminder",
+            style: GoogleFonts.inter(
+                fontSize: 18, color: primaryColor, fontWeight: FontWeight.bold),
+          ),
+          content: Text(
+            content,
+            style: GoogleFonts.inter(
+              fontSize: 14,
+              color: colorblack,
+            ),
+          ),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 12.0),
+              child: TextButton(
+                onPressed: () =>
+                    Navigator.of(context, rootNavigator: true).pop(),
+                child: Text(
+                  "Continue",
+                  style: GoogleFonts.inter(
+                      fontSize: 18,
+                      color: primaryColor,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+            )
+          ],
+        );
+      }));
+}
+
 Future onAccept(BuildContext context) async {
-  //const duration = Duration(seconds: 6);
+  await Future.delayed(const Duration(milliseconds: 1000));
   return (await showDialog(
       context: context,
       builder: (context) {

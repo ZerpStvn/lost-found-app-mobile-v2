@@ -22,6 +22,8 @@ class _SignupPageState extends State<SignupPage> {
   String? errormessage;
   String? value;
   bool isloading = false;
+  bool ischarpass = true;
+  bool ischarpass1 = true;
   final department = [
     'College of Agriculture, Resources and Environment Sciences',
     'College of Arts & Sciences',
@@ -126,18 +128,21 @@ class _SignupPageState extends State<SignupPage> {
     setState(() {
       isloading = true;
     });
-    if (usernamecon.text.isEmpty ||
+    if (useremailcon.text.isEmpty || userpasscon.text.isEmpty) {
+      snacbarmessage(context, 'Enter valid email and password');
+    } else if (usernamecon.text.isEmpty ||
         schoolIDcon.text.isEmpty ||
         value!.isEmpty ||
         userAddcon.text.isEmpty ||
         useremailcon.text.isEmpty ||
         userpasscon.text.isEmpty) {
-      snacbarmessage(context, 'Enter your Email and Password');
+      snacbarmessage(context, 'Complete all the form');
     } else if (confirmpasscon.text != userpasscon.text) {
       snacbarmessage(context, "password did not match");
     } else if (userpasscon.text.length < 6) {
       snacbarmessage(context, "password to short");
-    } else if (!RegExp("^[0-9]+-[0-9]+-[0-9]").hasMatch(schoolIDcon.text)) {
+    } else if (!RegExp("^[0-9]{2}-[0-9]{4}-[0-9]{2}")
+        .hasMatch(schoolIDcon.text)) {
       snacbarmessage(context, "Invalid school ID");
     } else if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
         .hasMatch(useremailcon.text)) {
@@ -271,8 +276,17 @@ class _SignupPageState extends State<SignupPage> {
                         controller: userpasscon,
                         keyboardType: TextInputType.name,
                         textInputAction: TextInputAction.next,
-                        obscureText: true,
+                        obscureText: ischarpass1,
                         decoration: InputDecoration(
+                          suffixIcon: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  ischarpass1 = !ischarpass1;
+                                });
+                              },
+                              icon: ischarpass1
+                                  ? const Icon(Icons.visibility_off_outlined)
+                                  : const Icon(Icons.visibility_outlined)),
                           prefixIcon: const Icon(Icons.key),
                           labelText: 'password',
                           labelStyle: GoogleFonts.montserrat(
@@ -286,9 +300,18 @@ class _SignupPageState extends State<SignupPage> {
                         controller: confirmpasscon,
                         keyboardType: TextInputType.name,
                         textInputAction: TextInputAction.next,
-                        obscureText: true,
+                        obscureText: ischarpass,
                         decoration: InputDecoration(
                           prefixIcon: const Icon(Icons.key),
+                          suffixIcon: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  ischarpass = !ischarpass;
+                                });
+                              },
+                              icon: ischarpass
+                                  ? const Icon(Icons.visibility_off_outlined)
+                                  : const Icon(Icons.visibility_outlined)),
                           labelText: 'confirm',
                           labelStyle: GoogleFonts.montserrat(
                               fontSize: 14, color: colorgrey),
