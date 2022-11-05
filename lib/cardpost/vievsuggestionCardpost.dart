@@ -297,29 +297,33 @@ class _SuggestionFoundCardPostState extends State<SuggestionFoundCardPost> {
         ),
       ));
     } else {
-      return Center(
-        child: SizedBox(
-          width: sizewidth * 0.88,
-          height: 50,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromARGB(255, 28, 218, 44)),
-                onPressed: () {
-                  SchedulerBinding.instance.scheduleFrameCallback((timeStamp) {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                SendRequest(widget.userPostModel)));
-                  });
-                },
-                child: const TextViewInter(
-                    title: "SEND REQUEST",
-                    fontsize: 14,
-                    fontweight: FontWeight.bold,
-                    fontcolor: colorWhite)),
+      return Padding(
+        padding: const EdgeInsets.only(bottom: 13.0),
+        child: Center(
+          child: SizedBox(
+            width: sizewidth * 0.88,
+            height: 50,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(255, 28, 218, 44)),
+                  onPressed: () {
+                    SchedulerBinding.instance
+                        .scheduleFrameCallback((timeStamp) {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  SendRequest(widget.userPostModel)));
+                    });
+                  },
+                  child: const TextViewInter(
+                      title: "SEND REQUEST",
+                      fontsize: 14,
+                      fontweight: FontWeight.bold,
+                      fontcolor: colorWhite)),
+            ),
           ),
         ),
       );

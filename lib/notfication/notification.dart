@@ -15,6 +15,16 @@ class _NotificationFeedState extends State<NotificationFeed> {
     return Scaffold(
       backgroundColor: colorWhite,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
+        leading: IconButton(
+            onPressed: () => Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => const SliverHomePage()),
+                (route) => false),
+            icon: const Icon(
+              Icons.arrow_back,
+              color: colorblack,
+            )),
         elevation: 0,
         backgroundColor: colorWhite,
         iconTheme: const IconThemeData(color: colorblack),

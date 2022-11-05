@@ -56,10 +56,10 @@ class _ItemSearchPageState extends State<ItemSearchPage> {
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left: 11.0, right: 11.0),
-                        child: StreamBuilder<QuerySnapshot>(
-                            stream: FirebaseFirestore.instance
+                        child: FutureBuilder<QuerySnapshot>(
+                            future: FirebaseFirestore.instance
                                 .collection('users_Post')
-                                .snapshots(),
+                                .get(),
                             builder: (context, snapshot) {
                               if (snapshot.connectionState ==
                                   ConnectionState.waiting) {
@@ -77,6 +77,12 @@ class _ItemSearchPageState extends State<ItemSearchPage> {
                                           UserPostModel.fromDocuments(snapshot
                                               .data!.docs[index]
                                               .data());
+
+                                      // String searchfrag =
+                                      //     "${post.itemname}${post.location}${post.datelossfound}${post.locationDes}${post.itemDes}${post.itemMarks}${post.itemmodel}${post.itembrand}${post.foundlossDes}"
+                                      //         .trim();
+                                      // var reviewRegex = RegExp(onchangevalue)
+                                      //     .hasMatch(searchfrag);
                                       if (!snapshot.hasData) {
                                         return Container();
                                       }

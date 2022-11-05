@@ -57,6 +57,7 @@ class _EditTextPostState extends State<EditTextPost> {
 
       setState(() {
         sqcolor = colorval;
+        itemcolorval = value.toString();
         itemvalue = "${usermodel.itemtype}";
       });
     });

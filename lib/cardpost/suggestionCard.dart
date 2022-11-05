@@ -5,6 +5,7 @@
 import 'package:intl/intl.dart';
 import 'package:lostfoundapp/cardpost/vievsuggestionCardpost.dart';
 import 'package:lostfoundapp/claimeditem/lostclaimed.dart';
+import 'package:lostfoundapp/crossMatch/string_Extension.dart';
 import 'package:lostfoundapp/mics/packages.dart';
 import 'package:lostfoundapp/model/userdata.dart';
 import 'package:lostfoundapp/sendRequest/lostSendRequest.dart';
@@ -21,12 +22,7 @@ class SuggestionCardPost extends StatefulWidget {
 class _SuggestionCardPostState extends State<SuggestionCardPost> {
   final user = FirebaseAuth.instance.currentUser;
 
-  double percentage = 0;
-  double percentage2 = 0;
-  double percentage3 = 0;
-  double percentage4 = 0;
-  double percentage5 = 0;
-  double percentage6 = 0;
+  bool ischeck = false;
 
   Widget suggestion(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
@@ -48,36 +44,47 @@ class _SuggestionCardPostState extends State<SuggestionCardPost> {
                     UserPostModel post = UserPostModel.fromDocuments(
                         snapshot.data!.docs[index].data());
                     //=================================================
+
                     if (post.itemtype!.trim().toLowerCase().contains(
                         widget.postModel.itemtype!.trim().toLowerCase())) {
-                      percentage = 0.50;
+                      final match =
+                          post.itemtype!.crossMatch(widget.postModel.itemtype);
                       if (post.datelossfound!.trim().toLowerCase().contains(
                           widget.postModel.datelossfound!
                               .trim()
                               .toLowerCase())) {
-                        percentage2 = 0.25;
+                        final match2 = post.datelossfound!
+                            .crossMatch(widget.postModel.datelossfound);
                         if (post.itemname!.trim().toLowerCase().contains(
                             widget.postModel.itemname!.trim().toLowerCase())) {
-                          percentage3 = 0.25;
-                          double total = percentage + percentage2 + percentage3;
-                          return CardSuggest(total: total, userpost: post);
+                          final match3 = post.itemname
+                              .crossMatch(widget.postModel.itemname);
+
+                          double percentage = match * match2 * match3;
+                          return CardSuggest(total: percentage, userpost: post);
                         }
                       }
                     }
                     //=======================
                     if (post.itemtype!.trim().toLowerCase().contains(
                         widget.postModel.itemtype!.trim().toLowerCase())) {
-                      percentage = 0.30;
+                      final match =
+                          post.itemtype!.crossMatch(widget.postModel.itemtype);
                       if (!post.datelossfound!.trim().toLowerCase().contains(
                           widget.postModel.datelossfound!
                               .trim()
                               .toLowerCase())) {
-                        percentage2 = 0.10;
+                        final match2 = post.datelossfound!
+                            .crossMatch(widget.postModel.datelossfound);
                         if (post.itemname!.trim().toLowerCase().contains(
                             widget.postModel.itemname!.trim().toLowerCase())) {
-                          percentage3 = 0.20;
-                          double total = percentage + percentage2 + percentage3;
-                          return CardSuggest(total: total, userpost: post);
+                          final match3 = post.itemname
+                              .crossMatch(widget.postModel.itemname);
+                          double percentage = match * match2 * match3;
+
+                          return percentage == 0.0
+                              ? Container()
+                              : CardSuggest(total: percentage, userpost: post);
                         }
                       }
                     }
@@ -85,17 +92,23 @@ class _SuggestionCardPostState extends State<SuggestionCardPost> {
                     //==========================
                     if (post.itemtype!.trim().toLowerCase().contains(
                         widget.postModel.itemtype!.trim().toLowerCase())) {
-                      percentage = 0.30;
+                      final match =
+                          post.itemtype!.crossMatch(widget.postModel.itemtype);
                       if (post.datelossfound!.trim().toLowerCase().contains(
                           widget.postModel.datelossfound!
                               .trim()
                               .toLowerCase())) {
-                        percentage2 = 0.10;
+                        final match2 = post.datelossfound!
+                            .crossMatch(widget.postModel.datelossfound);
                         if (!post.itemname!.trim().toLowerCase().contains(
                             widget.postModel.itemname!.trim().toLowerCase())) {
-                          percentage3 = 0.10;
-                          double total = percentage + percentage2 + percentage3;
-                          return CardSuggest(total: total, userpost: post);
+                          final match3 = post.itemname
+                              .crossMatch(widget.postModel.itemname);
+                          double percentage = match * match2 * match3;
+
+                          return percentage == 0.0
+                              ? Container()
+                              : CardSuggest(total: percentage, userpost: post);
                         }
                       }
                     }
@@ -103,51 +116,69 @@ class _SuggestionCardPostState extends State<SuggestionCardPost> {
 
                     if (post.itemtype!.trim().toLowerCase().contains(
                         widget.postModel.itemtype!.trim().toLowerCase())) {
-                      percentage = 0.10;
+                      final match =
+                          post.itemtype!.crossMatch(widget.postModel.itemtype);
                       if (!post.datelossfound!.trim().toLowerCase().contains(
                           widget.postModel.datelossfound!
                               .trim()
                               .toLowerCase())) {
-                        percentage2 = 0.0;
+                        final match2 = post.datelossfound!
+                            .crossMatch(widget.postModel.datelossfound);
                         if (!post.itemname!.trim().toLowerCase().contains(
                             widget.postModel.itemname!.trim().toLowerCase())) {
-                          percentage3 = 0.0;
-                          double total = percentage + percentage2 + percentage3;
-                          return CardSuggest(total: total, userpost: post);
+                          final match3 = post.itemname
+                              .crossMatch(widget.postModel.itemname);
+                          double percentage = match * match2 * match3;
+
+                          return percentage == 0.0
+                              ? Container()
+                              : CardSuggest(total: percentage, userpost: post);
                         }
                       }
                     }
                     //==========================
                     if (!post.itemtype!.trim().toLowerCase().contains(
                         widget.postModel.itemtype!.trim().toLowerCase())) {
-                      percentage = 0.0;
+                      final match =
+                          post.itemtype!.crossMatch(widget.postModel.itemtype);
                       if (post.datelossfound!.trim().toLowerCase().contains(
                           widget.postModel.datelossfound!
                               .trim()
                               .toLowerCase())) {
-                        percentage2 = 0.10;
+                        final match2 = post.datelossfound!
+                            .crossMatch(widget.postModel.datelossfound);
                         if (post.itemname!.trim().toLowerCase().contains(
                             widget.postModel.itemname!.trim().toLowerCase())) {
-                          percentage3 = 0.20;
-                          double total = percentage + percentage2 + percentage3;
-                          return CardSuggest(total: total, userpost: post);
+                          final match3 = post.itemname
+                              .crossMatch(widget.postModel.itemname);
+                          double percentage = match * match2 * match3;
+
+                          return percentage == 0.0
+                              ? Container()
+                              : CardSuggest(total: percentage, userpost: post);
                         }
                       }
                     }
                     //==========================
                     if (!post.itemtype!.trim().toLowerCase().contains(
                         widget.postModel.itemtype!.trim().toLowerCase())) {
-                      percentage = 0.0;
+                      final match =
+                          post.itemtype!.crossMatch(widget.postModel.itemtype);
                       if (!post.datelossfound!.trim().toLowerCase().contains(
                           widget.postModel.datelossfound!
                               .trim()
                               .toLowerCase())) {
-                        percentage2 = 0.0;
+                        final match2 = post.datelossfound!
+                            .crossMatch(widget.postModel.datelossfound);
                         if (post.itemname!.trim().toLowerCase().contains(
                             widget.postModel.itemname!.trim().toLowerCase())) {
-                          percentage4 = 0.20;
-                          double total = percentage + percentage2 + percentage3;
-                          return CardSuggest(total: total, userpost: post);
+                          final match3 = post.itemname
+                              .crossMatch(widget.postModel.itemname);
+                          double percentage = match * match2 * match3;
+
+                          return percentage == 0.0
+                              ? Container()
+                              : CardSuggest(total: percentage, userpost: post);
                         }
                       }
                     }
@@ -453,83 +484,86 @@ class CardSuggest extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => SuggestionFoundCardPost(userpost, total))),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(20),
-        child: SizedBox(
-          width: 150,
-          child: Card(
-            child: Stack(
-              fit: StackFit.expand,
-              children: [
-                Image.network(
-                  "${userpost.phtoURL}",
-                  fit: BoxFit.cover,
-                  color: const Color.fromARGB(141, 66, 73, 69),
-                  colorBlendMode: BlendMode.multiply,
+    return userpost.userID != userlogin!.useruid
+        ? GestureDetector(
+            onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        SuggestionFoundCardPost(userpost, total))),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: SizedBox(
+                width: 150,
+                child: Card(
+                  child: Stack(
+                    fit: StackFit.expand,
+                    children: [
+                      Image.network(
+                        "${userpost.phtoURL}",
+                        fit: BoxFit.cover,
+                        color: const Color.fromARGB(141, 66, 73, 69),
+                        colorBlendMode: BlendMode.multiply,
+                      ),
+                      Positioned(
+                          bottom: 15,
+                          left: 10,
+                          child: Row(
+                            children: [
+                              CircularPercentIndicator(
+                                  percent: total,
+                                  radius: 20.0,
+                                  lineWidth: 7.0,
+                                  progressColor: primaryColor,
+                                  backgroundColor:
+                                      const Color.fromARGB(255, 251, 250, 253),
+                                  circularStrokeCap: CircularStrokeCap.round,
+                                  center: Text(
+                                    "${total.toStringAsFixed(2)}%",
+                                    style: GoogleFonts.inter(
+                                        fontSize: 6.0, color: colorWhite),
+                                  )),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              const TextViewPoppins(
+                                title: "MATCH",
+                                fontsize: 10,
+                                fontcolor: colorWhite,
+                                fontweight: FontWeight.bold,
+                              ),
+                            ],
+                          )),
+                      Positioned(
+                          top: 10.0,
+                          left: 10.0,
+                          child: Row(
+                            children: [
+                              Container(
+                                height: 13.0,
+                                width: 13.0,
+                                decoration: const BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Color.fromARGB(255, 24, 211, 80),
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 10.0,
+                              ),
+                              TextViewPoppins(
+                                title: "${userpost.datelossfound}",
+                                fontsize: 10,
+                                fontcolor: colorWhite,
+                                fontweight: FontWeight.bold,
+                              ),
+                            ],
+                          )),
+                    ],
+                  ),
                 ),
-                Positioned(
-                    bottom: 15,
-                    left: 10,
-                    child: Row(
-                      children: [
-                        CircularPercentIndicator(
-                            percent: total,
-                            radius: 20.0,
-                            lineWidth: 7.0,
-                            progressColor: primaryColor,
-                            backgroundColor:
-                                const Color.fromARGB(255, 251, 250, 253),
-                            circularStrokeCap: CircularStrokeCap.round,
-                            center: Text(
-                              "${total.toStringAsFixed(2)}%",
-                              style: GoogleFonts.inter(
-                                  fontSize: 6.0, color: colorWhite),
-                            )),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        const TextViewPoppins(
-                          title: "MATCH",
-                          fontsize: 10,
-                          fontcolor: colorWhite,
-                          fontweight: FontWeight.bold,
-                        ),
-                      ],
-                    )),
-                Positioned(
-                    top: 10.0,
-                    left: 10.0,
-                    child: Row(
-                      children: [
-                        Container(
-                          height: 13.0,
-                          width: 13.0,
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Color.fromARGB(255, 24, 211, 80),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 10.0,
-                        ),
-                        TextViewPoppins(
-                          title: "${userpost.datelossfound}",
-                          fontsize: 10,
-                          fontcolor: colorWhite,
-                          fontweight: FontWeight.bold,
-                        ),
-                      ],
-                    )),
-              ],
+              ),
             ),
-          ),
-        ),
-      ),
-    );
+          )
+        : Container();
   }
 }

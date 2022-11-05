@@ -310,6 +310,13 @@ class _FountItemRequestSenderState extends State<FountItemRequestSender> {
       });
       debugPrint("$onuserReq");
     }
+    if (reqmodel.reqpostID == widget.userPostModel.postID) {
+      if (reqmodel.reqitemstatus == "Canceled") {
+        setState(() {
+          onuserReq = false;
+        });
+      }
+    }
   }
 
   @override

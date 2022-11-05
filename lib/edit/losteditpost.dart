@@ -39,7 +39,6 @@ class _EditTextPostLostState extends State<EditTextPostLost> {
     SchedulerBinding.instance.addPostFrameCallback((timestamp) {
       edititemtitlecon.text = "${widget.usermodel.itemname}";
       editfounddescriptionrcon.text = "${widget.usermodel.foundlossDes}";
-      //itemcolorcon.teeditxt = "${widget.usermodel.itemcolor}";
       editlocationcon.text = "${widget.usermodel.location}";
       editlocationDescriptioncon.text = "${widget.usermodel.locationDes}";
       edititemdescriptioncon.text = "${widget.usermodel.itemDes}";
@@ -50,9 +49,10 @@ class _EditTextPostLostState extends State<EditTextPostLost> {
       editbrandcon.text = "${widget.usermodel.itembrand}";
       editmarkingscon.text = "${widget.usermodel.itemMarks}";
       editseiralnumcon.text = "${widget.usermodel.itemserailNum}";
-      edititemcolorcon.text = "${widget.usermodel.itemcolor}";
+      edititemcolorcon.text = "#${colorval.value.toRadixString(16)}";
       setState(() {
         colorvalue = colorval;
+        itemcolorpresent = value.toString();
         itemvalue = "${widget.usermodel.itemtype}";
       });
     });

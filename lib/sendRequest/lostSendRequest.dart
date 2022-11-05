@@ -326,6 +326,13 @@ class _LostItemRequestSenderState extends State<LostItemRequestSender> {
       });
       debugPrint("$onuserReq");
     }
+    if (reqmodel.reqpostID == widget.userPostModel.postID) {
+      if (reqmodel.reqitemstatus == "Canceled") {
+        setState(() {
+          onuserReq = false;
+        });
+      }
+    }
   }
 
   @override
