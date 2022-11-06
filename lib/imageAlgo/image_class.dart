@@ -44,7 +44,7 @@ class _ImageClassificationState extends State<ImageClassification> {
               height: 5.0,
             ),
             Text(
-              "Image is being process...",
+              "processing image",
             )
           ],
         ),

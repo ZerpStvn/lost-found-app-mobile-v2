@@ -31,7 +31,7 @@ class _EditTextPostLostState extends State<EditTextPostLost> {
   final TextEditingController editseiralnumcon = TextEditingController();
 
   final TextEditingController editdatetimeController = TextEditingController();
-
+  final _formkey = GlobalKey<FormState>();
   handleuserdatevalue() async {
     final String colorValue = "${widget.usermodel.itemcolor}";
     final int value = int.parse(colorValue);
@@ -91,6 +91,11 @@ class _EditTextPostLostState extends State<EditTextPostLost> {
         .collection("lost_items")
         .doc(user!.uid)
         .collection('litems')
+        .doc(widget.usermodel.postID)
+        .update(widget.usermodel.tomap());
+
+    await FirebaseFirestore.instance
+        .collection('users_Post')
         .doc(widget.usermodel.postID)
         .update(widget.usermodel.tomap());
 
@@ -246,18 +251,20 @@ class _EditTextPostLostState extends State<EditTextPostLost> {
               height: 15.0,
             ),
             EditTextFormField(
-                cont2: editfounddescriptionrcon,
-                cont3: editlocationcon,
-                cont4: editlocationDescriptioncon,
-                cont5: edititemdescriptioncon,
-                cont6: editmobilenumbercon,
-                cont7: editsocialmediacon,
-                cont8: editmodelcon,
-                cont9: editbrandcon,
-                cont10: editmarkingscon,
-                cont11: editseiralnumcon,
-                cont12: editdatetimeController,
-                date: "Date"),
+              cont2: editfounddescriptionrcon,
+              cont3: editlocationcon,
+              cont4: editlocationDescriptioncon,
+              cont5: edititemdescriptioncon,
+              cont6: editmobilenumbercon,
+              cont7: editsocialmediacon,
+              cont8: editmodelcon,
+              cont9: editbrandcon,
+              cont10: editmarkingscon,
+              cont11: editseiralnumcon,
+              cont12: editdatetimeController,
+              date: "Date",
+              keyform: _formkey,
+            ),
             const SizedBox(
               height: 18.0,
             ),
@@ -277,7 +284,9 @@ class _EditTextPostLostState extends State<EditTextPostLost> {
                           backgroundColor: primaryColor,
                         ),
                         onPressed: () {
-                          handlesumbit();
+                          if (_formkey.currentState!.validate()) {
+                            handlesumbit();
+                          }
                         },
                         child: const Center(
                           child: TextViewInter(

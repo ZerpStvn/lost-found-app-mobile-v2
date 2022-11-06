@@ -32,7 +32,7 @@ class _LostReportOption2State extends State<LostReportOption2> {
   final TextEditingController lostseirlostalnumcon = TextEditingController();
 
   final TextEditingController lostdatetimeController = TextEditingController();
-
+  final _formKey = GlobalKey<FormState>();
   //
   //
   //
@@ -106,15 +106,6 @@ class _LostReportOption2State extends State<LostReportOption2> {
         lostmarkingscon.text.isEmpty ||
         lostcolorValue == null) {
       snackBarScreen(context, "Please fill out all the important form");
-    } else if (lostfounddescriptionrcon.text.length < 120) {
-      notifyUserText(context,
-          "Provide more details about how you lost the item (100 character)");
-    } else if (lostlocationDescriptioncon.text.length < 120) {
-      notifyUserText(context,
-          "Provide more description about the location (120 character)");
-    } else if (lostitemcolorcon.text.length < 120) {
-      notifyUserText(
-          context, "Provide more details about the item (120 character)");
     } else {
       setState(() {
         isloading = true;
@@ -247,18 +238,20 @@ class _LostReportOption2State extends State<LostReportOption2> {
                   height: 20,
                 ),
                 EditTextFormField(
-                    cont2: lostfounddescriptionrcon,
-                    cont3: lostlocationcon,
-                    cont4: lostlocationDescriptioncon,
-                    cont5: lostitemdescriptioncon,
-                    cont6: lostmobilenumbercon,
-                    cont7: lostsocialmediacon,
-                    cont8: lostmodelcon,
-                    cont9: lostbrandcon,
-                    cont10: lostmarkingscon,
-                    cont11: lostseirlostalnumcon,
-                    cont12: lostdatetimeController,
-                    date: "Date of loss"),
+                  cont2: lostfounddescriptionrcon,
+                  cont3: lostlocationcon,
+                  cont4: lostlocationDescriptioncon,
+                  cont5: lostitemdescriptioncon,
+                  cont6: lostmobilenumbercon,
+                  cont7: lostsocialmediacon,
+                  cont8: lostmodelcon,
+                  cont9: lostbrandcon,
+                  cont10: lostmarkingscon,
+                  cont11: lostseirlostalnumcon,
+                  cont12: lostdatetimeController,
+                  date: "Date of loss",
+                  keyform: _formKey,
+                ),
                 const SizedBox(
                   height: 18,
                 ),
@@ -275,7 +268,9 @@ class _LostReportOption2State extends State<LostReportOption2> {
                               backgroundColor: primaryColor,
                             ),
                             onPressed: () {
-                              isloading == false ? handlesubmit() : null;
+                              if (_formKey.currentState!.validate()) {
+                                isloading == false ? handlesubmit() : null;
+                              }
                             },
                             child: Center(
                                 child: isloading == false

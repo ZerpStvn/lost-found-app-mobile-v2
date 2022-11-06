@@ -14,7 +14,7 @@ class _LostReportPageState extends State<LostReportPage> {
   final user = FirebaseAuth.instance.currentUser;
   String postID = const Uuid().v4();
   UserPostModel userPostModel = UserPostModel();
-
+  final _formkey = GlobalKey<FormState>();
   final TextEditingController lostitemtitlecon = TextEditingController();
   final TextEditingController lostfounddescriptionrcon =
       TextEditingController();
@@ -62,18 +62,20 @@ class _LostReportPageState extends State<LostReportPage> {
                   height: 20,
                 ),
                 EditTextFormField(
-                    cont2: lostfounddescriptionrcon,
-                    cont3: lostlocationcon,
-                    cont4: lostlocationDescriptioncon,
-                    cont5: lostitemdescriptioncon,
-                    cont6: lostmobilenumbercon,
-                    cont7: lostsocialmediacon,
-                    cont8: lostmodelcon,
-                    cont9: lostbrandcon,
-                    cont10: lostmarkingscon,
-                    cont11: lostseirlostalnumcon,
-                    cont12: lostdatetimeController,
-                    date: "Date of loss"),
+                  cont2: lostfounddescriptionrcon,
+                  cont3: lostlocationcon,
+                  cont4: lostlocationDescriptioncon,
+                  cont5: lostitemdescriptioncon,
+                  cont6: lostmobilenumbercon,
+                  cont7: lostsocialmediacon,
+                  cont8: lostmodelcon,
+                  cont9: lostbrandcon,
+                  cont10: lostmarkingscon,
+                  cont11: lostseirlostalnumcon,
+                  cont12: lostdatetimeController,
+                  date: "Date of loss",
+                  keyform: _formkey,
+                ),
                 const SizedBox(
                   height: 18,
                 ),
@@ -90,7 +92,11 @@ class _LostReportPageState extends State<LostReportPage> {
                               backgroundColor: primaryColor,
                             ),
                             onPressed: () {
-                              isloading == false ? handlesubmit(context) : null;
+                              if (_formkey.currentState!.validate()) {
+                                isloading == false
+                                    ? handlesubmit(context)
+                                    : null;
+                              }
                             },
                             child: Center(
                               child: isloading == false
@@ -209,17 +215,6 @@ class _LostReportPageState extends State<LostReportPage> {
         lostmarkingscon.text.isEmpty ||
         itemcolorValue == null) {
       snackBarScreen(context, "Please fill out all the important form");
-    } else if (lostfounddescriptionrcon.text.length < 120) {
-      notifyUserText(context,
-          "Provide more details about how you lost the item (100 character)");
-    } else if (lostlocationDescriptioncon.text.length < 120) {
-      notifyUserText(context,
-          "Provide more description about the location (120 character)");
-    } else if (lostitemcolorcon.text.length < 120) {
-      notifyUserText(
-          context, "Provide more details about the item (120 character)");
-    } else if (imagepathfile == null) {
-      snackBarScreen(context, "Please select an image");
     } else {
       setState(() {
         isloading = true;

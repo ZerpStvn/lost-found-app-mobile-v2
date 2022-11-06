@@ -47,7 +47,7 @@ class Cardpost extends StatelessWidget {
                     children: [
                       const TextViewInter(
                           title:
-                              "Meet them halfway what's yours will comeback eventually.",
+                              "A centralized application for lost and found items.",
                           fontsize: 15,
                           fontweight: FontWeight.normal,
                           fontcolor: colorWhite),

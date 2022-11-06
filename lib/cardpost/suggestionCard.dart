@@ -21,8 +21,12 @@ class SuggestionCardPost extends StatefulWidget {
 
 class _SuggestionCardPostState extends State<SuggestionCardPost> {
   final user = FirebaseAuth.instance.currentUser;
-
-  bool ischeck = false;
+  bool colps = false;
+  void iscollapse() {
+    setState(() {
+      colps = !colps;
+    });
+  }
 
   Widget suggestion(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
@@ -44,7 +48,6 @@ class _SuggestionCardPostState extends State<SuggestionCardPost> {
                     UserPostModel post = UserPostModel.fromDocuments(
                         snapshot.data!.docs[index].data());
                     //=================================================
-
                     if (post.itemtype!.trim().toLowerCase().contains(
                         widget.postModel.itemtype!.trim().toLowerCase())) {
                       final match =
@@ -59,9 +62,11 @@ class _SuggestionCardPostState extends State<SuggestionCardPost> {
                             widget.postModel.itemname!.trim().toLowerCase())) {
                           final match3 = post.itemname
                               .crossMatch(widget.postModel.itemname);
-
                           double percentage = match * match2 * match3;
-                          return CardSuggest(total: percentage, userpost: post);
+
+                          return percentage == 0.0
+                              ? Container()
+                              : CardSuggest(total: percentage, userpost: post);
                         }
                       }
                     }
@@ -129,6 +134,7 @@ class _SuggestionCardPostState extends State<SuggestionCardPost> {
                           final match3 = post.itemname
                               .crossMatch(widget.postModel.itemname);
                           double percentage = match * match2 * match3;
+
                           return percentage == 0.0
                               ? Container()
                               : CardSuggest(total: percentage, userpost: post);
@@ -197,10 +203,30 @@ class _SuggestionCardPostState extends State<SuggestionCardPost> {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        SizedBox(
-          height: 150.0,
-          width: MediaQuery.of(context).size.width,
-          child: suggestion(context),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 8.0),
+              child: Row(
+                children: [
+                  const Text("Suggested"),
+                  IconButton(
+                      onPressed: iscollapse,
+                      icon: colps == false
+                          ? const Icon(Icons.arrow_drop_down_rounded)
+                          : const Icon(Icons.arrow_drop_up_rounded))
+                ],
+              ),
+            ),
+            colps == false
+                ? SizedBox(
+                    height: 150.0,
+                    width: MediaQuery.of(context).size.width,
+                    child: suggestion(context),
+                  )
+                : Container(),
+          ],
         ),
         Padding(
           padding: const EdgeInsets.only(top: 8.0),

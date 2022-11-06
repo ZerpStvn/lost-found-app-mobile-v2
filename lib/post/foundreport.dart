@@ -30,7 +30,7 @@ class _FoundReportPageState extends State<FoundReportPage> {
   final TextEditingController foundmarkingscon = TextEditingController();
   final TextEditingController foundseiralnumcon = TextEditingController();
   final TextEditingController founddatetimeController = TextEditingController();
-
+  final _formkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     final widthsize = MediaQuery.of(context).size.width;
@@ -50,18 +50,20 @@ class _FoundReportPageState extends State<FoundReportPage> {
                   height: 20,
                 ),
                 EditTextFormField(
-                    cont2: foundfounddescriptionrcon,
-                    cont3: foundlocationcon,
-                    cont4: foundlocationDescriptioncon,
-                    cont5: founditemdescriptioncon,
-                    cont6: foundmobilenumbercon,
-                    cont7: foundsocialmediacon,
-                    cont8: foundmodelcon,
-                    cont9: foundbrandcon,
-                    cont10: foundmarkingscon,
-                    cont11: foundseiralnumcon,
-                    cont12: founddatetimeController,
-                    date: "Date of the Item found"),
+                  cont2: foundfounddescriptionrcon,
+                  cont3: foundlocationcon,
+                  cont4: foundlocationDescriptioncon,
+                  cont5: founditemdescriptioncon,
+                  cont6: foundmobilenumbercon,
+                  cont7: foundsocialmediacon,
+                  cont8: foundmodelcon,
+                  cont9: foundbrandcon,
+                  cont10: foundmarkingscon,
+                  cont11: foundseiralnumcon,
+                  cont12: founddatetimeController,
+                  date: "Date of the Item found",
+                  keyform: _formkey,
+                ),
                 const SizedBox(
                   height: 18,
                 ),
@@ -78,7 +80,9 @@ class _FoundReportPageState extends State<FoundReportPage> {
                               backgroundColor: primaryColor,
                             ),
                             onPressed: () {
-                              isloading == false ? handlesubmit() : null;
+                              if (_formkey.currentState!.validate()) {
+                                isloading == false ? handlesubmit() : null;
+                              }
                             },
                             child: Center(
                               child: isloading == false
@@ -132,7 +136,6 @@ class _FoundReportPageState extends State<FoundReportPage> {
 
   createposttoFirebase() async {
     final navigator = Navigator.of(context);
-
     String photoURL = await uploadImage();
     userPostModel.postID = postID.toString();
     userPostModel.userID = user!.uid;
@@ -191,15 +194,6 @@ class _FoundReportPageState extends State<FoundReportPage> {
       snackBarScreen(context, "Please fill out all the important form");
     } else if (imagepathfile == null) {
       snackBarScreen(context, "Please select an image");
-    } else if (foundfounddescriptionrcon.text.length < 120) {
-      notifyUserText(context,
-          "Provide more details about how you found the item (100 character)");
-    } else if (foundlocationDescriptioncon.text.length < 120) {
-      notifyUserText(context,
-          "Provide more description about the location (120 character)");
-    } else if (founditemcolorcon.text.length < 120) {
-      notifyUserText(
-          context, "Provide more details about the item (120 character)");
     } else {
       setState(() {
         isloading = true;

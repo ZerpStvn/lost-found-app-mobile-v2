@@ -35,7 +35,7 @@ class _EditTextPostState extends State<EditTextPost> {
   final TextEditingController editdatetimeController = TextEditingController();
   Color prime = primaryColor;
   Color current = primaryColor;
-
+  final _formkey = GlobalKey<FormState>();
   handleuserdatevalue() {
     final String colorValue = "${widget.usermodel.itemcolor}";
     final int value = int.parse(colorValue);
@@ -97,6 +97,11 @@ class _EditTextPostState extends State<EditTextPost> {
         .collection("found_items")
         .doc(user!.uid)
         .collection('fitems')
+        .doc(usermodel.postID)
+        .update(usermodel.tomap());
+
+    await FirebaseFirestore.instance
+        .collection('users_Post')
         .doc(usermodel.postID)
         .update(usermodel.tomap());
 
@@ -247,18 +252,20 @@ class _EditTextPostState extends State<EditTextPost> {
             height: 20.0,
           ),
           EditTextFormField(
-              cont2: editfounddescriptionrcon,
-              cont3: editlocationcon,
-              cont4: editlocationDescriptioncon,
-              cont5: edititemdescriptioncon,
-              cont6: editmobilenumbercon,
-              cont7: editsocialmediacon,
-              cont8: editmodelcon,
-              cont9: editbrandcon,
-              cont10: editmarkingscon,
-              cont11: editseiralnumcon,
-              cont12: editdatetimeController,
-              date: "Date"),
+            cont2: editfounddescriptionrcon,
+            cont3: editlocationcon,
+            cont4: editlocationDescriptioncon,
+            cont5: edititemdescriptioncon,
+            cont6: editmobilenumbercon,
+            cont7: editsocialmediacon,
+            cont8: editmodelcon,
+            cont9: editbrandcon,
+            cont10: editmarkingscon,
+            cont11: editseiralnumcon,
+            cont12: editdatetimeController,
+            date: "Date",
+            keyform: _formkey,
+          ),
           const SizedBox(
             height: 18.0,
           ),
@@ -275,7 +282,9 @@ class _EditTextPostState extends State<EditTextPost> {
                         backgroundColor: primaryColor,
                       ),
                       onPressed: () {
-                        handlesumbit();
+                        if (_formkey.currentState!.validate()) {
+                          handlesumbit();
+                        }
                       },
                       child: const Center(
                         child: TextViewInter(
