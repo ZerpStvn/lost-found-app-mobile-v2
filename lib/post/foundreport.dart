@@ -2,6 +2,7 @@ import 'dart:io' as io;
 
 import 'package:flutter/scheduler.dart';
 import 'package:lostfoundapp/mics/packages.dart';
+import 'package:lostfoundapp/post/imaglist.dart';
 
 class FoundReportPage extends StatefulWidget {
   const FoundReportPage({super.key});
@@ -31,6 +32,7 @@ class _FoundReportPageState extends State<FoundReportPage> {
   final TextEditingController foundseiralnumcon = TextEditingController();
   final TextEditingController founddatetimeController = TextEditingController();
   final _formkey = GlobalKey<FormState>();
+  List<XFile>? imagesselected = [];
   @override
   Widget build(BuildContext context) {
     final widthsize = MediaQuery.of(context).size.width;
@@ -46,6 +48,12 @@ class _FoundReportPageState extends State<FoundReportPage> {
                 ImageClassification(
                     itemcolorcon: founditemcolorcon,
                     itemtitlecon: founditemtitlecon),
+                const SizedBox(
+                  height: 10,
+                ),
+                ListImages(
+                  images: imagesselected!,
+                ),
                 const SizedBox(
                   height: 20,
                 ),
@@ -134,9 +142,35 @@ class _FoundReportPageState extends State<FoundReportPage> {
     return mediaURL;
   }
 
+  Future<List<String>> uploadList() async {
+    List<String> imageURL = [];
+
+    String postID = "";
+
+    for (var imagefile in imagesselected!) {
+      setState(() {
+        postID = const Uuid().v4();
+      });
+      final metadata = SettableMetadata(
+        contentType: 'image/jpeg',
+        customMetadata: {'picked-file-path': imagefile.path},
+      );
+      UploadTask uploadTask = storageRef
+          .child("listFoundpost_$postID.jpg")
+          .putFile(io.File(imagefile.path), metadata);
+      TaskSnapshot taskSnapshot = await uploadTask;
+      String mediaURL = await taskSnapshot.ref.getDownloadURL();
+      imageURL.add(mediaURL);
+    }
+    debugPrint("$imageURL");
+
+    return imageURL;
+  }
+
   createposttoFirebase() async {
     final navigator = Navigator.of(context);
     String photoURL = await uploadImage();
+    List<String> multipleURl = await uploadList();
     userPostModel.postID = postID.toString();
     userPostModel.userID = user!.uid;
     userPostModel.itemname = founditemtitlecon.text;
@@ -158,6 +192,7 @@ class _FoundReportPageState extends State<FoundReportPage> {
     userPostModel.itemtype = itemvalue;
     userPostModel.userposterPhourl = userlogin!.profileURL;
     userPostModel.userpostername = userlogin!.username;
+    userPostModel.imageListURL = multipleURl;
     await FirebaseFirestore.instance
         .collection("found_items")
         .doc(user!.uid)

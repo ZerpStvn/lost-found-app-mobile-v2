@@ -24,6 +24,7 @@ class _FountItemRequestSenderState extends State<FountItemRequestSender> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
@@ -51,6 +52,7 @@ class _FountItemRequestSenderState extends State<FountItemRequestSender> {
                 padding: const EdgeInsets.only(left: 12.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     TextView(
                       title: "${widget.userPostModel.itemname}",
@@ -98,6 +100,30 @@ class _FountItemRequestSenderState extends State<FountItemRequestSender> {
                       fontweight: FontWeight.bold,
                       fontsize: 14,
                     ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    widget.userPostModel.imageListURL!.isEmpty
+                        ? Container()
+                        : Flexible(
+                            fit: FlexFit.loose,
+                            child: GridView.builder(
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemCount:
+                                    widget.userPostModel.imageListURL!.length,
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 3,
+                                        crossAxisSpacing: 5,
+                                        mainAxisSpacing: 5),
+                                itemBuilder: (context, index) {
+                                  return Image.network(
+                                    "${widget.userPostModel.imageListURL![index]}",
+                                    fit: BoxFit.cover,
+                                  );
+                                }),
+                          ),
                     const SizedBox(
                       height: 20,
                     ),

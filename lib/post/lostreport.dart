@@ -1,6 +1,7 @@
 import 'dart:io' as io;
 import 'package:lostfoundapp/mics/packages.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:lostfoundapp/post/imaglist.dart';
 
 class LostReportPage extends StatefulWidget {
   const LostReportPage({super.key});
@@ -30,7 +31,7 @@ class _LostReportPageState extends State<LostReportPage> {
   final TextEditingController lostmarkingscon = TextEditingController();
   final TextEditingController lostseirlostalnumcon = TextEditingController();
   final TextEditingController lostdatetimeController = TextEditingController();
-
+  List<XFile>? imagesselected = [];
   //===========================================
 
   @override
@@ -56,7 +57,10 @@ class _LostReportPageState extends State<LostReportPage> {
                 //   icon: const Icon(Icons.camera),
                 //),
                 const SizedBox(
-                  height: 30,
+                  height: 10,
+                ),
+                ListImages(
+                  images: imagesselected!,
                 ),
                 const SizedBox(
                   height: 20,
@@ -150,6 +154,32 @@ class _LostReportPageState extends State<LostReportPage> {
     return mediaURL;
   }
   //===========================================
+
+  Future<List<String>> uploadList() async {
+    List<String> imageURL = [];
+
+    String postID = "";
+
+    for (var imagefile in imagesselected!) {
+      setState(() {
+        postID = const Uuid().v4();
+      });
+      final metadata = SettableMetadata(
+        contentType: 'image/jpeg',
+        customMetadata: {'picked-file-path': imagefile.path},
+      );
+      UploadTask uploadTask = storageRef
+          .child("listFoundpost_$postID.jpg")
+          .putFile(io.File(imagefile.path), metadata);
+      TaskSnapshot taskSnapshot = await uploadTask;
+      String mediaURL = await taskSnapshot.ref.getDownloadURL();
+      imageURL.add(mediaURL);
+    }
+    debugPrint("$imageURL");
+
+    return imageURL;
+  }
+
   //===========================================
 
   //after getting the photo url
@@ -158,6 +188,7 @@ class _LostReportPageState extends State<LostReportPage> {
   createposttoFirebase() async {
     final navigator = Navigator.of(context);
     String photoURL = await uploadImage();
+    List<String> listimageuri = await uploadList();
     userPostModel.postID = postID.toString();
     userPostModel.userID = user!.uid;
     userPostModel.itemname = lostitemtitlecon.text;
@@ -179,6 +210,7 @@ class _LostReportPageState extends State<LostReportPage> {
     userPostModel.itemtype = itemvalue;
     userPostModel.userposterPhourl = userlogin!.profileURL;
     userPostModel.userpostername = userlogin!.username;
+    userPostModel.imageListURL = listimageuri;
     await FirebaseFirestore.instance
         .collection('lost_items')
         .doc(user!.uid)

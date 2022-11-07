@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:lostfoundapp/mics/packages.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 XFile? imagepathfile;
 
@@ -71,7 +72,10 @@ class _ImageClassificationState extends State<ImageClassification> {
     setState(() {
       imagepathfile = imagepath;
     });
-    showmodalloading();
+
+    if (imagepathfile != null) {
+      showmodalloading();
+    }
   }
 
   //load the tflite model from folder assets
@@ -249,7 +253,7 @@ class _ImageClassificationState extends State<ImageClassification> {
                 right: 15.0,
                 child: GestureDetector(
                   onTap: () {
-                    handlepickphotoGallery();
+                    checkpermission();
                     setState(() {
                       isloading = true;
                     });
@@ -261,6 +265,27 @@ class _ImageClassificationState extends State<ImageClassification> {
                         shape: BoxShape.circle, color: primaryColor),
                     child: const Icon(
                       Icons.camera_outlined,
+                      color: colorWhite,
+                    ),
+                  ),
+                )),
+            Positioned(
+                bottom: 20.0,
+                right: 80.0,
+                child: GestureDetector(
+                  onTap: () {
+                    handlepickphotoGallery();
+                    setState(() {
+                      isloading = true;
+                    });
+                  },
+                  child: Container(
+                    width: 50,
+                    height: 50,
+                    decoration: const BoxDecoration(
+                        shape: BoxShape.circle, color: primaryColor),
+                    child: const Icon(
+                      Icons.filter,
                       color: colorWhite,
                     ),
                   ),
@@ -389,5 +414,28 @@ class _ImageClassificationState extends State<ImageClassification> {
         ),
       ],
     );
+  }
+
+  void checkpermission() async {
+    var cameraper = await Permission.camera.status;
+    if (!cameraper.isGranted) {
+      await Permission.camera.request();
+    } else if (cameraper.isDenied) {
+      await Permission.camera.request();
+    } else {
+      handelcamera();
+    }
+  }
+
+  void handelcamera() async {
+    final XFile? cameraselect =
+        await _picker.pickImage(source: ImageSource.camera, imageQuality: 60);
+
+    setState(() {
+      imagepathfile = cameraselect;
+    });
+    if (imagepathfile != null) {
+      showmodalloading();
+    }
   }
 }

@@ -24,8 +24,10 @@ class UserPostModel {
   String? userposterPhourl;
   String? divToken;
   bool? isShown;
+  List<dynamic>? imageListURL;
 
   UserPostModel({
+    this.imageListURL,
     this.postID,
     this.userID,
     this.itemname,
@@ -76,6 +78,7 @@ class UserPostModel {
       dateposted: map['dateposted'],
       divToken: map['divToken'],
       isShown: map['isShown'],
+      imageListURL: map['imageListURL'],
     );
   }
 
@@ -104,6 +107,7 @@ class UserPostModel {
       'itemtype': itemtype,
       'dateposted': DateTime.now(),
       'isShown': true,
+      "imageListURL": imageListURL,
     };
   }
 }
