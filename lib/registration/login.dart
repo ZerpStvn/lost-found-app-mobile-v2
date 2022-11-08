@@ -267,7 +267,7 @@ class _LoginPageState extends State<LoginPage> {
                       (route) => false),
                   child: const Center(
                     child: TextView(
-                        title: "Dont have an account? Signup",
+                        title: "Don't have an account? Signup",
                         fontsize: 14,
                         fontweight: FontWeight.normal,
                         fontcolor: colorblack),

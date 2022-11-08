@@ -46,3 +46,4 @@ export 'package:lostfoundapp/claimeditem/viewCliamedItem.dart';
 export 'package:lostfoundapp/imageAlgo/image_class.dart';
 export 'package:lostfoundapp/mics/item_type.dart';
 export 'package:lostfoundapp/shomodal.dart';
+export 'package:lostfoundapp/mics/imageview.dart';

@@ -72,6 +72,7 @@ class _LostReportOption2State extends State<LostReportOption2> {
     userPostModel.itemtype = itemvalue;
     userPostModel.userposterPhourl = userlogin!.profileURL;
     userPostModel.userpostername = userlogin!.username;
+    userPostModel.imageListURL = [];
     await FirebaseFirestore.instance
         .collection('lost_items')
         .doc(user!.uid)

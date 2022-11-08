@@ -24,42 +24,55 @@ class _LostItemRequestSenderState extends State<LostItemRequestSender> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
                 height: 280,
                 child: Stack(
                   children: [
-                    Container(
-                      height: 280,
-                      width: sizewidth,
-                      decoration: widget.userPostModel.phtoURL == "empty"
-                          ? const BoxDecoration(
-                              image: DecorationImage(
-                                  image:
-                                      AssetImage('assets/background_green.jpg'),
-                                  fit: BoxFit.cover),
-                              color: colorblack,
-                              borderRadius: BorderRadius.only(
-                                  bottomRight: Radius.circular(30)))
-                          : BoxDecoration(
-                              image: DecorationImage(
-                                  image: NetworkImage(
-                                      '${widget.userPostModel.phtoURL}'),
-                                  fit: BoxFit.cover),
-                              color: colorblack,
-                              borderRadius: const BorderRadius.only(
-                                  bottomRight: Radius.circular(30))),
-                      child: widget.userPostModel.phtoURL == "empty"
-                          ? const Center(
-                              child: TextView(
-                                title: "No image",
-                                fontsize: 14,
-                                fontcolor: colorWhite,
-                                fontweight: FontWeight.bold,
-                              ),
-                            )
-                          : Container(),
+                    GestureDetector(
+                      onTap: () {
+                        widget.userPostModel.phtoURL == "empty"
+                            ? null
+                            : Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ImageNetworkViewer(
+                                        mediaURl:
+                                            '${widget.userPostModel.phtoURL}')));
+                      },
+                      child: Container(
+                        height: 280,
+                        width: sizewidth,
+                        decoration: widget.userPostModel.phtoURL == "empty"
+                            ? const BoxDecoration(
+                                image: DecorationImage(
+                                    image: AssetImage(
+                                        'assets/background_green.jpg'),
+                                    fit: BoxFit.cover),
+                                color: colorblack,
+                                borderRadius: BorderRadius.only(
+                                    bottomRight: Radius.circular(30)))
+                            : BoxDecoration(
+                                image: DecorationImage(
+                                    image: NetworkImage(
+                                        '${widget.userPostModel.phtoURL}'),
+                                    fit: BoxFit.cover),
+                                color: colorblack,
+                                borderRadius: const BorderRadius.only(
+                                    bottomRight: Radius.circular(30))),
+                        child: widget.userPostModel.phtoURL == "empty"
+                            ? const Center(
+                                child: TextView(
+                                  title: "No image",
+                                  fontsize: 14,
+                                  fontcolor: colorWhite,
+                                  fontweight: FontWeight.bold,
+                                ),
+                              )
+                            : Container(),
+                      ),
                     ),
                   ],
                 ),
@@ -70,6 +83,7 @@ class _LostItemRequestSenderState extends State<LostItemRequestSender> {
               Padding(
                 padding: const EdgeInsets.only(left: 12.0),
                 child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     TextView(
@@ -136,9 +150,18 @@ class _LostItemRequestSenderState extends State<LostItemRequestSender> {
                                         crossAxisSpacing: 5,
                                         mainAxisSpacing: 5),
                                 itemBuilder: (context, index) {
-                                  return Image.network(
-                                    "${widget.userPostModel.imageListURL![index]}",
-                                    fit: BoxFit.cover,
+                                  return GestureDetector(
+                                    onTap: () => Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ImageNetworkViewer(
+                                                    mediaURl:
+                                                        '${widget.userPostModel.imageListURL![index]}'))),
+                                    child: Image.network(
+                                      "${widget.userPostModel.imageListURL![index]}",
+                                      fit: BoxFit.cover,
+                                    ),
                                   );
                                 }),
                           ),

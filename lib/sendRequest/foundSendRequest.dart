@@ -31,16 +31,24 @@ class _FountItemRequestSenderState extends State<FountItemRequestSender> {
                 height: 280,
                 child: Stack(
                   children: [
-                    Container(
-                      width: sizewidth,
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image: NetworkImage(
-                                  '${widget.userPostModel.phtoURL}'),
-                              fit: BoxFit.cover),
-                          color: colorblack,
-                          borderRadius: const BorderRadius.only(
-                              bottomRight: Radius.circular(30))),
+                    GestureDetector(
+                      onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ImageNetworkViewer(
+                                  mediaURl:
+                                      '${widget.userPostModel.phtoURL}'))),
+                      child: Container(
+                        width: sizewidth,
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image: NetworkImage(
+                                    '${widget.userPostModel.phtoURL}'),
+                                fit: BoxFit.cover),
+                            color: colorblack,
+                            borderRadius: const BorderRadius.only(
+                                bottomRight: Radius.circular(30))),
+                      ),
                     ),
                   ],
                 ),
@@ -118,9 +126,18 @@ class _FountItemRequestSenderState extends State<FountItemRequestSender> {
                                         crossAxisSpacing: 5,
                                         mainAxisSpacing: 5),
                                 itemBuilder: (context, index) {
-                                  return Image.network(
-                                    "${widget.userPostModel.imageListURL![index]}",
-                                    fit: BoxFit.cover,
+                                  return GestureDetector(
+                                    onTap: () => Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ImageNetworkViewer(
+                                                    mediaURl:
+                                                        '${widget.userPostModel.imageListURL![index]}'))),
+                                    child: Image.network(
+                                      "${widget.userPostModel.imageListURL![index]}",
+                                      fit: BoxFit.cover,
+                                    ),
                                   );
                                 }),
                           ),
