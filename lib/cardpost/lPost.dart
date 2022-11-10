@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:lostfoundapp/claimeditem/lostclaimed.dart';
+import 'package:lostfoundapp/mics/networkImage.dart';
 import 'package:lostfoundapp/mics/packages.dart';
 import 'package:lostfoundapp/model/userdata.dart';
 import 'package:lostfoundapp/sendRequest/lostSendRequest.dart';
@@ -41,12 +42,10 @@ class _LostPostScreenViewState extends State<LostPostScreenView> {
                   ),
                 ),
               )
-            : Image.network(
-                "${widget.postModel.phtoURL}",
-                fit: BoxFit.cover,
-                color: const Color.fromARGB(141, 66, 73, 69),
-                colorBlendMode: BlendMode.multiply,
-              ),
+            : NetWorkCacheImageView("${widget.postModel.phtoURL}",
+                widget: Center(
+                  child: Image.asset('assets/banner.png'),
+                )),
         Positioned(
             top: 10,
             left: 15,

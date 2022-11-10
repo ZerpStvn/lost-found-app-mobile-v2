@@ -24,6 +24,22 @@ class _ImageNetworkViewerState extends State<ImageNetworkViewer> {
               child: Image.network(
                 widget.mediaURl,
                 fit: BoxFit.cover,
+                frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
+                  return child;
+                },
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress == null) {
+                    return child;
+                  } else {
+                    return const SizedBox(
+                      height: 70,
+                      width: 70,
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    );
+                  }
+                },
               ),
             ),
           ),

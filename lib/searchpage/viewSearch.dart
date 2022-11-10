@@ -2,6 +2,7 @@
 
 import 'package:flutter/scheduler.dart';
 import 'package:intl/intl.dart';
+import 'package:lostfoundapp/mics/networkImage.dart';
 import 'package:lostfoundapp/mics/packages.dart';
 import 'package:lostfoundapp/sendRequest/lostSendRequest.dart';
 
@@ -101,12 +102,10 @@ class _ViewSearchPostState extends State<ViewSearchPost> {
                         "assets/background_green.jpg",
                         fit: BoxFit.cover,
                       )
-                    : Image.network(
-                        "${widget.postModel.phtoURL}",
-                        fit: BoxFit.cover,
-                        color: const Color.fromARGB(141, 66, 73, 69),
-                        colorBlendMode: BlendMode.multiply,
-                      ),
+                    : NetWorkCacheImageView("${widget.postModel.phtoURL}",
+                        widget: Center(
+                          child: Image.asset('assets/banner.png'),
+                        )),
                 Positioned(
                     top: 10,
                     left: 15,
@@ -114,6 +113,7 @@ class _ViewSearchPostState extends State<ViewSearchPost> {
                       height: 40,
                       width: 40,
                       decoration: BoxDecoration(
+                          color: colorgrey,
                           shape: BoxShape.circle,
                           image: DecorationImage(
                               image: NetworkImage(
@@ -204,7 +204,9 @@ class _ViewSearchPostState extends State<ViewSearchPost> {
                             shape: const StadiumBorder()),
                         child: TextViewPoppins(
                             title: widget.postModel.itemstatus == "Lost"
-                                ? "View"
+                                ? widget.postModel.userID == user!.uid
+                                    ? "Mark Claimed"
+                                    : "View"
                                 : "${widget.postModel.itemstatus}",
                             fontsize: 12,
                             fontcolor: colorWhite)),

@@ -1,3 +1,4 @@
+import 'package:lostfoundapp/mics/networkImage.dart';
 import 'package:lostfoundapp/mics/packages.dart';
 
 class ClaimedPostPage extends StatelessWidget {
@@ -26,12 +27,10 @@ class ClaimedPostPage extends StatelessWidget {
                     color: const Color.fromARGB(141, 66, 73, 69),
                     colorBlendMode: BlendMode.multiply,
                   )
-                : Image.network(
-                    "${clm.phtoURL}",
-                    fit: BoxFit.cover,
-                    color: const Color.fromARGB(141, 66, 73, 69),
-                    colorBlendMode: BlendMode.multiply,
-                  ),
+                : NetWorkCacheImageView("${clm.phtoURL}",
+                    widget: Center(
+                      child: Image.asset('assets/banner.png'),
+                    )),
             Positioned(
                 top: 10,
                 left: 15,

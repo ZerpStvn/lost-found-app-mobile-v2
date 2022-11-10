@@ -101,13 +101,14 @@ class _ItemSearchPageState extends State<ItemSearchPage> {
                                         '${post.foundlossDes}'
                                       ];
                                       for (var value in queryingdata) {
-                                        if (postdataquery.any((element) =>
-                                            value.contains(element))) {
+                                        if (postdataquery.any((element) => value
+                                            .toLowerCase()
+                                            .contains(element.toLowerCase()))) {
                                           return ViewSearchPost(post);
                                         }
                                       }
 
-                                      return Container();
+                                      return ViewSearchPost(post);
                                     });
                               }
                             }),

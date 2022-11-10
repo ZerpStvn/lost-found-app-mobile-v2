@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/scheduler.dart';
+import 'package:lostfoundapp/mics/networkImage.dart';
 import 'package:lostfoundapp/mics/packages.dart';
 
 class FountItemRequestSender extends StatefulWidget {
@@ -134,10 +135,12 @@ class _FountItemRequestSenderState extends State<FountItemRequestSender> {
                                                 ImageNetworkViewer(
                                                     mediaURl:
                                                         '${widget.userPostModel.imageListURL![index]}'))),
-                                    child: Image.network(
-                                      "${widget.userPostModel.imageListURL![index]}",
-                                      fit: BoxFit.cover,
-                                    ),
+                                    child: NetWorkCacheImageView(
+                                        "${widget.userPostModel.imageListURL![index]}",
+                                        widget: Center(
+                                          child:
+                                              Image.asset('assets/banner.png'),
+                                        )),
                                   );
                                 }),
                           ),
@@ -264,33 +267,36 @@ class _FountItemRequestSenderState extends State<FountItemRequestSender> {
         ),
       ));
     } else {
-      return Center(
-        child: SizedBox(
-          width: sizewidth * 0.88,
-          height: 50,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromARGB(255, 28, 218, 44)),
-                onPressed: () {
-                  onuserReq == false
-                      ? SchedulerBinding.instance
-                          .scheduleFrameCallback((timeStamp) {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      SendRequest(widget.userPostModel)));
-                        })
-                      : snackBarScreen(
-                          context, 'You can only send request once');
-                },
-                child: const TextViewInter(
-                    title: "SEND REQUEST",
-                    fontsize: 14,
-                    fontweight: FontWeight.bold,
-                    fontcolor: colorWhite)),
+      return Padding(
+        padding: const EdgeInsets.only(bottom: 11.0),
+        child: Center(
+          child: SizedBox(
+            width: sizewidth * 0.88,
+            height: 50,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(255, 28, 218, 44)),
+                  onPressed: () {
+                    onuserReq == false
+                        ? SchedulerBinding.instance
+                            .scheduleFrameCallback((timeStamp) {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        SendRequest(widget.userPostModel)));
+                          })
+                        : snackBarScreen(
+                            context, 'You can only send request once');
+                  },
+                  child: const TextViewInter(
+                      title: "SEND REQUEST",
+                      fontsize: 14,
+                      fontweight: FontWeight.bold,
+                      fontcolor: colorWhite)),
+            ),
           ),
         ),
       );

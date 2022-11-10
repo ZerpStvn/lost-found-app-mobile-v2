@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:lostfoundapp/cardpost/vievsuggestionCardpost.dart';
 import 'package:lostfoundapp/claimeditem/lostclaimed.dart';
 import 'package:lostfoundapp/crossMatch/string_Extension.dart';
+import 'package:lostfoundapp/mics/networkImage.dart';
 import 'package:lostfoundapp/mics/packages.dart';
 import 'package:lostfoundapp/model/userdata.dart';
 import 'package:lostfoundapp/sendRequest/lostSendRequest.dart';
@@ -525,12 +526,10 @@ class CardSuggest extends StatelessWidget {
                   child: Stack(
                     fit: StackFit.expand,
                     children: [
-                      Image.network(
-                        "${userpost.phtoURL}",
-                        fit: BoxFit.cover,
-                        color: const Color.fromARGB(141, 66, 73, 69),
-                        colorBlendMode: BlendMode.multiply,
-                      ),
+                      NetWorkCacheImageView("${userpost.phtoURL}",
+                          widget: Center(
+                            child: Image.asset('assets/banner.png'),
+                          )),
                       Positioned(
                           bottom: 15,
                           left: 10,

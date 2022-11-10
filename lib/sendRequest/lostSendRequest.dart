@@ -285,31 +285,34 @@ class _LostItemRequestSenderState extends State<LostItemRequestSender> {
         ),
       ));
     } else {
-      return Center(
-        child: SizedBox(
-          width: sizewidth * 0.88,
-          height: 50,
-          child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromARGB(255, 28, 218, 44)),
-              onPressed: () {
-                onuserReq == false
-                    ? SchedulerBinding.instance
-                        .scheduleFrameCallback((timeStamp) {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    SendRequest(widget.userPostModel)));
-                      })
-                    : snackBarScreen(
-                        context, "You can only send a request once");
-              },
-              child: const TextViewInter(
-                  title: "SEND REQUEST",
-                  fontsize: 14,
-                  fontweight: FontWeight.bold,
-                  fontcolor: colorWhite)),
+      return Padding(
+        padding: const EdgeInsets.only(bottom: 11.0),
+        child: Center(
+          child: SizedBox(
+            width: sizewidth * 0.88,
+            height: 50,
+            child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromARGB(255, 28, 218, 44)),
+                onPressed: () {
+                  onuserReq == false
+                      ? SchedulerBinding.instance
+                          .scheduleFrameCallback((timeStamp) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      SendRequest(widget.userPostModel)));
+                        })
+                      : snackBarScreen(
+                          context, "You can only send a request once");
+                },
+                child: const TextViewInter(
+                    title: "SEND REQUEST",
+                    fontsize: 14,
+                    fontweight: FontWeight.bold,
+                    fontcolor: colorWhite)),
+          ),
         ),
       );
     }
