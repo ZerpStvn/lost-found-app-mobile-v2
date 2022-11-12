@@ -1,5 +1,9 @@
 import 'package:lostfoundapp/edit/updateprofile.dart';
 import 'package:lostfoundapp/mics/packages.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+bool issurvey = false;
 
 Future handleButtonModalOption(BuildContext context) async {
   return (await showModalBottomSheet(
@@ -38,6 +42,8 @@ Future handleButtonModalOption(BuildContext context) async {
                   FirebaseAuth.instance.signOut();
                   snacbarmessage(context, "Logged out");
                   Future.delayed(const Duration(milliseconds: 2000));
+                  issurvey = true;
+                  debugPrint("$issurvey");
                   Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
@@ -99,6 +105,8 @@ Future handleButtonModalProfile(BuildContext context) async {
                 onTap: () {
                   FirebaseAuth.instance.signOut();
                   snacbarmessage(context, "Logged out");
+                  issurvey = true;
+                  debugPrint("$issurvey");
                   Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
@@ -225,4 +233,57 @@ Future onAccept(BuildContext context) async {
           ],
         );
       }));
+}
+
+Future takeSurvey(BuildContext context) async {
+  //const duration = Duration(seconds: 6);
+  await Future.delayed(const Duration(milliseconds: 900));
+  return (await showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(
+            "Feedback",
+            style: GoogleFonts.inter(
+                fontSize: 18, color: primaryColor, fontWeight: FontWeight.bold),
+          ),
+          content: Text(
+            "Please let us know how we can make our app more enjoyable for you. Feel free to share your feedback.",
+            style: GoogleFonts.inter(
+              fontSize: 14,
+              color: colorblack,
+            ),
+          ),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 12.0),
+              child: TextButton(
+                onPressed: () async {
+                  final nav = Navigator.of(context, rootNavigator: true).pop();
+                  final surveyprefs = await SharedPreferences.getInstance();
+                  showSurvey();
+                  nav;
+                  surveyprefs.setBool('surveyshow', true);
+                  issurvey = false;
+                },
+                child: Text(
+                  "Continue",
+                  style: GoogleFonts.inter(
+                      fontSize: 18,
+                      color: primaryColor,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+            )
+          ],
+        );
+      }));
+}
+
+final Uri _surveyurl = Uri.parse(
+    'https://docs.google.com/forms/d/e/1FAIpQLSeR63laQcXSALmPHcIAlE5_mivhpFImMKI_mtewe1CsdU-3qw/viewform?usp=sf_link');
+void showSurvey() async {
+  if (!await launchUrl(_surveyurl)) {
+    throw 'could not launch $_surveyurl';
+  }
 }

@@ -309,8 +309,25 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
+  void handelcheckSurvey() async {
+    final Future survay = takeSurvey(context);
+    final surveypref = await SharedPreferences.getInstance();
+    final surveycheck = surveypref.getBool('surveyshow') ?? false;
+
+    surveycheck ? survay : null;
+  }
+
+  void getsurvey() {
+    if (issurvey == false) {
+      debugPrint("$issurvey");
+    } else {
+      handelcheckSurvey();
+    }
+  }
+
   @override
   void initState() {
+    getsurvey();
     requestpermissionhandler();
     super.initState();
   }
