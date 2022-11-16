@@ -31,7 +31,6 @@ class _EditTextPostLostState extends State<EditTextPostLost> {
   final TextEditingController editseiralnumcon = TextEditingController();
 
   final TextEditingController editdatetimeController = TextEditingController();
-  final _formkey = GlobalKey<FormState>();
   handleuserdatevalue() async {
     final String colorValue = "${widget.usermodel.itemcolor}";
     final int value = int.parse(colorValue);
@@ -263,7 +262,6 @@ class _EditTextPostLostState extends State<EditTextPostLost> {
               cont11: editseiralnumcon,
               cont12: editdatetimeController,
               date: "Date",
-              keyform: _formkey,
             ),
             const SizedBox(
               height: 18.0,
@@ -283,11 +281,7 @@ class _EditTextPostLostState extends State<EditTextPostLost> {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: primaryColor,
                         ),
-                        onPressed: () {
-                          if (_formkey.currentState!.validate()) {
-                            handlesumbit();
-                          }
-                        },
+                        onPressed: handlesumbit,
                         child: const Center(
                           child: TextViewInter(
                             title: "EDIT",

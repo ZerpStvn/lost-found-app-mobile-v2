@@ -35,7 +35,6 @@ class _EditTextPostState extends State<EditTextPost> {
   final TextEditingController editdatetimeController = TextEditingController();
   Color prime = primaryColor;
   Color current = primaryColor;
-  final _formkey = GlobalKey<FormState>();
   handleuserdatevalue() {
     final String colorValue = "${widget.usermodel.itemcolor}";
     final int value = int.parse(colorValue);
@@ -264,7 +263,6 @@ class _EditTextPostState extends State<EditTextPost> {
             cont11: editseiralnumcon,
             cont12: editdatetimeController,
             date: "Date",
-            keyform: _formkey,
           ),
           const SizedBox(
             height: 18.0,
@@ -281,11 +279,7 @@ class _EditTextPostState extends State<EditTextPost> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: primaryColor,
                       ),
-                      onPressed: () {
-                        if (_formkey.currentState!.validate()) {
-                          handlesumbit();
-                        }
-                      },
+                      onPressed: handlesumbit,
                       child: const Center(
                         child: TextViewInter(
                           title: "EDIT",

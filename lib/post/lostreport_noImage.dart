@@ -32,7 +32,6 @@ class _LostReportOption2State extends State<LostReportOption2> {
   final TextEditingController lostseirlostalnumcon = TextEditingController();
 
   final TextEditingController lostdatetimeController = TextEditingController();
-  final _formKey = GlobalKey<FormState>();
   //
   //
   //
@@ -251,7 +250,6 @@ class _LostReportOption2State extends State<LostReportOption2> {
                   cont11: lostseirlostalnumcon,
                   cont12: lostdatetimeController,
                   date: "Date of loss",
-                  keyform: _formKey,
                 ),
                 const SizedBox(
                   height: 18,
@@ -269,9 +267,7 @@ class _LostReportOption2State extends State<LostReportOption2> {
                               backgroundColor: primaryColor,
                             ),
                             onPressed: () {
-                              if (_formKey.currentState!.validate()) {
-                                isloading == false ? handlesubmit() : null;
-                              }
+                              isloading == false ? handlesubmit() : null;
                             },
                             child: Center(
                                 child: isloading == false

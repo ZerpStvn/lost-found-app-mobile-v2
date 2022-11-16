@@ -31,7 +31,6 @@ class _FoundReportPageState extends State<FoundReportPage> {
   final TextEditingController foundmarkingscon = TextEditingController();
   final TextEditingController foundseiralnumcon = TextEditingController();
   final TextEditingController founddatetimeController = TextEditingController();
-  final _formkey = GlobalKey<FormState>();
   List<XFile>? imagesselected = [];
   @override
   Widget build(BuildContext context) {
@@ -70,7 +69,6 @@ class _FoundReportPageState extends State<FoundReportPage> {
                   cont11: foundseiralnumcon,
                   cont12: founddatetimeController,
                   date: "Date of the Item found",
-                  keyform: _formkey,
                 ),
                 const SizedBox(
                   height: 18,
@@ -88,9 +86,7 @@ class _FoundReportPageState extends State<FoundReportPage> {
                               backgroundColor: primaryColor,
                             ),
                             onPressed: () {
-                              if (_formkey.currentState!.validate()) {
-                                isloading == false ? handlesubmit() : null;
-                              }
+                              isloading == false ? handlesubmit() : null;
                             },
                             child: Center(
                               child: isloading == false

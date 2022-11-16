@@ -60,30 +60,8 @@ class _ClaimedItemPostPageState extends State<ClaimedItemPostPage> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Center(
-                child: SizedBox(
-                  height: 50,
-                  width: MediaQuery.of(context).size.width * 0.89,
-                  child: TextFormField(
-                    controller: search,
-                    onChanged: (value) {
-                      setState(() {
-                        onchangevalue = value;
-                      });
-                    },
-                    textInputAction: TextInputAction.search,
-                    keyboardType: TextInputType.name,
-                    decoration: InputDecoration(
-                        hintText: "Search",
-                        hintStyle: GoogleFonts.montserrat(color: colorblack),
-                        suffixIcon: const Icon(Icons.search_outlined),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(30))),
-                  ),
-                ),
-              ),
               const SizedBox(
-                height: 13,
+                height: 18,
               ),
               FutureBuilder<QuerySnapshot>(
                   future: FirebaseFirestore.instance
@@ -114,26 +92,6 @@ class _ClaimedItemPostPageState extends State<ClaimedItemPostPage> {
                                 return const Center(
                                   child: Text("No Data"),
                                 );
-                              }
-
-                              if (clm.itemname!
-                                      .trim()
-                                      .toLowerCase()
-                                      .contains(onchangevalue) ||
-                                  clm.claimedDate
-                                      .toString()
-                                      .toLowerCase()
-                                      .contains(onchangevalue) ||
-                                  clm.claimername
-                                      .toString()
-                                      .toLowerCase()
-                                      .contains(onchangevalue) ||
-                                  clm.ownersname
-                                      .toString()
-                                      .toLowerCase()
-                                      .contains(onchangevalue)) {
-                                return ClaimedPostPage(
-                                    clm: clm, tiemformat: tiemformat);
                               } else {
                                 return ClaimedPostPage(
                                     clm: clm, tiemformat: tiemformat);

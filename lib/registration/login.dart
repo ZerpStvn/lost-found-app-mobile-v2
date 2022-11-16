@@ -232,15 +232,6 @@ class _LoginPageState extends State<LoginPage> {
                         fontcolor: primaryColor)),
               ),
               sizeheight,
-              // IconButton(
-              //     onPressed: () async {
-              //       final nav = Navigator.of(context);
-              //       final pref = await SharedPreferences.getInstance();
-              //       pref.setBool('showHome', false);
-              //       nav.push(MaterialPageRoute(
-              //           builder: (context) => const OnBoardingScreen()));
-              //     },
-              //     icon: const Icon(Icons.add_a_photo)),
               SizedBox(
                 height: 55.0,
                 width: sizewidth * 0.88,
@@ -309,19 +300,11 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  void handelcheckSurvey() async {
-    final Future survay = takeSurvey(context);
-    final surveypref = await SharedPreferences.getInstance();
-    final surveycheck = surveypref.getBool('surveyshow') ?? false;
-
-    surveycheck ? survay : null;
-  }
-
   void getsurvey() {
     if (issurvey == false) {
       debugPrint("$issurvey");
     } else {
-      handelcheckSurvey();
+      takeSurvey(context);
     }
   }
 

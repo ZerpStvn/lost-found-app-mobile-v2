@@ -1,6 +1,5 @@
 import 'package:lostfoundapp/edit/updateprofile.dart';
 import 'package:lostfoundapp/mics/packages.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 bool issurvey = false;
@@ -258,13 +257,9 @@ Future takeSurvey(BuildContext context) async {
             Padding(
               padding: const EdgeInsets.only(right: 12.0),
               child: TextButton(
-                onPressed: () async {
-                  final nav = Navigator.of(context, rootNavigator: true).pop();
-                  final surveyprefs = await SharedPreferences.getInstance();
+                onPressed: () {
                   showSurvey();
-                  nav;
-                  surveyprefs.setBool('surveyshow', true);
-                  issurvey = false;
+                  Navigator.of(context, rootNavigator: true).pop();
                 },
                 child: Text(
                   "Continue",

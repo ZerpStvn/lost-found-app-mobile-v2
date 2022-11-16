@@ -15,7 +15,6 @@ class _LostReportPageState extends State<LostReportPage> {
   final user = FirebaseAuth.instance.currentUser;
   String postID = const Uuid().v4();
   UserPostModel userPostModel = UserPostModel();
-  final _formkey = GlobalKey<FormState>();
   final TextEditingController lostitemtitlecon = TextEditingController();
   final TextEditingController lostfounddescriptionrcon =
       TextEditingController();
@@ -78,7 +77,6 @@ class _LostReportPageState extends State<LostReportPage> {
                   cont11: lostseirlostalnumcon,
                   cont12: lostdatetimeController,
                   date: "Date of loss",
-                  keyform: _formkey,
                 ),
                 const SizedBox(
                   height: 18,
@@ -96,11 +94,7 @@ class _LostReportPageState extends State<LostReportPage> {
                               backgroundColor: primaryColor,
                             ),
                             onPressed: () {
-                              if (_formkey.currentState!.validate()) {
-                                isloading == false
-                                    ? handlesubmit(context)
-                                    : null;
-                              }
+                              isloading == false ? handlesubmit() : null;
                             },
                             child: Center(
                               child: isloading == false
@@ -237,7 +231,7 @@ class _LostReportPageState extends State<LostReportPage> {
 
   //create function for handling the user data
   //===========================================
-  handlesubmit(BuildContext context) {
+  handlesubmit() {
     if (lostitemtitlecon.text.isEmpty ||
         lostdatetimeController.text.isEmpty ||
         lostfounddescriptionrcon.text.isEmpty ||

@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:lostfoundapp/mics/packages.dart';
 import 'package:lostfoundapp/model/chatroommodel.dart';
 import 'package:lostfoundapp/model/convo.dart';
+
+import 'package:http/http.dart' as http;
 
 class ChatConvopage extends StatefulWidget {
   final ChatRoomModel chatroom;
@@ -296,6 +300,7 @@ class _ChatConvopageState extends State<ChatConvopage> {
                   ),
                   IconButton(
                       onPressed: () {
+                        sendingPushNotfi();
                         handleconvosent();
                       },
                       icon: const Icon(Icons.send_rounded))
@@ -303,6 +308,45 @@ class _ChatConvopageState extends State<ChatConvopage> {
               ),
             ),
           ));
+    }
+  }
+
+  void sendPushMessage(String? token, String body, String title) {
+    try {
+      http.post(
+        Uri.parse('https://fcm.googleapis.com/fcm/send'),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+          'Authorization':
+              'key=AAAAewoqbb8:APA91bF2szMqr73_gPqYlRWGVBJDSGXuZGrdh0zWyO0E3SyaVxlKNbYieZygDtJ9Lj7whiXevnI9QaslYf_oFfTaGJN3tj2UO4F9aE2h-Yt1Sppfs6-Y4zgby0seAlqsa7nrqVJY3Bc4',
+        },
+        body: jsonEncode(
+          <String, dynamic>{
+            'notification': <String, dynamic>{'body': body, 'title': title},
+            'priority': 'high',
+            'data': <String, dynamic>{
+              'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+              'id': '1',
+              'status': 'done'
+            },
+            "to": token,
+          },
+        ),
+      );
+    } catch (e) {
+      debugPrint("error push notification");
+    }
+  }
+
+  void sendingPushNotfi() {
+    if (userlogin!.useruid == widget.chatroom.sentbyID) {
+      sendPushMessage(widget.chatroom.devTokenTo, chat.text,
+          "${widget.chatroom.sentbyname} sent you a message");
+    } else if (userlogin!.useruid == widget.chatroom.sentToID) {
+      sendPushMessage(widget.chatroom.devTokenby, chat.text,
+          "${widget.chatroom.sentToname} sent you a message");
+    } else {
+      null;
     }
   }
 }

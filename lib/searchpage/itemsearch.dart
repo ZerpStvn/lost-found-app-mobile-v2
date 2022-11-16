@@ -74,6 +74,10 @@ class _ItemSearchPageState extends State<ItemSearchPage> {
                                 return const Center(
                                   child: CircularProgressIndicator(),
                                 );
+                              }
+
+                              if (!snapshot.hasData) {
+                                return Container();
                               } else {
                                 return ListView.builder(
                                     shrinkWrap: true,
@@ -86,9 +90,6 @@ class _ItemSearchPageState extends State<ItemSearchPage> {
                                               .data!.docs[index]
                                               .data());
 
-                                      if (!snapshot.hasData) {
-                                        return Container();
-                                      }
                                       List<String> queryingdata = [
                                         '${post.itemname}',
                                         '${post.location}',
@@ -107,8 +108,7 @@ class _ItemSearchPageState extends State<ItemSearchPage> {
                                           return ViewSearchPost(post);
                                         }
                                       }
-
-                                      return ViewSearchPost(post);
+                                      return Container();
                                     });
                               }
                             }),
