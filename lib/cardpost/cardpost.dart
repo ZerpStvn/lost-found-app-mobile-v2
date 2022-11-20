@@ -47,12 +47,12 @@ class Cardpost extends StatelessWidget {
                     children: [
                       const TextViewInter(
                           title:
-                              "A centralized application for lost and found items.",
-                          fontsize: 15,
+                              "The centralized application for lost and found items.",
+                          fontsize: 14,
                           fontweight: FontWeight.normal,
                           fontcolor: colorWhite),
                       Padding(
-                        padding: const EdgeInsets.only(top: 17.0),
+                        padding: const EdgeInsets.only(top: 25.0),
                         child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: primaryColor),

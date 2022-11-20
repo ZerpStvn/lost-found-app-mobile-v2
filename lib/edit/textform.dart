@@ -344,7 +344,7 @@ class _EditTextFormFieldState extends State<EditTextFormField> {
                   Icons.description_outlined,
                   color: primaryColor,
                 ),
-                labelText: 'Model(optional)',
+                labelText: 'Model (optional)',
                 labelStyle: GoogleFonts.inter(fontSize: 12, color: colorgrey),
                 border:
                     OutlineInputBorder(borderRadius: BorderRadius.circular(0)),
@@ -363,7 +363,7 @@ class _EditTextFormFieldState extends State<EditTextFormField> {
                   Icons.description_outlined,
                   color: primaryColor,
                 ),
-                labelText: 'Brand(Optional) ',
+                labelText: 'Brand (Optional) ',
                 labelStyle: GoogleFonts.inter(fontSize: 12, color: colorgrey),
                 border:
                     OutlineInputBorder(borderRadius: BorderRadius.circular(0)),
@@ -426,7 +426,7 @@ class _EditTextFormFieldState extends State<EditTextFormField> {
                   Icons.description_outlined,
                   color: primaryColor,
                 ),
-                labelText: 'Serial number(Optional) ',
+                labelText: 'Serial number (Optional) ',
                 labelStyle: GoogleFonts.inter(fontSize: 12, color: colorgrey),
                 border:
                     OutlineInputBorder(borderRadius: BorderRadius.circular(0)),

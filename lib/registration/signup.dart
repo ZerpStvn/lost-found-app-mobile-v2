@@ -185,15 +185,19 @@ class _SignupPageState extends State<SignupPage> {
                         image: AssetImage("assets/banner.png"))),
               ),
               const TextViewPoppins(
-                  title: "Get on Board!",
-                  fontsize: 40,
+                  title: "Join the Search!",
+                  fontsize: 35,
                   fontweight: FontWeight.bold,
                   fontcolor: primaryColor),
-              const TextView(
-                  title: "Create your profile to start your Journey",
-                  fontsize: 14,
-                  fontweight: FontWeight.normal,
-                  fontcolor: colorgrey),
+              const Padding(
+                padding: EdgeInsets.only(right: 8.0),
+                child: TextView(
+                    title:
+                        "Create your profile to start contributing to the Community",
+                    fontsize: 14,
+                    fontweight: FontWeight.normal,
+                    fontcolor: colorgrey),
+              ),
               sizeheight,
               SizedBox(
                 width: sizewidth * 0.88,
@@ -288,7 +292,7 @@ class _SignupPageState extends State<SignupPage> {
                                   ? const Icon(Icons.visibility_off_outlined)
                                   : const Icon(Icons.visibility_outlined)),
                           prefixIcon: const Icon(Icons.key),
-                          labelText: 'password',
+                          labelText: 'Password',
                           labelStyle: GoogleFonts.montserrat(
                               fontSize: 14, color: colorgrey),
                           border: OutlineInputBorder(
@@ -312,7 +316,7 @@ class _SignupPageState extends State<SignupPage> {
                               icon: ischarpass
                                   ? const Icon(Icons.visibility_off_outlined)
                                   : const Icon(Icons.visibility_outlined)),
-                          labelText: 'confirm',
+                          labelText: 'Confirm Password',
                           labelStyle: GoogleFonts.montserrat(
                               fontSize: 14, color: colorgrey),
                           border: OutlineInputBorder(

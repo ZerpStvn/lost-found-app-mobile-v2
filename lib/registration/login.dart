@@ -165,7 +165,7 @@ class _LoginPageState extends State<LoginPage> {
                     color: colorgrey,
                   )),
         prefixIcon: const Icon(Icons.key),
-        labelText: 'password',
+        labelText: 'Password',
         labelStyle: GoogleFonts.montserrat(fontSize: 14, color: colorgrey),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
       ),
@@ -192,13 +192,13 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               const TextViewPoppins(
-                  title: "Welcome Back,",
-                  fontsize: 35,
+                  title: "Welcome",
+                  fontsize: 45,
                   fontweight: FontWeight.bold,
                   fontcolor: primaryColor),
               const TextView(
-                  title: "Make it work, make it right, make it fast",
-                  fontsize: 14,
+                  title: "What's lost can find its way back",
+                  fontsize: 16,
                   fontweight: FontWeight.bold,
                   fontcolor: colorblack),
               const SizedBox(
