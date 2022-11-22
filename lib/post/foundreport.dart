@@ -68,7 +68,8 @@ class _FoundReportPageState extends State<FoundReportPage> {
                   cont10: foundmarkingscon,
                   cont11: foundseiralnumcon,
                   cont12: founddatetimeController,
-                  date: "Date of the Item found",
+                  date: "Date the Item found",
+                  locationtitle: 'Location the item found',
                 ),
                 const SizedBox(
                   height: 18,

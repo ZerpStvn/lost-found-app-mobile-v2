@@ -261,7 +261,8 @@ class _EditTextPostLostState extends State<EditTextPostLost> {
               cont10: editmarkingscon,
               cont11: editseiralnumcon,
               cont12: editdatetimeController,
-              date: "Date",
+              date: "Date the item lost",
+              locationtitle: 'Location the item last seen',
             ),
             const SizedBox(
               height: 18.0,

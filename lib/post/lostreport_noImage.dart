@@ -249,7 +249,8 @@ class _LostReportOption2State extends State<LostReportOption2> {
                   cont10: lostmarkingscon,
                   cont11: lostseirlostalnumcon,
                   cont12: lostdatetimeController,
-                  date: "Date of loss",
+                  date: "Date the item lost",
+                  locationtitle: 'Location the item last seen',
                 ),
                 const SizedBox(
                   height: 18,

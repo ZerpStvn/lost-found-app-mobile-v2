@@ -230,7 +230,7 @@ class _ClaimedPageState extends State<ClaimedPage> {
                           },
                           child: const Center(
                             child: TextViewInter(
-                              title: "SUBMIT",
+                              title: "CLAIM",
                               fontsize: 14,
                               fontcolor: colorWhite,
                               fontweight: FontWeight.bold,

@@ -2,6 +2,7 @@
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:lostfoundapp/mics/packages.dart';
+import 'package:lostfoundapp/model/userdata.dart';
 
 class LoadLoginScreen extends StatefulWidget {
   const LoadLoginScreen({super.key});
@@ -12,6 +13,8 @@ class LoadLoginScreen extends StatefulWidget {
 
 class _LoadLoginScreenState extends State<LoadLoginScreen> {
   String? mtoken;
+
+  final userAuth = FirebaseAuth.instance;
   //
   void gettotekon() async {
     final token = await FirebaseMessaging.instance.getToken();
@@ -40,7 +43,29 @@ class _LoadLoginScreenState extends State<LoadLoginScreen> {
 
   bool loading = false;
   loadWidget() async {
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 4));
+    setState(() {
+      loading = true;
+    });
+  }
+
+  //handleuserdata
+  Future handleuserdate() async {
+    setState(() {
+      loading = false;
+    });
+    final navigate = Navigator.of(context);
+    User? users = userAuth.currentUser;
+    DocumentSnapshot docs = await userDataRef.doc(users!.uid).get();
+    if (docs.exists) {
+      userlogin = UserDataModel.fromDocuments(docs);
+    }
+    userlogin = UserDataModel.fromDocuments(docs);
+
+    await Future.delayed(const Duration(seconds: 3));
+    navigate.pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => const SliverHomePage()),
+        (route) => false);
     setState(() {
       loading = true;
     });
@@ -87,11 +112,7 @@ class _LoadLoginScreenState extends State<LoadLoginScreen> {
                         ),
                         onPressed: () {
                           checktoken();
-                          Navigator.pushAndRemoveUntil(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const SliverHomePage()),
-                              (route) => false);
+                          handleuserdate();
                         },
                         child: const Text("CONTINUE"),
                       )),

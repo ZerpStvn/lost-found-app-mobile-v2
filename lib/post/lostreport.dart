@@ -76,7 +76,8 @@ class _LostReportPageState extends State<LostReportPage> {
                   cont10: lostmarkingscon,
                   cont11: lostseirlostalnumcon,
                   cont12: lostdatetimeController,
-                  date: "Date of loss",
+                  date: "Date the item lost",
+                  locationtitle: 'Location the item last seen',
                 ),
                 const SizedBox(
                   height: 18,

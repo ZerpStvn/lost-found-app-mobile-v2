@@ -51,7 +51,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   ),
                   sizeheight,
                   const TextViewPoppins(
-                      title: "Welcome to,",
+                      title: "Welcome to the",
                       fontweight: FontWeight.bold,
                       fontsize: 25,
                       fontcolor: primaryColor),
@@ -64,7 +64,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   sizeheight,
                   const TextViewPoppins(
                       title:
-                          "A platform that helps you identifying,\nstoring,and returning missing properties.",
+                          "The centralized platform\nfor lost and found items",
                       fontsize: 15,
                       textalign: TextAlign.center,
                       fontcolor: colorblack),
@@ -87,7 +87,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                       fontcolor: primaryColor),
                   sizeheight,
                   const TextViewPoppins(
-                      title: "Things that are lost\ncan always be found",
+                      title:
+                          "Finding lost things is\none of the greatest pleasures",
                       fontsize: 15,
                       textalign: TextAlign.center,
                       fontcolor: colorblack),
@@ -110,7 +111,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                       fontcolor: primaryColor),
                   sizeheight,
                   const TextViewPoppins(
-                      title: "What's yours will\ncomeback eventually",
+                      title: "What is yours, will\ncomeback eventually",
                       fontsize: 15,
                       textalign: TextAlign.center,
                       fontcolor: colorblack),
@@ -127,13 +128,13 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   Image.asset('assets/onboard2.png'),
                   sizeheight,
                   const TextViewPoppins(
-                      title: "It's Always Here",
+                      title: "It's always Here",
                       fontweight: FontWeight.bold,
                       fontsize: 18,
                       fontcolor: primaryColor),
                   sizeheight,
                   const TextViewPoppins(
-                      title: "And its waiting for you",
+                      title: "And it's waiting for you",
                       fontsize: 15,
                       textalign: TextAlign.center,
                       fontcolor: colorblack),

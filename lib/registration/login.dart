@@ -198,7 +198,7 @@ class _LoginPageState extends State<LoginPage> {
                   fontweight: FontWeight.bold,
                   fontcolor: primaryColor),
               const TextView(
-                  title: "What's lost can find its way back",
+                  title: "What is lost can always be found",
                   fontsize: 16,
                   fontweight: FontWeight.bold,
                   fontcolor: colorblack),
@@ -218,6 +218,12 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
               ),
+              // IconButton(
+              //     onPressed: () async {
+              //       final prefs = await SharedPreferences.getInstance();
+              //       prefs.setBool('showHome', false);
+              //     },
+              //     icon: const Icon(Icons.add_a_photo)),
               Container(
                 padding: const EdgeInsets.only(right: 15.0),
                 alignment: Alignment.centerRight,

@@ -17,6 +17,7 @@ class EditTextFormField extends StatefulWidget {
     required this.cont11,
     required this.cont12,
     required this.date,
+    required this.locationtitle,
   });
   final TextEditingController cont2;
   final TextEditingController cont3;
@@ -30,6 +31,7 @@ class EditTextFormField extends StatefulWidget {
   final TextEditingController cont11;
   final TextEditingController cont12;
   final String date;
+  final String locationtitle;
 
   @override
   State<EditTextFormField> createState() => _EditTextFormFieldState();
@@ -167,7 +169,7 @@ class _EditTextFormFieldState extends State<EditTextFormField> {
                   Icons.location_on_outlined,
                   color: primaryColor,
                 ),
-                labelText: 'Location ',
+                labelText: widget.locationtitle,
                 labelStyle: GoogleFonts.inter(fontSize: 12, color: colorgrey),
                 border:
                     OutlineInputBorder(borderRadius: BorderRadius.circular(0)),

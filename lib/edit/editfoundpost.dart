@@ -262,7 +262,8 @@ class _EditTextPostState extends State<EditTextPost> {
             cont10: editmarkingscon,
             cont11: editseiralnumcon,
             cont12: editdatetimeController,
-            date: "Date",
+            date: "Date the item found",
+            locationtitle: 'Location the item found',
           ),
           const SizedBox(
             height: 18.0,
