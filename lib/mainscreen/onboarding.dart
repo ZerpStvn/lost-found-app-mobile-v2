@@ -1,4 +1,5 @@
 import 'package:lostfoundapp/mics/packages.dart';
+import 'package:lostfoundapp/registration/loadScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -201,7 +202,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     final prefs = await SharedPreferences.getInstance();
     prefs.setBool('showHome', true);
     navigator.pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => const SliverHomePage()),
+        MaterialPageRoute(builder: (context) => const LoadLoginScreen()),
         (route) => false);
   }
 }

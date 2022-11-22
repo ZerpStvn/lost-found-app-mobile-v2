@@ -18,6 +18,9 @@ class _DrawerPropetyState extends State<DrawerPropety> {
 
   @override
   Widget build(BuildContext context) {
+    final mainSize = MediaQuery.of(context).size.width;
+
+    final mainHSize = MediaQuery.of(context).size.height;
     return SafeArea(
       child: Drawer(
         width: widget.widthsize * 0.60,
@@ -25,20 +28,20 @@ class _DrawerPropetyState extends State<DrawerPropety> {
         child: Column(
           children: [
             drawerheaderproperty(context),
-            buildmenuitem(context),
-            logout(context),
+            buildmenuitem(context, mainSize),
+            logout(context, mainHSize),
           ],
         ),
       ),
     );
   }
 
-  Widget logout(BuildContext context) => Container(
+  Widget logout(BuildContext context, double mainHSize) => Container(
         alignment: Alignment.bottomCenter,
         child: Column(
           children: [
-            const SizedBox(
-              height: 60.0,
+            SizedBox(
+              height: mainHSize < 360.0 ? 40 : 60.0,
             ),
             const TextViewPoppins(
                 title: "V 1.2.0",
@@ -85,7 +88,7 @@ class _DrawerPropetyState extends State<DrawerPropety> {
         ),
       );
 
-  Widget buildmenuitem(BuildContext context) => Container(
+  Widget buildmenuitem(BuildContext context, double mainSize) => Container(
         padding: const EdgeInsets.all(10),
         child: Column(
           children: [
@@ -98,9 +101,9 @@ class _DrawerPropetyState extends State<DrawerPropety> {
                 size: 25,
                 color: colorblack45,
               ),
-              title: const TextView(
+              title: TextView(
                   title: 'Home',
-                  fontsize: 14,
+                  fontsize: mainSize < 360.0 ? 11 : 14,
                   fontweight: FontWeight.w300,
                   fontcolor: colorblack),
             ),
@@ -115,9 +118,9 @@ class _DrawerPropetyState extends State<DrawerPropety> {
                 size: 22,
                 color: colorblack45,
               ),
-              title: const TextView(
+              title: TextView(
                   title: 'Messages',
-                  fontsize: 14,
+                  fontsize: mainSize < 360.0 ? 11 : 14,
                   fontweight: FontWeight.w300,
                   fontcolor: colorblack),
             ),
@@ -132,9 +135,9 @@ class _DrawerPropetyState extends State<DrawerPropety> {
                 size: 25,
                 color: colorblack45,
               ),
-              title: const TextView(
+              title: TextView(
                   title: 'Notification',
-                  fontsize: 14,
+                  fontsize: mainSize < 360.0 ? 11 : 14,
                   fontweight: FontWeight.w300,
                   fontcolor: colorblack),
             ),
@@ -147,9 +150,9 @@ class _DrawerPropetyState extends State<DrawerPropety> {
                 size: 25,
                 color: colorblack45,
               ),
-              title: const TextView(
+              title: TextView(
                   title: 'Archive',
-                  fontsize: 14,
+                  fontsize: mainSize < 360.0 ? 11 : 14,
                   fontweight: FontWeight.w300,
                   fontcolor: colorblack),
             ),
@@ -181,9 +184,9 @@ class _DrawerPropetyState extends State<DrawerPropety> {
                 size: 25,
                 color: colorblack45,
               ),
-              title: const TextView(
+              title: TextView(
                   title: 'Claimed items',
-                  fontsize: 14,
+                  fontsize: mainSize < 360.0 ? 11 : 14,
                   fontweight: FontWeight.w300,
                   fontcolor: colorblack),
             ),

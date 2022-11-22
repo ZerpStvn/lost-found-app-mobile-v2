@@ -2,6 +2,7 @@ import 'package:lostfoundapp/mainscreen/onboarding.dart';
 import 'package:lostfoundapp/mics/packages.dart';
 import 'package:lostfoundapp/model/userdata.dart';
 import 'package:lostfoundapp/registration/forgotpss.dart';
+import 'package:lostfoundapp/registration/loadScreen.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -53,7 +54,7 @@ class _LoginPageState extends State<LoginPage> {
 
     showHome
         ? navigate.pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => const SliverHomePage()),
+            MaterialPageRoute(builder: (context) => const LoadLoginScreen()),
             (route) => false)
         : navigate.pushAndRemoveUntil(
             MaterialPageRoute(builder: (context) => const OnBoardingScreen()),

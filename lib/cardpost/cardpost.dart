@@ -11,6 +11,9 @@ class Cardpost extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mainSize = MediaQuery.of(context).size.width;
+    final minhSize = MediaQuery.of(context).size.width;
+    debugPrint("weith: $mainSize hieght: $minhSize");
     return ClipRRect(
       borderRadius: BorderRadius.circular(20),
       child: Container(
@@ -38,21 +41,23 @@ class Cardpost extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(left: 120.0),
                 child: ListTile(
-                  title: const TextViewInter(
+                  title: TextViewInter(
                       title: 'Lost and Found',
-                      fontsize: 23,
+                      fontsize: mainSize < 360.0 ? 18 : 23,
                       fontweight: FontWeight.bold,
                       fontcolor: colorWhite),
                   subtitle: Column(
                     children: [
-                      const TextViewInter(
+                      TextViewInter(
                           title:
                               "The centralized application for lost and found items.",
-                          fontsize: 14,
+                          fontsize: mainSize < 360.0 ? 12 : 14,
                           fontweight: FontWeight.normal,
                           fontcolor: colorWhite),
                       Padding(
-                        padding: const EdgeInsets.only(top: 25.0),
+                        padding: mainSize < 360.0
+                            ? const EdgeInsets.only(top: 13.0)
+                            : const EdgeInsets.only(top: 25.0),
                         child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: primaryColor),

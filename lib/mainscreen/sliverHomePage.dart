@@ -279,7 +279,8 @@ class _SliverHomePageState extends State<SliverHomePage>
                         unselectedLabelColor: colorblack,
                         tabs: list,
                         labelStyle: GoogleFonts.inter(
-                            fontSize: 12, fontWeight: FontWeight.w600),
+                            fontSize: size < 360.0 ? 10 : 12,
+                            fontWeight: FontWeight.w600),
                         labelColor: colorWhite,
                         indicator: BoxDecoration(
                             borderRadius: BorderRadius.circular(30),
