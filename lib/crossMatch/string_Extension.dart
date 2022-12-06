@@ -6,5 +6,7 @@ extension StringExtensions on String? {
   double crossMatch(String? other) =>
       StringCrossMatch.crosMatchString(this, other);
 
-  //bool contains(Pattern other, [int startIndex = 0]);
+  // bool contains(Pattern other, [int startIndex = 0]) {
+  //   throw UnimplementedError();
+  // }
 }

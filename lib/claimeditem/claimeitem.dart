@@ -177,7 +177,7 @@ class _ClaimedPageState extends State<ClaimedPage> {
                   Row(
                     children: const [
                       TextViewInter(
-                        title: "Image verification",
+                        title: "Proof of item Claimed/Return",
                         fontcolor: primaryColor,
                         fontsize: 15,
                         fontweight: FontWeight.bold,

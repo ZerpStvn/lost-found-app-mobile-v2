@@ -250,7 +250,6 @@
 //     );
 //   }
 
-//   // https://github.com/meetshah1995/pytorch-semseg/blob/master/ptsemseg/loader/pascal_voc_loader.py
 //   static List<int> pascalVOCLabelColors = [
 //     const Color.fromARGB(255, 0, 0, 0).value, // background
 //     const Color.fromARGB(255, 128, 0, 0).value, // aeroplane
