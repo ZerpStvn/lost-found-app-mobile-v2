@@ -3,6 +3,7 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:lostfoundapp/mics/packages.dart';
 import 'package:lostfoundapp/searchpage/itemsearch.dart';
 
@@ -140,166 +141,194 @@ class _SliverHomePageState extends State<SliverHomePage>
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size.width;
-    return Scaffold(
-      backgroundColor: colorWhite,
-      appBar: AppBar(
-        leading: Padding(
-          padding: const EdgeInsets.only(left: 8.0),
-          child: Builder(
-            builder: (context) => IconButton(
-                splashRadius: 1,
-                onPressed: () {
-                  Scaffold.of(context).openDrawer();
-                },
-                icon: const Icon(
-                  Icons.dehaze_rounded,
-                  size: 25,
-                  color: colorblack45,
-                )),
+    return WillPopScope(
+      onWillPop: onWillPop,
+      child: Scaffold(
+        backgroundColor: colorWhite,
+        appBar: AppBar(
+          leading: Padding(
+            padding: const EdgeInsets.only(left: 8.0),
+            child: Builder(
+              builder: (context) => IconButton(
+                  splashRadius: 1,
+                  onPressed: () {
+                    Scaffold.of(context).openDrawer();
+                  },
+                  icon: const Icon(
+                    Icons.dehaze_rounded,
+                    size: 25,
+                    color: colorblack45,
+                  )),
+            ),
+          ),
+          elevation: 0,
+          backgroundColor: colorWhite,
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 8.0),
+              child: Row(
+                children: [
+                  IconButton(
+                      splashRadius: 1,
+                      onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const ItemSearchPage())),
+                      icon: const Icon(
+                        Icons.search_outlined,
+                        color: colorblack45,
+                        size: 25,
+                      )),
+                  Stack(
+                    children: [
+                      IconButton(
+                          splashRadius: 1.9,
+                          onPressed: () {
+                            setState(() {
+                              onNotifCounter = 0;
+                            });
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const NotificationFeed()));
+                          },
+                          icon: const Icon(
+                            Icons.notifications_outlined,
+                            color: colorblack45,
+                            size: 25,
+                          )),
+                      Positioned(
+                          top: 10,
+                          right: 10,
+                          child: Icon(
+                            Icons.circle,
+                            color: onNotifCounter >= 1
+                                ? Colors.red
+                                : Colors.transparent,
+                            size: 10,
+                          ))
+                    ],
+                  ),
+                  IconButton(
+                      splashRadius: 1.9,
+                      onPressed: () {
+                        handleButtonModalOption(context);
+                      },
+                      icon: const Icon(
+                        Icons.more_vert,
+                        color: colorblack45,
+                        size: 25,
+                      )),
+                ],
+              ),
+            )
+          ],
+        ),
+        body: Padding(
+          padding: const EdgeInsets.only(left: 10.0, right: 10),
+          child: NestedScrollView(
+            headerSliverBuilder: ((context, innerBoxIsScrolled) {
+              return [
+                SliverToBoxAdapter(
+                  child: ListTile(
+                    title: const TextViewInter(
+                        title: 'Hello,',
+                        fontsize: 19,
+                        fontweight: FontWeight.bold,
+                        fontcolor: colorblack),
+                    subtitle: TextViewInter(
+                        title: '${userlogin!.username}',
+                        fontsize: 23,
+                        fontweight: FontWeight.bold,
+                        fontcolor: colorblack),
+                    trailing: GestureDetector(
+                      onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const ProfilePage())),
+                      child: Container(
+                        height: 60,
+                        width: 60,
+                        decoration: BoxDecoration(
+                          color: colorgrey,
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                              image: NetworkImage('${userlogin!.profileURL}'),
+                              fit: BoxFit.cover),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: Cardpost(widthsize: size),
+                ),
+                SliverAppBar(
+                  automaticallyImplyLeading: false,
+                  backgroundColor: colorWhite,
+                  elevation: 0,
+                  toolbarHeight: 45.0,
+                  pinned: true,
+                  floating: false,
+                  bottom: PreferredSize(
+                    preferredSize: const Size.fromHeight(20.0),
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 8.0),
+                      child: SizedBox(
+                        width: size * 0.89,
+                        child: TabBar(
+                          controller: tabController,
+                          unselectedLabelColor: colorblack,
+                          tabs: list,
+                          labelStyle: GoogleFonts.inter(
+                              fontSize: size < 360.0 ? 10 : 12,
+                              fontWeight: FontWeight.w600),
+                          labelColor: colorWhite,
+                          indicator: BoxDecoration(
+                              borderRadius: BorderRadius.circular(30),
+                              color: colorgreenHue),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ];
+            }),
+            body: TabBarView(controller: tabController, children: const [
+              FoundItems(),
+              LostItemTabs(),
+              SuggestionItems(),
+            ]),
           ),
         ),
-        elevation: 0,
-        backgroundColor: colorWhite,
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 8.0),
-            child: Row(
-              children: [
-                IconButton(
-                    splashRadius: 1,
-                    onPressed: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const ItemSearchPage())),
-                    icon: const Icon(
-                      Icons.search_outlined,
-                      color: colorblack45,
-                      size: 25,
-                    )),
-                Stack(
-                  children: [
-                    IconButton(
-                        splashRadius: 1.9,
-                        onPressed: () {
-                          setState(() {
-                            onNotifCounter = 0;
-                          });
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const NotificationFeed()));
-                        },
-                        icon: const Icon(
-                          Icons.notifications_outlined,
-                          color: colorblack45,
-                          size: 25,
-                        )),
-                    Positioned(
-                        top: 10,
-                        right: 10,
-                        child: Icon(
-                          Icons.circle,
-                          color: onNotifCounter >= 1
-                              ? Colors.red
-                              : Colors.transparent,
-                          size: 10,
-                        ))
-                  ],
-                ),
-                IconButton(
-                    splashRadius: 1.9,
-                    onPressed: () {
-                      handleButtonModalOption(context);
-                    },
-                    icon: const Icon(
-                      Icons.more_vert,
-                      color: colorblack45,
-                      size: 25,
-                    )),
-              ],
-            ),
-          )
-        ],
+        drawer: DrawerPropety(widthsize: size),
       ),
-      body: Padding(
-        padding: const EdgeInsets.only(left: 10.0, right: 10),
-        child: NestedScrollView(
-          headerSliverBuilder: ((context, innerBoxIsScrolled) {
-            return [
-              SliverToBoxAdapter(
-                child: ListTile(
-                  title: const TextViewInter(
-                      title: 'Hello,',
-                      fontsize: 19,
-                      fontweight: FontWeight.bold,
-                      fontcolor: colorblack),
-                  subtitle: TextViewInter(
-                      title: '${userlogin!.username}',
-                      fontsize: 23,
-                      fontweight: FontWeight.bold,
-                      fontcolor: colorblack),
-                  trailing: GestureDetector(
-                    onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const ProfilePage())),
-                    child: Container(
-                      height: 60,
-                      width: 60,
-                      decoration: BoxDecoration(
-                        color: colorgrey,
-                        shape: BoxShape.circle,
-                        image: DecorationImage(
-                            image: NetworkImage('${userlogin!.profileURL}'),
-                            fit: BoxFit.cover),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              SliverToBoxAdapter(
-                child: Cardpost(widthsize: size),
-              ),
-              SliverAppBar(
-                automaticallyImplyLeading: false,
-                backgroundColor: colorWhite,
-                elevation: 0,
-                toolbarHeight: 45.0,
-                pinned: true,
-                floating: false,
-                bottom: PreferredSize(
-                  preferredSize: const Size.fromHeight(20.0),
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: 8.0),
-                    child: SizedBox(
-                      width: size * 0.89,
-                      child: TabBar(
-                        controller: tabController,
-                        unselectedLabelColor: colorblack,
-                        tabs: list,
-                        labelStyle: GoogleFonts.inter(
-                            fontSize: size < 360.0 ? 10 : 12,
-                            fontWeight: FontWeight.w600),
-                        labelColor: colorWhite,
-                        indicator: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
-                            color: colorgreenHue),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ];
-          }),
-          body: TabBarView(controller: tabController, children: const [
-            FoundItems(),
-            LostItemTabs(),
-            SuggestionItems(),
-          ]),
-        ),
-      ),
-      drawer: DrawerPropety(widthsize: size),
     );
+  }
+
+  snacbarmessage(BuildContext context, String title) {
+    final snack = SnackBar(
+      content: TextView(
+        title: title,
+        fontcolor: colorWhite,
+        fontsize: 12,
+        fontweight: FontWeight.normal,
+      ),
+      backgroundColor: colorblack,
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snack);
+  }
+
+  DateTime currentBackPressTime = DateTime.now();
+
+  Future<bool> onWillPop() {
+    DateTime now = DateTime.now();
+    if (now.difference(currentBackPressTime) > const Duration(seconds: 1)) {
+      currentBackPressTime = now;
+      Fluttertoast.showToast(msg: "Press 1 more time to exit");
+      return Future.value(false);
+    }
+    return Future.value(true);
   }
 }

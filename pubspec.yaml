@@ -58,6 +58,7 @@ dependencies:
   firebase_messaging: ^14.0.3
   http: ^0.13.5
   flutter_tflite: ^1.0.1
+  fluttertoast: ^8.1.1
 
 dev_dependencies:
   flutter_test:

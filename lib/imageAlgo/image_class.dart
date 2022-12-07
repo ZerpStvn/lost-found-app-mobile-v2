@@ -127,62 +127,43 @@ class _ImageClassificationState extends State<ImageClassification> {
               var colorhex2 = "${color2.value}";
               var colorhexvalue = "#${color.value.toRadixString(16)}";
               var colorhexvalue2 = "#${color2.value.toRadixString(16)}";
-              return Row(
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        itemcolorValue = colorhex;
-                        widget.itemcolorcon.text = colorhexvalue.toString();
-                        squarecolor = color;
-                      });
-                    },
-                    child: Container(
-                      height: 35,
-                      width: 110,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          color: color),
-                      child: Center(
-                        child: TextViewInter(
-                            title: colorhexvalue,
-                            fontsize: 15,
-                            fontweight: FontWeight.normal,
-                            fontcolor: colorhex2.toString() == "#ffffffff"
-                                ? colorblack
-                                : colorWhite),
+              return Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          itemcolorValue = colorhex;
+                          widget.itemcolorcon.text = colorhexvalue.toString();
+                          squarecolor = color;
+                        });
+                      },
+                      child: Container(
+                        height: 45,
+                        width: 50,
+                        decoration:
+                            BoxDecoration(shape: BoxShape.circle, color: color),
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        itemcolorValue = colorhex2;
-                        widget.itemcolorcon.text = colorhexvalue2.toString();
-                        squarecolor = color2;
-                      });
-                    },
-                    child: Container(
-                      height: 35,
-                      width: 110,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          color: color2),
-                      child: Center(
-                        child: TextViewInter(
-                            title: colorhexvalue2,
-                            fontsize: 15,
-                            fontweight: FontWeight.normal,
-                            fontcolor: colorhex2.toString() == "#ffffffff"
-                                ? colorblack
-                                : colorWhite),
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          itemcolorValue = colorhex2;
+                          widget.itemcolorcon.text = colorhexvalue2.toString();
+                          squarecolor = color2;
+                        });
+                      },
+                      child: Container(
+                        height: 45,
+                        width: 50,
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle, color: color2),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               );
             } catch (error) {
               debugPrint("$error");

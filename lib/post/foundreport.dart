@@ -283,10 +283,11 @@ class _FoundReportPageState extends State<FoundReportPage> {
                   Navigator.of(context, rootNavigator: true).pop();
                   handleformclear();
                   SchedulerBinding.instance.scheduleFrameCallback((timeStamp) {
-                    Navigator.push(
+                    Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const SliverHomePage()));
+                            builder: (context) => const SliverHomePage()),
+                        (route) => false);
                   });
                 },
                 child: const TextViewPoppins(

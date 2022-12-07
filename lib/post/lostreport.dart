@@ -304,10 +304,11 @@ class _LostReportPageState extends State<LostReportPage> {
                 onPressed: () {
                   Navigator.of(context, rootNavigator: true).pop();
                   SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-                    Navigator.push(
+                    Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const SliverHomePage()));
+                            builder: (context) => const SliverHomePage()),
+                        (route) => false);
                     handleformclear();
                   });
                 },
